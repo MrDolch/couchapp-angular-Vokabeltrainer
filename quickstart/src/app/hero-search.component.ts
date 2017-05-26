@@ -11,21 +11,21 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
-import { HeroSearchService } from './hero-search.service';
+import { HeroService } from './hero.service';
 import { Hero } from './hero';
 
 @Component({
   selector: 'hero-search',
   templateUrl: './hero-search.component.html',
   styleUrls: [ './hero-search.component.css' ],
-  providers: [HeroSearchService]
+  providers: [ HeroService ]
 })
 export class HeroSearchComponent implements OnInit {
-  heroes: Observable<Hero[]>;
+  private heroes: Observable<Hero[]>;
   private searchTerms = new Subject<string>();
 
   constructor(
-    private heroSearchService: HeroSearchService,
+    private heroService: HeroService,
     private router: Router) {}
 
   // Push a search term into the observable stream.
@@ -39,7 +39,7 @@ export class HeroSearchComponent implements OnInit {
       .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap(term => term   // switch to new observable each time the term changes
         // return the http search observable
-        ? this.heroSearchService.search(term)
+        ? this.heroService.search('name', term)
         // or the observable of empty heroes if there was no search term
         : Observable.of<Hero[]>([]))
       .catch(error => {
