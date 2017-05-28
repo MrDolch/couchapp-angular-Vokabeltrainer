@@ -18,9 +18,6 @@ git clone https://github.com/angular/quickstart.git quickstart
 ```bash
 cd quickstart
 npm install
-xargs rm -rf < non-essential-files.osx.txt
-rm src/app/*.spec*.ts
-rm non-essential-files.osx.txt
 ```
 
 #### start server

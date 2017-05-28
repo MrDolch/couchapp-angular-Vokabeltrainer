@@ -1,5 +1,5 @@
-import { CouchDoc } from './couchdb';
+import { CouchdbDoc } from 'couchdb-connector';
 
-export class Hero extends CouchDoc{
+export class Hero extends CouchdbDoc{
   name: string;
 }

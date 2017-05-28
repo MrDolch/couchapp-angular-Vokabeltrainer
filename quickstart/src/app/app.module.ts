@@ -8,6 +8,8 @@ import { HttpModule }    from '@angular/http';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 
+import { CouchdbModule } from 'couchdb-connector';
+
 import { AppComponent }        from './app.component';
 import { AppRoutingModule }    from './app-routing.module';
 import { HeroDetailComponent } from './hero-detail.component';
@@ -16,6 +18,10 @@ import { HeroService }         from './hero.service';
 import { DashboardComponent }  from './dashboard.component';
 import { HeroSearchComponent } from './hero-search.component';
 
+import {enableProdMode} from '@angular/core';
+
+enableProdMode();
+
 @NgModule({
   imports: [
       BrowserModule,
@@ -23,6 +29,7 @@ import { HeroSearchComponent } from './hero-search.component';
       AppRoutingModule,
       HttpModule,
 //      InMemoryWebApiModule.forRoot(InMemoryDataService),
+      CouchdbModule, 
     ],
   declarations: [ 
       AppComponent,

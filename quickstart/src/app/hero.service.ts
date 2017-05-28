@@ -1,11 +1,11 @@
-import { Injectable }    from '@angular/core';
-import { Http } from '@angular/http';
+import { Injectable }     from '@angular/core';
+import { Http }           from '@angular/http';
+import { CouchdbService } from 'couchdb-connector';
 
 import { Hero } from './hero';
-import { CouchService } from './couchdb';
 
 @Injectable()
-export class HeroService extends CouchService<Hero> {
+export class HeroService extends CouchdbService<Hero> {
 
   constructor(http: Http) {
     super(http, "heroes");
