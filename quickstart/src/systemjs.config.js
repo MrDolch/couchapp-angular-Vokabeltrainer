@@ -6,13 +6,13 @@
   System.config({
     paths: {
       // paths serve as alias
-      'npm:': 'node_modules/'
-//      'npm:': 'https://unpkg.com/'
+//      'npm:': 'node_modules/' // local
+      'npm:': 'https://unpkg.com/'
     },
     // map tells the System loader where to look for things
     map: {
       // our app is within the app folder
-      'app': 'dist/app',
+      'app': 'app',
 
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
