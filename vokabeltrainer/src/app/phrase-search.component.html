@@ -1,10 +1,11 @@
 <div id="search-component">
-  <h4>Hero Search</h4>
   <div>
     <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
-    <div *ngFor="let hero of heroes | async"
-         (click)="gotoDetail(hero)" class="search-result" >
-      {{hero.name}}
+    <button (click)="addNewTranslation(searchBox.value); searchBox.value=''">Add Transl.</button>
+    <div *ngFor="let phrase of phrases | async"
+        (click)="addTranslation(phrase); searchBox.value=''" 
+         class="search-result" >
+      {{phrase.text}}
     </div>
   </div>
 </div>

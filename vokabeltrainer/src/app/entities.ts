@@ -37,5 +37,8 @@ export class Phrase extends CouchdbDoc {
 }
 
 export class Translation extends CouchdbDoc {
-  phrases: Phrase[];
+  phraseId: string;
+  language: Language;
+  secondPhraseId: string;
+  secondLanguage: Language;
 }

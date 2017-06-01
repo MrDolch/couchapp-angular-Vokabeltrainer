@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Input, Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
@@ -10,9 +10,11 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
 
-import { Phrase } from './entities';
+import { Phrase, Language } from './entities';
 import { PhraseService } from './phrase.service';
+import { TranslationService } from './translation.service';
 
 @Component({
   selector: 'phrase-search',
@@ -22,31 +24,40 @@ import { PhraseService } from './phrase.service';
 export class PhraseSearchComponent implements OnInit {
   private phrases: Observable<Phrase[]>;
   private searchTerms = new Subject<string>();
+  @Input() secondLanguage:Language;
+  @Input() phrase:Phrase;
+  @Input() translatedPhrases:Phrase[];
 
   constructor(
-    private heroService: PhraseService,
+    private phraseService: PhraseService,
+    private translationService: TranslationService,
     private router: Router) {}
 
   // Push a search term into the observable stream.
-  search(term: string): void {
+  search(term:string): void {
     this.searchTerms.next(term);
   }
 
   ngOnInit(): void {
     this.phrases = this.searchTerms
-      .debounceTime(300)        // wait 300ms after each keystroke before considering the term
-      .distinctUntilChanged()   // ignore if next search term is same as previous
-      .switchMap(term => term   // switch to new observable each time the term changes
-        ? this.heroService.search('name', term)
+      .debounceTime(300) 
+      .distinctUntilChanged()
+      .switchMap(term => term
+        ? this.phraseService.search(this.secondLanguage, term)
         : Observable.of<Phrase[]>([]))
-      .catch(error => {         // TODO: add real error handling
+      .catch(error => {
         console.log(error);
         return Observable.of<Phrase[]>([]);
       });
   }
-
-  gotoDetail(phrase: Phrase): void {
-    let link = ['/detail', phrase._id];
-    this.router.navigate(link);
+  addNewTranslation(text:string): void {
+    this.phraseService.createPhrase(text, this.secondLanguage)
+      .then(phrase => {
+        this.addTranslation(phrase);
+      });
+  }
+  addTranslation(phrase:Phrase): void {
+	this.translationService.createTranslation(this.phrase, phrase);
+    this.translatedPhrases.push(phrase);
   }
 }
