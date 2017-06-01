@@ -11,20 +11,20 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
-import { HeroService } from './hero.service';
-import { Hero } from './hero';
+import { Phrase } from './entities';
+import { PhraseService } from './phrase.service';
 
 @Component({
-  selector: 'hero-search',
-  templateUrl: './hero-search.component.html',
-  styleUrls: [ './hero-search.component.css' ],
+  selector: 'phrase-search',
+  templateUrl: './phrase-search.component.html',
+  styleUrls: [ './phrase-search.component.css' ],
 })
-export class HeroSearchComponent implements OnInit {
-  private heroes: Observable<Hero[]>;
+export class PhraseSearchComponent implements OnInit {
+  private phrases: Observable<Phrase[]>;
   private searchTerms = new Subject<string>();
 
   constructor(
-    private heroService: HeroService,
+    private heroService: PhraseService,
     private router: Router) {}
 
   // Push a search term into the observable stream.
@@ -33,23 +33,20 @@ export class HeroSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.heroes = this.searchTerms
+    this.phrases = this.searchTerms
       .debounceTime(300)        // wait 300ms after each keystroke before considering the term
       .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap(term => term   // switch to new observable each time the term changes
-        // return the http search observable
         ? this.heroService.search('name', term)
-        // or the observable of empty heroes if there was no search term
-        : Observable.of<Hero[]>([]))
-      .catch(error => {
-        // TODO: add real error handling
+        : Observable.of<Phrase[]>([]))
+      .catch(error => {         // TODO: add real error handling
         console.log(error);
-        return Observable.of<Hero[]>([]);
+        return Observable.of<Phrase[]>([]);
       });
   }
 
-  gotoDetail(hero: Hero): void {
-    let link = ['/detail', hero._id];
+  gotoDetail(phrase: Phrase): void {
+    let link = ['/detail', phrase._id];
     this.router.navigate(link);
   }
 }

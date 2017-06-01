@@ -10,13 +10,12 @@ import { InMemoryDataService }  from './in-memory-data.service';
 
 import { CouchdbModule } from 'couchdb-connector';
 
-import { AppComponent }        from './app.component';
-import { AppRoutingModule }    from './app-routing.module';
-import { HeroDetailComponent } from './hero-detail.component';
-import { HeroesComponent }     from './heroes.component';
-import { HeroService }         from './hero.service';
-import { DashboardComponent }  from './dashboard.component';
-import { HeroSearchComponent } from './hero-search.component';
+import { AppComponent }          from './app.component';
+import { AppRoutingModule }      from './app-routing.module';
+import { PhraseDetailComponent } from './phrase-detail.component';
+import { PhrasesComponent }      from './phrases.component';
+import { PhraseService }         from './phrase.service';
+import { PhraseSearchComponent }   from './phrase-search.component';
 
 import {enableProdMode} from '@angular/core';
 
@@ -33,12 +32,11 @@ enableProdMode();
     ],
   declarations: [ 
       AppComponent,
-      DashboardComponent,
-      HeroDetailComponent,
-      HeroesComponent,
-      HeroSearchComponent,
+      PhraseDetailComponent,
+      PhrasesComponent,
+      PhraseSearchComponent,
     ],
-  providers:    [ HeroService ],
+  providers:    [ PhraseService ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

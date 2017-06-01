@@ -1,5 +1,5 @@
 {
-  "name": "angular-quickstart",
+  "name": "couchapp-angular-vokabeltrainer",
   "version": "1.0.0",
   "description": "QuickStart package.json from the documentation, supplemented with testing support",
   "scripts": {
@@ -18,7 +18,8 @@
     "test": "concurrently \"npm run build:watch\" \"karma start karma.conf.js\"",
     "pretest:once": "npm run build",
     "test:once": "karma start karma.conf.js --single-run",
-    "lint": "tslint ./src/**/*.ts -t verbose"
+    "lint": "tslint ./src/**/*.ts -t verbose",
+    "deploy": "cd .. && ./build.sh"
   },
   "keywords": [],
   "author": "",
@@ -51,6 +52,7 @@
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "requirejs": "~2.1.5",    "karma-requirejs": "~0.2.1",
     "lite-server": "^2.2.2",
     "lodash": "^4.16.4",
     "protractor": "~4.0.14",
