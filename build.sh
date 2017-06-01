@@ -6,7 +6,7 @@ COUCHDB=http://192.168.1.10:5984/couchapp
 
 ( echo build app
   cd quickstart
-#local  npm install
+  npm install
   npm run build
 )
 ( echo package couchapp
