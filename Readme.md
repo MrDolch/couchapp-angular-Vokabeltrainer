@@ -5,6 +5,8 @@ CouchApp Angular Vokabeltrainer
 
 + Es können Vokabeln in einer Sprache eingegeben werden.
 + Die Sprache kann ausgewählt werden.
++ Zweite Sprache kann ausgewählt werden.
+- Übersetzung kann zugeordnet werden.
 
 
 ## Hilfreiche Dokumentation

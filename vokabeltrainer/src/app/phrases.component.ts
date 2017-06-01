@@ -19,6 +19,7 @@ export class PhrasesComponent implements OnInit {
   phrases: Phrase[];
   
   selectedLanguage: Language = Language.de;
+  selectedSecondLanguage: Language = Language.en;
   languages: Language[];
 
   onSelectPhrase(phrase: Phrase): void {
@@ -28,6 +29,10 @@ export class PhrasesComponent implements OnInit {
   onSelectLanguage(language: Language): void {
     this.selectedLanguage = language;
     this.getPhrases();    
+  }
+
+  onSelectSecondLanguage(language: Language): void {
+    this.selectedSecondLanguage = language;
   }
 
   getPhrases(): void {

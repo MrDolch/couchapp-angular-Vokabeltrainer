@@ -1,31 +1,81 @@
-<h2>Language</h2>
-<ul class="languages">
-  <li *ngFor="let language of languages"
-    [class.selected]="language === selectedLanguage"
-    (click)="onSelectLanguage(language)">{{language}}</li>
-</ul>
+<table>
+	<tr>
+		<th>Language</th>
+		<th>Second Language</th>
+	</tr>
+	<tr>
+		<td valign="top" width="50%">
+			<ul class="languages">
+			  <li *ngFor="let language of languages"
+				[class.selected]="language === selectedLanguage"
+				(click)="onSelectLanguage(language)">{{language}}</li>
+			</ul>
+		</td>
+		<td valign="top" width="50%">
+			<ul class="languages">
+			  <li *ngFor="let language of languages"
+				[class.selected]="language === selectedSecondLanguage"
+				(click)="onSelectSecondLanguage(language)">{{language}}</li>
+			</ul>
+		</td>
+	</tr>
 
-<h2>Phrases</h2>
-<ul class="phrases">
-  <li *ngFor="let phrase of phrases"
-    [class.selected]="phrase === selectedPhrase"
-    (click)="onSelectPhrase(phrase)">
-    <span class="badge"> > </span> {{phrase.text}}
-    <button class="delete"
-      (click)="delete(phrase); $event.stopPropagation()">x</button>
-  </li>
-</ul>
+	<tr>
+		<th>Phrases</th>
+		<th>Selected Phrase</th>
+	</tr>
+	<tr>
+		<td valign="top" rowspan="3">
+			<ul class="phrases">
+			  <li *ngFor="let phrase of phrases"
+				[class.selected]="phrase === selectedPhrase"
+				(click)="onSelectPhrase(phrase)">
+				<span class="badge"> > </span> {{phrase.text}}
+				<button class="delete"
+				  (click)="delete(phrase); $event.stopPropagation()">x</button>
+			  </li>
+			</ul>
+		</td>
+		<td valign="top">
+			<div *ngIf="selectedPhrase">
+			  {{selectedPhrase.text}}
+			  <button (click)="gotoDetail()">View Details</button>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th>Translations</th>
+	</tr>
+	<tr>
+		<td valign="top">
+			<ul class="phrases">
+			  <li *ngFor="let phrase of translatedPhrases">
+				<span class="badge"> > </span> {{phrase.text}}
+				<button class="delete"
+				  (click)="deleteTranslation(phrase); $event.stopPropagation()">x</button>
+			  </li>
+			</ul>
+		</td>
+	</tr>
 
-<h2>Selected Phrase</h2>
-<div *ngIf="selectedPhrase">
-  <h2>
-    {{selectedPhrase.text | uppercase}} is my phrase
-  </h2>
-  <button (click)="gotoDetail()">View Details</button>
-</div>
-
-<h2>Add Phrase</h2>
-<div>
-  <label>Phrase text:</label> <input #phraseText />
-  <button (click)="add(phraseText.value); phraseText.value=''">Add</button>
-</div>
+	<tr>
+		<th>Add Phrases</th>
+		<th>Add Translation</th>
+	</tr>
+	<tr>
+		<td valign="top">
+			<div>
+			  <input #phraseText />
+			  <button (click)="addPhrase(phraseText.value);
+			                   phraseText.value=''">Add Phrase</button>
+			</div>
+		</td>
+		<td valign="top">
+			<div>
+			  <input #translationText />
+			  <button (click)="addTranslation(translationText.value);
+			                   translationText.value=''">Add Transl.</button>
+			</div>
+		</td>
+	</tr>
+</table>

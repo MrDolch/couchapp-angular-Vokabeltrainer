@@ -4,9 +4,7 @@ import { Component } from '@angular/core';
   selector: 'vokabeltrainer',
   template: `
     <h1>{{title}}</h1>
-
     <nav>
-      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
       <a routerLink="/phrases" routerLinkActive="active">Phrases</a>
     </nav>
     <router-outlet></router-outlet>
