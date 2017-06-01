@@ -3,6 +3,8 @@ CouchApp Angular Vokabeltrainer
 
 ## Funktionalitäten
 
++ Es können Vokabeln in einer Sprache eingegeben werden.
++ Die Sprache kann ausgewählt werden.
 
 
 ## Hilfreiche Dokumentation

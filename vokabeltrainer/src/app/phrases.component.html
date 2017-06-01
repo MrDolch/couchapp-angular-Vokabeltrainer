@@ -1,19 +1,30 @@
-<h2>My Phrases</h2>
+<h2>Language</h2>
+<ul class="languages">
+  <li *ngFor="let language of languages"
+    [class.selected]="language === selectedLanguage"
+    (click)="onSelectLanguage(language)">{{language}}</li>
+</ul>
+
+<h2>Phrases</h2>
 <ul class="phrases">
   <li *ngFor="let phrase of phrases"
     [class.selected]="phrase === selectedPhrase"
-    (click)="onSelect(phrase)">
+    (click)="onSelectPhrase(phrase)">
     <span class="badge"> > </span> {{phrase.text}}
     <button class="delete"
       (click)="delete(phrase); $event.stopPropagation()">x</button>
   </li>
 </ul>
+
+<h2>Selected Phrase</h2>
 <div *ngIf="selectedPhrase">
   <h2>
     {{selectedPhrase.text | uppercase}} is my phrase
   </h2>
   <button (click)="gotoDetail()">View Details</button>
 </div>
+
+<h2>Add Phrase</h2>
 <div>
   <label>Phrase text:</label> <input #phraseText />
   <button (click)="add(phraseText.value); phraseText.value=''">Add</button>
