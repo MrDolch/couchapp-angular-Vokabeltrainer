@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Phrase } from './entities';
 import { PhraseService } from './phrase.service';
+import { LanguageService } from './language.service';
 import { TranslationService } from './translation.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class PhrasesComponent implements OnInit {
   constructor(
     private router: Router,
     private phraseService: PhraseService,
+    private languageService: LanguageService,
     private translationService: TranslationService
   ) { }
 
@@ -24,6 +26,12 @@ export class PhrasesComponent implements OnInit {
   selectedLanguage: string = "de";
   selectedSecondLanguage: string = "en";
   languages: string[];
+
+  ngOnInit(): void {
+    this.languages = ["de", "en", "fr"];
+    this.getLanguages();
+    this.getPhrases();
+  }
 
   onSelectPhrase(phrase: Phrase): void {
     this.selectedPhrase = phrase;
@@ -40,6 +48,11 @@ export class PhrasesComponent implements OnInit {
     this.getTranslations();
   }
 
+  getLanguages(): void {
+    this.languageService
+      .getLanguages()
+      .then(ls => this.languages = ls.map(l => l.code));
+  }
   getPhrases(): void {
     this.phraseService
       .getPhrases(this.selectedLanguage)
@@ -64,11 +77,6 @@ export class PhrasesComponent implements OnInit {
 	      }
 	    }
       });
-  }
-
-  ngOnInit(): void {
-    this.languages = ["de", "en", "fr"];
-    this.getPhrases();
   }
 
   addPhrase(text: string): void {

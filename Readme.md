@@ -16,8 +16,10 @@ CouchApp Angular Vokabeltrainer
 ### Sprachen erfassen
 
 + Language-Service bereitstellen
-+ Sprachenverwaltung - Sprachen hinzufügen
++ Sprachenverwaltung 
 + Language-Component
+- Languages bei Phrasen anzeigen
+
 
 
 ### Trainieren
