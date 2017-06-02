@@ -42,7 +42,7 @@ export class LanguagesComponent implements OnInit {
       });
   }
 
-  delete(language: Language): void {
+  delete(language:Language): void {
     this.languageService
         .delete(language._id, language._rev)
         .then(() => {

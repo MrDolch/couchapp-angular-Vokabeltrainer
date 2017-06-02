@@ -30,9 +30,7 @@
 				<li *ngFor="let phrase of phrases"
 					[class.selected]="phrase === selectedPhrase"
 					(click)="onSelectPhrase(phrase)">
-					  <vokabel-phrase 
-						[phrase]="phrase"
-						(onDelete)="delete(phrase)"></vokabel-phrase>
+					<vokabel-phrase [phrase]="phrase" (onDelete)="delete(phrase)"></vokabel-phrase>
 				</li>
 			</ul>
 		</td>

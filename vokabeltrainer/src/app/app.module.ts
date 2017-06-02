@@ -12,13 +12,14 @@ import { CouchdbModule } from 'couchdb-connector';
 
 import { AppComponent }          from './app.component';
 import { AppRoutingModule }      from './app-routing.module';
-import { PhrasesComponent }      from './phrases.component';
-import { PhraseComponent }       from './phrase.component';
-import { PhraseService }         from './phrase.service';
+import { LanguageComponent }     from './language.component';
 import { LanguagesComponent }    from './languages.component';
 import { LanguageService }       from './language.service';
-import { TranslationService }    from './translation.service';
+import { PhraseComponent }       from './phrase.component';
+import { PhrasesComponent }      from './phrases.component';
+import { PhraseService }         from './phrase.service';
 import { TranslationAddComponent } from './translation-add.component';
+import { TranslationService }    from './translation.service';
 
 import {enableProdMode} from '@angular/core';
 
@@ -35,9 +36,10 @@ enableProdMode();
     ],
   declarations: [ 
       AppComponent,
+      LanguageComponent,
+      LanguagesComponent,
       PhraseComponent,
       PhrasesComponent,
-      LanguagesComponent,
       TranslationAddComponent,
     ],
   providers: [ 

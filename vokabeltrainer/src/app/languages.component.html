@@ -8,7 +8,9 @@
 			<ul class="languages">
 			  <li *ngFor="let language of languages"
 				[class.selected]="language === selectedLanguage"
-				(click)="onSelectLanguage(language)">{{language.code}}</li>
+				(click)="onSelectLanguage(language)">
+				<vokabel-language [language]="language" (onDelete)="delete(language)"></vokabel-language>
+			  </li>
 			</ul>
 		</td>
 		<td valign="top">
