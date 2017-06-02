@@ -50,8 +50,8 @@ export class PhrasesComponent implements OnInit {
     this.translatedPhrases = [];
     this.translationService.getTranslations(this.selectedPhrase._id)
       .then(translations => {
-        for(var k in translations){
-          var translation = translations[k];
+        for(let k in translations){
+          let translation = translations[k];
 	      if(this.selectedPhrase._id != translation.phraseId
 	      && this.selectedSecondLanguage == translation.language){
 	        this.phraseService.get(translation.phraseId)
@@ -82,11 +82,21 @@ export class PhrasesComponent implements OnInit {
   }
 
   delete(phrase: Phrase): void {
+    this.translationService
+      .getTranslations(phrase._id)
+      .then(translations => {
+        for(let k in translations){
+          this.translationService.delete(translations[k]._id, translations[k]._rev);
+	    }
+      });
     this.phraseService
         .delete(phrase._id, phrase._rev)
         .then(() => {
           this.phrases = this.phrases.filter(h => h !== phrase);
-          if (this.selectedPhrase === phrase) { this.selectedPhrase = null; }
+          if (this.selectedPhrase === phrase) {
+            this.selectedPhrase = null;
+            this.translatedPhrases = [];
+          }
         });
   }
 }
