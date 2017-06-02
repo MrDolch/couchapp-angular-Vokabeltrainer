@@ -27,13 +27,13 @@
 	<tr>
 		<td valign="top" rowspan="3">
 			<ul class="phrases">
-			  <li *ngFor="let phrase of phrases"
-				[class.selected]="phrase === selectedPhrase"
-				(click)="onSelectPhrase(phrase)">
-				<span class="badge"> > </span> {{phrase.text}}
-				<button class="delete"
-				  (click)="delete(phrase); $event.stopPropagation()">x</button>
-			  </li>
+				<li *ngFor="let phrase of phrases"
+					[class.selected]="phrase === selectedPhrase"
+					(click)="onSelectPhrase(phrase)">
+					  <vokabel-phrase 
+						[phrase]="phrase"
+						(onDelete)="delete(phrase)"></vokabel-phrase>
+				</li>
 			</ul>
 		</td>
 		<td valign="top">
@@ -49,9 +49,10 @@
 		<td valign="top">
 			<ul class="phrases">
 			  <li *ngFor="let phrase of translatedPhrases">
-				<span class="badge"> > </span> {{phrase.text}}
-				<button class="delete"
-				  (click)="deleteTranslation(phrase); $event.stopPropagation()">x</button>
+			    <vokabel-phrase
+		          [phrase]="phrase"
+			      (onDelete)="delete(phrase)"
+			    ></vokabel-phrase>
 			  </li>
 			</ul>
 		</td>

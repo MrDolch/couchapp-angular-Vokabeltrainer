@@ -7,7 +7,8 @@ CouchApp Angular Vokabeltrainer
 + Die Sprache kann ausgewählt werden.
 + Zweite Sprache kann ausgewählt werden.
 + Übersetzung kann zugeordnet werden.
-- Component phrase-search umbenannt in translation-add
++ Component phrase-search umbenannt in translation-add
+- Extrahiere phrase-component
 
 
 ## Hilfreiche Dokumentation
