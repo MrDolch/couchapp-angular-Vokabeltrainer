@@ -1,0 +1,32 @@
+<table>
+	<tr>
+		<th width="50%">Languages</th>
+		<th width="50%">Selected Language</th>
+	</tr>
+	<tr>
+		<td valign="top">
+			<ul class="languages">
+			  <li *ngFor="let language of languages"
+				[class.selected]="language === selectedLanguage"
+				(click)="onSelectLanguage(language)">{{language.code}}</li>
+			</ul>
+		</td>
+		<td valign="top">
+			<div *ngIf="selectedLanguage">
+			  {{selectedLanguage.code}}
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th>Add Language</th>
+	</tr>
+	<tr>
+		<td valign="top">
+			<div>
+			  <input #languageCode maxlength="2"/>
+			  <button (click)="addLanguage(languageCode.value);
+			                   languageCode.value=''">Add Language</button>
+			</div>
+		</td>
+	</tr>
+</table>

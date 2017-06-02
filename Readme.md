@@ -15,8 +15,10 @@ CouchApp Angular Vokabeltrainer
 
 ### Sprachen erfassen
 
-- Language-Service bereitstellen
-- Sprachen verwalten
++ Language-Service bereitstellen
++ Sprachen verwalten
+- Language-Component
+
 
 ### Trainieren
 
@@ -27,6 +29,8 @@ CouchApp Angular Vokabeltrainer
 ### Offline-Modus
 
 ## Hilfreiche Dokumentation
+
+- [Vokabeltrainer-Couchapp](http://192.168.1.10:5984/vokabeltrainer/_design/couchapp/index.html)
 
 - [TypeScript - Enums](https://www.typescriptlang.org/docs/handbook/enums.html)
 - [List of Languages](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)

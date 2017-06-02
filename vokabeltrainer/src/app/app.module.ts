@@ -15,13 +15,14 @@ import { AppRoutingModule }      from './app-routing.module';
 import { PhrasesComponent }      from './phrases.component';
 import { PhraseComponent }       from './phrase.component';
 import { PhraseService }         from './phrase.service';
-import { LanguageService }         from './language.service';
+import { LanguagesComponent }    from './languages.component';
+import { LanguageService }       from './language.service';
 import { TranslationService }    from './translation.service';
 import { TranslationAddComponent } from './translation-add.component';
 
 import {enableProdMode} from '@angular/core';
 
-//enableProdMode();
+enableProdMode();
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import {enableProdMode} from '@angular/core';
       AppComponent,
       PhraseComponent,
       PhrasesComponent,
+      LanguagesComponent,
       TranslationAddComponent,
     ],
   providers: [ 

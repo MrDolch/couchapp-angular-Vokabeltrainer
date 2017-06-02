@@ -21,8 +21,8 @@ export class PhrasesComponent implements OnInit {
   phrases: Phrase[];
   translatedPhrases: Phrase[];
   
-  selectedLanguage: string;
-  selectedSecondLanguage: string;
+  selectedLanguage: string = "de";
+  selectedSecondLanguage: string = "en";
   languages: string[];
 
   onSelectPhrase(phrase: Phrase): void {

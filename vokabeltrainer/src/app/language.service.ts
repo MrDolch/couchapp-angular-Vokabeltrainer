@@ -17,7 +17,7 @@ class CouchdbViewEntry {
 @Injectable()
 export class LanguageService extends CouchdbService<Language> {
 
-  constructor(private http2: Http) {
+  constructor(protected http2: Http) {
     super(http2, "vokabeltrainer");
   }
 
@@ -29,14 +29,15 @@ export class LanguageService extends CouchdbService<Language> {
       .then(res => (res.json().rows as CouchdbViewEntry[]).map(r => r.value ) as Language[])
       .catch(this.handleError2);
   }
-  private handleError2(error: any): Promise<any> {
+  
+  handleError2(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
 
-  createLanguage(languageCode:string): Promise<Language> {
+  createLanguage(code:string): Promise<Language> {
     let language = new Language();
-    language.code = languageCode;
+    language.code = code;
     return super.create(language);
   }
 }
