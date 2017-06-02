@@ -5,8 +5,11 @@ import { Phrase } from './entities';
   selector: 'vokabel-phrase',
   template: `
 	<div>
-		<span class="badge"> > </span> {{phrase.text}}
-		<button class="delete" (click)="delete(); $event.stopPropagation()">x</button>
+		<img [src]="'flags/' + phrase.language + '.svg'"
+		  align="left" width="15" hspace="10" vspace="2">
+		{{phrase.text}}
+		<button class="delete"
+		  (click)="delete(); $event.stopPropagation()">x</button>
 	</div>
   `,
   styles: [ `

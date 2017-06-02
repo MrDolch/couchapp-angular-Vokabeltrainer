@@ -16,7 +16,8 @@ COUCHDB=http://192.168.1.10:5984/vokabeltrainer
   couchapp generate $COUCHAPP_FOLDER
   (cd $ANGULARAPP_FOLDER/src && find . \( -name \*.html -o -name \*.css -o -name \*.js \) -exec cp -v {} ../dist/{} \;)
   cp -r -v $ANGULARAPP_FOLDER/dist/* $COUCHAPP_FOLDER/_attachments/
-  cp -r -v $ANGULARAPP_FOLDER/src/views/* $COUCHAPP_FOLDER/views/
+  cp -r -v $ANGULARAPP_FOLDER/node_modules/flag-icon-css/flags/1x1 $COUCHAPP_FOLDER/_attachments/flags
+  cp -r -v $ANGULARAPP_FOLDER/src/views/* $COUCHAPP_FOLDER/views/ 
 ) && (
   echo deploy couchapp
   cd $COUCHAPP_FOLDER

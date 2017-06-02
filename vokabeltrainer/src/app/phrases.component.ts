@@ -101,6 +101,7 @@ export class PhrasesComponent implements OnInit {
         .delete(phrase._id, phrase._rev)
         .then(() => {
           this.phrases = this.phrases.filter(h => h !== phrase);
+          this.translatedPhrases = this.translatedPhrases.filter(h => h !== phrase);
           if (this.selectedPhrase === phrase) {
             this.selectedPhrase = null;
             this.translatedPhrases = [];

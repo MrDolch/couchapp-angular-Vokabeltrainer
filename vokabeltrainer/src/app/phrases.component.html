@@ -1,22 +1,24 @@
-<table>
+<table width="100%">
 	<tr>
-		<th>Language</th>
+		<th>Language </th>
 		<th>Second Language</th>
 	</tr>
 	<tr>
 		<td valign="top" width="50%">
-			<ul class="languages">
-			  <li *ngFor="let language of languages"
-				[class.selected]="language === selectedLanguage"
-				(click)="onSelectLanguage(language)">{{language}}</li>
-			</ul>
+			<img *ngFor="let language of languages"
+			  style="padding:5px;"
+			  [class.selected]="language === selectedLanguage"
+			  (click)="onSelectLanguage(language)"
+			  [src]="'flags/' + language + '.svg'"
+			  width="15" hspace="5">
 		</td>
 		<td valign="top" width="50%">
-			<ul class="languages">
-			  <li *ngFor="let language of languages"
-				[class.selected]="language === selectedSecondLanguage"
-				(click)="onSelectSecondLanguage(language)">{{language}}</li>
-			</ul>
+			<img *ngFor="let language of languages"
+			  style="padding:5px;"
+			  [class.selected]="language === selectedSecondLanguage"
+			  (click)="onSelectSecondLanguage(language)"
+			  [src]="'flags/' + language + '.svg'"
+			  width="15" hspace="5">
 		</td>
 	</tr>
 
@@ -26,18 +28,17 @@
 	</tr>
 	<tr>
 		<td valign="top" rowspan="3">
-			<ul class="phrases">
-				<li *ngFor="let phrase of phrases"
-					[class.selected]="phrase === selectedPhrase"
-					(click)="onSelectPhrase(phrase)">
-					<vokabel-phrase [phrase]="phrase" (onDelete)="delete(phrase)"></vokabel-phrase>
-				</li>
-			</ul>
+			<vokabel-phrase *ngFor="let phrase of phrases"
+			  [phrase]="phrase"
+			  [class.selected]="phrase === selectedPhrase"
+			  (click)="onSelectPhrase(phrase)"
+			  (onDelete)="delete(phrase)"
+			></vokabel-phrase>
 		</td>
 		<td valign="top">
-			<div *ngIf="selectedPhrase">
-			  {{selectedPhrase.text}}
-			</div>
+			<vokabel-phrase *ngIf="selectedPhrase"
+			  [phrase]="selectedPhrase"
+			></vokabel-phrase>
 		</td>
 	</tr>
 	<tr>
@@ -45,14 +46,10 @@
 	</tr>
 	<tr>
 		<td valign="top">
-			<ul class="phrases">
-			  <li *ngFor="let phrase of translatedPhrases">
-			    <vokabel-phrase
-		          [phrase]="phrase"
-			      (onDelete)="delete(phrase)"
-			    ></vokabel-phrase>
-			  </li>
-			</ul>
+			<vokabel-phrase *ngFor="let phrase of translatedPhrases"
+			  [phrase]="phrase"
+			  (onDelete)="delete(phrase)"
+			></vokabel-phrase>
 		</td>
 	</tr>
 

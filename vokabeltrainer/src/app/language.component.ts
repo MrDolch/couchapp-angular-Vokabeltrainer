@@ -5,7 +5,9 @@ import { Language } from './entities';
   selector: 'vokabel-language',
   template: `
 	<div>
-		<span class="badge"> > </span> {{language.code}}
+		<img [src]="'flags/' + language.code + '.svg'"
+		  align="left" width="15" hspace="10" vspace="2">
+		{{language.code}}
 		<button class="delete" (click)="delete(); $event.stopPropagation()">x</button>
 	</div>
   `,
