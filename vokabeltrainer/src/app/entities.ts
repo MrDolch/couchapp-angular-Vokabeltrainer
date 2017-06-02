@@ -5,11 +5,8 @@ export type Genus = null | "m" | "w" | "n";
 export type Person = 1 | 2 | 3;
 // export type Modus = "Indikativ" | "Konjunktiv" | "Imperativ";
 
-export class Language {
-	static de = "de";
-	static en = "en";
-	static fr = "fr";
-	static es = "es";
+export class Language extends CouchdbDoc {	
+	code: string;
 }
 
 export class PhraseType {
@@ -29,7 +26,7 @@ export class PhraseType {
 
 export class Phrase extends CouchdbDoc {
   text: string;
-  language: Language;
+  language: string;
   type: PhraseType;
   numerus: Numerus;
   genus: Genus;
@@ -38,7 +35,7 @@ export class Phrase extends CouchdbDoc {
 
 export class Translation extends CouchdbDoc {
   phraseId: string;
-  language: Language;
+  language: string;
   secondPhraseId: string;
-  secondLanguage: Language;
+  secondLanguage: string;
 }

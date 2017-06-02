@@ -24,7 +24,7 @@ import { TranslationService } from './translation.service';
 export class TranslationAddComponent implements OnInit {
   private phrases: Observable<Phrase[]>;
   private searchTerms = new Subject<string>();
-  @Input() secondLanguage:Language;
+  @Input() secondLanguage:string;
   @Input() phrase:Phrase;
   @Input() translatedPhrases:Phrase[];
 

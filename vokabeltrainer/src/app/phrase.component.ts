@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Phrase, Language } from './entities';
+import { Phrase } from './entities';
 
 @Component({
   selector: 'vokabel-phrase',

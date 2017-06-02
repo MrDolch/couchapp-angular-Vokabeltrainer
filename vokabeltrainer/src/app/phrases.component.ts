@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Phrase, Language } from './entities';
+import { Phrase } from './entities';
 import { PhraseService } from './phrase.service';
 import { TranslationService } from './translation.service';
 
@@ -21,21 +21,21 @@ export class PhrasesComponent implements OnInit {
   phrases: Phrase[];
   translatedPhrases: Phrase[];
   
-  selectedLanguage: Language = Language.de;
-  selectedSecondLanguage: Language = Language.en;
-  languages: Language[];
+  selectedLanguage: string;
+  selectedSecondLanguage: string;
+  languages: string[];
 
   onSelectPhrase(phrase: Phrase): void {
     this.selectedPhrase = phrase;
     this.getTranslations();
   }
 
-  onSelectLanguage(language: Language): void {
+  onSelectLanguage(language: string): void {
     this.selectedLanguage = language;
     this.getPhrases();    
   }
 
-  onSelectSecondLanguage(language: Language): void {
+  onSelectSecondLanguage(language: string): void {
     this.selectedSecondLanguage = language;
     this.getTranslations();
   }
@@ -67,7 +67,7 @@ export class PhrasesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.languages = [Language.de, Language.en, Language.fr];
+    this.languages = ["de", "en", "fr"];
     this.getPhrases();
   }
 

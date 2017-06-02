@@ -7,7 +7,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { CouchdbService, CouchdbDoc } from 'couchdb-connector';
 
-import { Phrase, Language } from './entities';
+import { Phrase } from './entities';
 
 
 class CouchdbViewEntry {
@@ -22,7 +22,7 @@ export class PhraseService extends CouchdbService<Phrase> {
   }
 
   // TODO: nach Couchdb-Connector
-  getPhrases(language:Language): Promise<Phrase[]> {
+  getPhrases(language:string): Promise<Phrase[]> {
     return this.http2
       .get(`/vokabeltrainer/_design/couchapp/_view/phrases?key="${language}"`)
       .toPromise()
@@ -33,7 +33,7 @@ export class PhraseService extends CouchdbService<Phrase> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
-  search(language:Language, term:string): Observable<Phrase[]> {
+  search(language:string, term:string): Observable<Phrase[]> {
     let termLowerCase = term.toLowerCase();
     return this.http2
       .get(`/vokabeltrainer/_design/couchapp/_view/phrases?key="${language}"`)
@@ -42,7 +42,7 @@ export class PhraseService extends CouchdbService<Phrase> {
            .filter(t => t.text.toLowerCase().indexOf(termLowerCase) !== -1) );
   }
 
-  createPhrase(text:string, language:Language): Promise<Phrase> {
+  createPhrase(text:string, language:string): Promise<Phrase> {
     let phrase = new Phrase();
     phrase.text = text;
     phrase.language = language;
