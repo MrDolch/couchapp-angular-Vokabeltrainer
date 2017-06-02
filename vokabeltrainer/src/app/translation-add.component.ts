@@ -17,11 +17,11 @@ import { PhraseService } from './phrase.service';
 import { TranslationService } from './translation.service';
 
 @Component({
-  selector: 'phrase-search',
-  templateUrl: './phrase-search.component.html',
-  styleUrls: [ './phrase-search.component.css' ],
+  selector: 'translation-add',
+  templateUrl: './translation-add.component.html',
+  styleUrls: [ './translation-add.component.css' ],
 })
-export class PhraseSearchComponent implements OnInit {
+export class TranslationAddComponent implements OnInit {
   private phrases: Observable<Phrase[]>;
   private searchTerms = new Subject<string>();
   @Input() secondLanguage:Language;

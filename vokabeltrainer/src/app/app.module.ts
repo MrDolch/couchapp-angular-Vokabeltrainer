@@ -15,7 +15,7 @@ import { AppRoutingModule }      from './app-routing.module';
 import { PhrasesComponent }      from './phrases.component';
 import { PhraseService }         from './phrase.service';
 import { TranslationService }    from './translation.service';
-import { PhraseSearchComponent } from './phrase-search.component';
+import { TranslationAddComponent } from './translation-add.component';
 
 import {enableProdMode} from '@angular/core';
 
@@ -33,7 +33,7 @@ enableProdMode();
   declarations: [ 
       AppComponent,
       PhrasesComponent,
-      PhraseSearchComponent,
+      TranslationAddComponent,
     ],
   providers:    [ PhraseService, TranslationService ],
   bootstrap:    [ AppComponent ]
