@@ -1,4 +1,4 @@
-import { Input, Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
@@ -14,7 +14,6 @@ import 'rxjs/add/operator/switchMap';
 
 import { Phrase, Language } from './entities';
 import { PhraseService } from './phrase.service';
-import { TranslationService } from './translation.service';
 
 @Component({
   selector: 'translation-add',
@@ -25,18 +24,12 @@ export class TranslationAddComponent implements OnInit {
   private phrases: Observable<Phrase[]>;
   private searchTerms = new Subject<string>();
   @Input() secondLanguage:string;
-  @Input() phrase:Phrase;
-  @Input() translatedPhrases:Phrase[];
+  @Output() onAdd = new EventEmitter();
+  @Output() onAddNew = new EventEmitter();
 
   constructor(
     private phraseService: PhraseService,
-    private translationService: TranslationService,
     private router: Router) {}
-
-  // Push a search term into the observable stream.
-  search(term:string): void {
-    this.searchTerms.next(term);
-  }
 
   ngOnInit(): void {
     this.phrases = this.searchTerms
@@ -50,14 +43,12 @@ export class TranslationAddComponent implements OnInit {
         return Observable.of<Phrase[]>([]);
       });
   }
-  addNewTranslation(text:string): void {
-    this.phraseService.createPhrase(text, this.secondLanguage)
-      .then(phrase => {
-        this.addTranslation(phrase);
-      });
+
+  // Push a search term into the observable stream.
+  search(term:string): void {
+    this.searchTerms.next(term);
   }
-  addTranslation(phrase:Phrase): void {
-	this.translationService.createTranslation(this.phrase, phrase);
-    this.translatedPhrases.push(phrase);
-  }
+  
+  add(phrase:Phrase): void { this.onAdd.emit(phrase); }
+  addNew(text:string): void { this.onAddNew.emit(text); }
 }

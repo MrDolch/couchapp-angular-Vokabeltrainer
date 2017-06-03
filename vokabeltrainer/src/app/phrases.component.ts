@@ -89,6 +89,17 @@ export class PhrasesComponent implements OnInit {
       });
   }
 
+  addNewTranslation(text:string): void {
+    this.phraseService.createPhrase(text, this.selectedSecondLanguage)
+      .then(phrase => {
+        this.addTranslation(phrase);
+      });
+  }
+  addTranslation(phrase:Phrase): void {
+	this.translationService.createTranslation(this.selectedPhrase, phrase);
+    this.translatedPhrases.push(phrase);
+  }
+
   delete(phrase: Phrase): void {
     this.translationService
       .getTranslations(phrase._id)

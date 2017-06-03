@@ -78,8 +78,6 @@ export class PhraseComponent {
   @Input() phrase: Phrase;
   @Output() onDelete = new EventEmitter();
   
-  delete(): void {
-    this.onDelete.emit();
-  }
+  delete(): void { this.onDelete.emit(); }
 }
 

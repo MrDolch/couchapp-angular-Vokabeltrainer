@@ -68,8 +68,8 @@
 		<td valign="top">
 		  <translation-add
 			[secondLanguage]="selectedSecondLanguage"
-			[phrase]="selectedPhrase"
-			[translatedPhrases]="translatedPhrases"
+			(onAdd)="addTranslation($event)"
+			(onAddNew)="addNewTranslation($event)"
 		  ></translation-add>
 		</td>
 	</tr>

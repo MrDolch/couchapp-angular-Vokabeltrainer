@@ -1,9 +1,9 @@
 <div id="search-component">
   <div>
     <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
-    <button (click)="addNewTranslation(searchBox.value); searchBox.value=''">Add Transl.</button>
+    <button (click)="addNew(searchBox.value); searchBox.value=''">Add</button>
     <div *ngFor="let phrase of phrases | async"
-        (click)="addTranslation(phrase); searchBox.value=''" 
+        (click)="add(phrase); searchBox.value=''" 
          class="search-result" >
       {{phrase.text}}
     </div>
