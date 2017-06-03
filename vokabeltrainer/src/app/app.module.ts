@@ -18,6 +18,9 @@ import { LanguageService }       from './language.service';
 import { PhraseComponent }       from './phrase.component';
 import { PhrasesComponent }      from './phrases.component';
 import { PhraseService }         from './phrase.service';
+import { TrainingComponent }     from './training.component';
+import { TrainingMixtureComponent } from './training-mixture.component';
+import { TrainingMixtureService } from './training-mixture.service';
 import { TranslationAddComponent } from './translation-add.component';
 import { TranslationService }    from './translation.service';
 
@@ -32,19 +35,20 @@ enableProdMode();
       AppRoutingModule,
       HttpModule,
 //      InMemoryWebApiModule.forRoot(InMemoryDataService),
-      CouchdbModule, 
-    ],
+      CouchdbModule ],
   declarations: [ 
       AppComponent,
       LanguageComponent,
       LanguagesComponent,
       PhraseComponent,
       PhrasesComponent,
-      TranslationAddComponent,
-    ],
+      TrainingComponent,
+      TrainingMixtureComponent,
+      TranslationAddComponent ],
   providers: [ 
       PhraseService,
       LanguageService,
+      TrainingMixtureService,
       TranslationService ],
   bootstrap: [ 
       AppComponent ],

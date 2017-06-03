@@ -39,3 +39,35 @@ export class Translation extends CouchdbDoc {
   secondPhraseId: string;
   secondLanguage: string;
 }
+
+// Training der Vokabeln
+export class Answer {
+  phraseId: string;
+  createdTimestamp: number;
+  isMatch: boolean;
+}
+export class Question {
+  phraseId: string;
+  answers: Answer[];
+}
+export class TrainingMixture extends CouchdbDoc {
+  name: string;
+  language: string;
+  questions: Question[];
+}
+
+// Bilderraetsel / Wuselbilder
+export class Circle {
+  x:number;
+  y:number;
+  r:number;
+}
+export class WuselbildElement {
+  phraseId: string;
+  position: Circle;
+}
+export class Wuselbild extends CouchdbDoc {
+  image: string;
+  imageUrl: string;
+  elements: WuselbildElement[];
+}

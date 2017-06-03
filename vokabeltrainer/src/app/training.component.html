@@ -1,0 +1,76 @@
+<table width="100%">
+	<tr>
+		<th>Language </th>
+		<th>Second Language</th>
+	</tr>
+	<tr>
+		<td valign="top" width="50%">
+			<img *ngFor="let language of languages"
+			  style="padding:5px;"
+			  [class.selected]="language === selectedLanguage"
+			  (click)="onSelectLanguage(language)"
+			  [src]="'flags/' + language.code + '.svg'"
+			  width="15" hspace="5">
+		</td>
+		<td valign="top" width="50%">
+			<img *ngFor="let language of languages"
+			  style="padding:5px;"
+			  [class.selected]="language === selectedSecondLanguage"
+			  (click)="onSelectSecondLanguage(language)"
+			  [src]="'flags/' + language.code + '.svg'"
+			  width="15" hspace="5">
+		</td>
+	</tr>
+
+	<tr>
+		<th>Training Mixtures</th>
+		<th>Selected Mixture</th>
+	</tr>
+	<tr>
+		<td valign="top" rowspan="3">
+			<training-mixture *ngFor="let mixture of mixtures"
+			  [mixture]="mixture"
+			  [class.selected]="mixture === selectedMixture"
+			  (click)="onSelectMixture(mixture)"
+			  (onDelete)="delete(mixture)"
+			></training-mixture>
+		</td>
+		<td valign="top">
+			<vokabel-phrase *ngIf="selectedPhrase"
+			  [phrase]="selectedPhrase"
+			></vokabel-phrase>
+		</td>
+	</tr>
+	<tr>
+		<th>Translations</th>
+	</tr>
+	<tr>
+		<td valign="top">
+			<vokabel-phrase *ngFor="let phrase of translatedPhrases"
+			  [phrase]="phrase"
+			  (onDelete)="delete(phrase)"
+			></vokabel-phrase>
+		</td>
+	</tr>
+
+	<tr>
+		<th>Add Training Mixture</th>
+		<th>Add Translation</th>
+	</tr>
+	<tr>
+		<td valign="top">
+			<div *ngIf="selectedLanguage">
+			  <input #mixtureName />
+			  <button (click)="addTrainingMixture(mixtureName.value);
+			                   mixtureName.value=''">Add</button>
+			</div>
+		</td>
+		<td valign="top">
+		  <translation-add
+			[secondLanguage]="selectedSecondLanguage"
+			[phrase]="selectedPhrase"
+			[translatedPhrases]="translatedPhrases"
+		  ></translation-add>
+		</td>
+	</tr>
+</table>

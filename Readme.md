@@ -23,7 +23,8 @@ CouchApp Angular Vokabeltrainer
 
 ### Trainieren
 
-- Trainingsseite
++ Trainingsseite
++ TrainingMixture Service und Component hinzufügen
 
 ### Statistiken
 
