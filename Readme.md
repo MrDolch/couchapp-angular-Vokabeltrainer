@@ -1,6 +1,53 @@
 CouchApp Angular Vokabeltrainer
 ===============================
 
+However you have found my little project. I started it to lern Angular.
+(And maybe later French with that.) 
+
+Currently I did not get any Unit tests environment for angular to run.  
+
+## Getting started:
+
+### Install requirements:
+
+```bash
+sudo apt-get install couchdb couchapp
+```
+
+### Clone and build Project:
+
+```bash
+git clone https://github.com/MrDolch/couchapp-angular-Vokabeltrainer.git
+cd couchapp-angular-Vokabeltrainer/vokabeltrainer
+npm install
+npm run build
+npm run deploy 
+```
+
+### Install on couchdb
+
+Maybe you like to choose another couchdb installation than on localhost,
+then you need to edit `build.sh` in root folder.
+
+```bash
+npm run deploy 
+```
+
+### View app in Browser
+
+```bash
+firefox http://127.0.0.1:5984/vokabeltrainer/_design/couchapp/index.html
+```
+
+### Next steps
+
+In the app you can add Languages, Phrases and create Training set-ups.
+Soon you can start the training and whatch your wows.
+
+- - - 
+
+# Personal Notes for Development
+
 ## Funktionalitäten
 
 ### Vokabeln erfassen
