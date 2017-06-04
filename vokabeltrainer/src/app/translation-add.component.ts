@@ -23,7 +23,7 @@ import { PhraseService } from './phrase.service';
 export class TranslationAddComponent implements OnInit {
   private phrases: Observable<Phrase[]>;
   private searchTerms = new Subject<string>();
-  @Input() secondLanguage:string;
+  @Input() languageCode:string;
   @Output() onAdd = new EventEmitter();
   @Output() onAddNew = new EventEmitter();
 
@@ -36,7 +36,7 @@ export class TranslationAddComponent implements OnInit {
       .debounceTime(300) 
       .distinctUntilChanged()
       .switchMap(term => term
-        ? this.phraseService.search(this.secondLanguage, term)
+        ? this.phraseService.search(this.languageCode, term)
         : Observable.of<Phrase[]>([]))
       .catch(error => {
         console.log(error);

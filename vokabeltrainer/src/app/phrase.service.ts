@@ -26,7 +26,8 @@ export class PhraseService extends CouchdbService<Phrase> {
     return this.http2
       .get(`/vokabeltrainer/_design/couchapp/_view/phrases?key="${language}"`)
       .toPromise()
-      .then(res => (res.json().rows as CouchdbViewEntry[]).map(r => r.value ) as Phrase[])
+      .then(res => (res.json().rows as CouchdbViewEntry[])
+        .map(r => r.value ) as Phrase[])
       .catch(this.handleError2);
   }
   private handleError2(error: any): Promise<any> {

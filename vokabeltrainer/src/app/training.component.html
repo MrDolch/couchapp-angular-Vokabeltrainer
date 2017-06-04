@@ -36,20 +36,17 @@
 			></training-mixture>
 		</td>
 		<td valign="top">
-			<vokabel-phrase *ngIf="selectedPhrase"
-			  [phrase]="selectedPhrase"
-			></vokabel-phrase>
+			<training-mixture *ngIf="selectedMixture"
+			  [mixture]="selectedMixture"
+			  (onDelete)="delete(mixture)"
+			></training-mixture>
 		</td>
 	</tr>
 	<tr>
-		<th>Translations</th>
+		<th>Questions</th>
 	</tr>
 	<tr>
 		<td valign="top">
-			<vokabel-phrase *ngFor="let phrase of translatedPhrases"
-			  [phrase]="phrase"
-			  (onDelete)="delete(phrase)"
-			></vokabel-phrase>
 		</td>
 	</tr>
 
@@ -66,8 +63,10 @@
 			</div>
 		</td>
 		<td valign="top">
-		  <translation-add
-			[secondLanguage]="selectedSecondLanguage"
+		  <translation-add *ngIf="selectedLanguage"
+			[languageCode]="selectedLanguage"
+			(onAdd)="addQuestion($event)"
+			(onAddNew)="addNewQuestion($event)"
 		  ></translation-add>
 		</td>
 	</tr>

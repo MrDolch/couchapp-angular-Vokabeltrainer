@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Language, TrainingMixture } from './entities';
+import { Language, Phrase, TrainingMixture } from './entities';
 import { LanguageService } from './language.service';
+import { PhraseService } from './phrase.service';
 import { TrainingMixtureService } from './training-mixture.service';
 
 @Component({
@@ -15,10 +16,12 @@ export class TrainingComponent implements OnInit {
   constructor(
     private router: Router,
     private languageService: LanguageService,
+    private phraseService: PhraseService,
     private trainingMixtureService: TrainingMixtureService,
   ) { }
 
   selectedLanguage: Language;
+  selectedSecondLanguage: Language;
   languages: Language[];
   
   selectedMixture: TrainingMixture;
@@ -31,7 +34,7 @@ export class TrainingComponent implements OnInit {
   getLanguages(): void {
     this.languageService
       .getLanguages()
-      .then(languages => this.languages = languages);
+      .then(x => this.languages = x);
   }
 
   getMixtures(): void {
@@ -43,6 +46,9 @@ export class TrainingComponent implements OnInit {
   onSelectLanguage(language: Language): void {
     this.selectedLanguage = language;
     this.getMixtures();
+  }
+  onSelectSecondLanguage(language: Language): void {
+    this.selectedSecondLanguage = language;
   }
   onSelectMixture(mixture: TrainingMixture): void {
     this.selectedMixture = mixture;
@@ -57,6 +63,18 @@ export class TrainingComponent implements OnInit {
         this.mixtures.push(mixture);
         this.selectedMixture = null;
       });
+  }
+  addNewQuestion(text:string): void {
+	console.log("addNewQuestion " + text);
+    this.phraseService.createPhrase(text, this.selectedLanguage.code)
+      .then(phrase => {
+//        this.addTranslation(phrase);
+      });
+  }
+  addQuestion(phrase:Phrase): void {
+	console.log("addQuestion " + phrase.text);
+//	this.translationService.createTranslation(this.selectedPhrase, phrase);
+//    this.translatedPhrases.push(phrase);
   }
 
   delete(mixture: TrainingMixture): void {

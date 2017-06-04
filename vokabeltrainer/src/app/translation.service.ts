@@ -26,7 +26,8 @@ export class TranslationService extends CouchdbService<Translation> {
     return this.http2
       .get(`/vokabeltrainer/_design/couchapp/_view/translations?key="${phraseId}"`)
       .toPromise()
-      .then(res => (res.json().rows as CouchdbViewEntry[]).map(r => r.value ) as Translation[])
+      .then(res => (res.json().rows as CouchdbViewEntry[])
+        .map(r => r.value ) as Translation[])
       .catch(this.handleError2);
   }
   private handleError2(error: any): Promise<any> {

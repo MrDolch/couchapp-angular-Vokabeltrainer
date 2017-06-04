@@ -26,7 +26,8 @@ export class LanguageService extends CouchdbService<Language> {
     return this.http2
       .get(`/vokabeltrainer/_design/couchapp/_view/languages`)
       .toPromise()
-      .then(res => (res.json().rows as CouchdbViewEntry[]).map(r => r.value ) as Language[])
+      .then(res => (res.json().rows as CouchdbViewEntry[])
+        .map(r => r.value ) as Language[])
       .catch(this.handleError2);
   }
   
