@@ -1,7 +1,7 @@
 <table width="100%">
 	<tr>
 		<th>Language </th>
-		<th>Second Language</th>
+		<th></th>
 	</tr>
 	<tr>
 		<td valign="top" width="50%">
@@ -13,12 +13,6 @@
 			  width="15" hspace="5">
 		</td>
 		<td valign="top" width="50%">
-			<img *ngFor="let language of languages"
-			  style="padding:5px;"
-			  [class.selected]="language === selectedSecondLanguage"
-			  (click)="onSelectSecondLanguage(language)"
-			  [src]="'flags/' + language.code + '.svg'"
-			  width="15" hspace="5">
 		</td>
 	</tr>
 
@@ -47,12 +41,16 @@
 	</tr>
 	<tr>
 		<td valign="top">
+			<div *ngIf="selectedMixture">
+				<vokabel-phrase *ngFor="let q of selectedMixture.questions"
+					[phraseId]="q.phraseId"></vokabel-phrase>
+			</div>
 		</td>
 	</tr>
 
 	<tr>
 		<th>Add Training Mixture</th>
-		<th>Add Translation</th>
+		<th>Add Question</th>
 	</tr>
 	<tr>
 		<td valign="top">
@@ -64,7 +62,7 @@
 		</td>
 		<td valign="top">
 		  <translation-add *ngIf="selectedLanguage"
-			[languageCode]="selectedLanguage"
+			[languageCode]="selectedLanguage.code"
 			(onAdd)="addQuestion($event)"
 			(onAddNew)="addNewQuestion($event)"
 		  ></translation-add>

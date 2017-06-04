@@ -1,16 +1,18 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+
 import { Phrase } from './entities';
+import { PhraseService } from './phrase.service';
 
 @Component({
   selector: 'vokabel-phrase',
   template: `
-	<div>
-		<img [src]="'flags/' + phrase.language + '.svg'"
-		  align="left" width="15" hspace="10" vspace="2">
-		{{phrase.text}}
-		<button class="delete"
-		  (click)="delete(); $event.stopPropagation()">x</button>
-	</div>
+    <div *ngIf="phrase">
+      <img [src]="'flags/' + phrase.language + '.svg'"
+           align="left" width="15" hspace="10" vspace="2">
+      {{phrase.text}}
+      <button class="delete"
+        (click)="delete(); $event.stopPropagation()">x</button>
+    </div>
   `,
   styles: [ `
 	div {
@@ -71,12 +73,24 @@ import { Phrase } from './entities';
 	}
   ` ]
 })
-export class PhraseComponent {
-  
-  constructor() {  }
+export class PhraseComponent implements OnInit{
+
+  constructor(
+    private phraseService: PhraseService ) { }
   
   @Input() phrase: Phrase;
+  @Input() phraseId: string;
   @Output() onDelete = new EventEmitter();
+  
+  ngOnInit(): void {
+    if(this.phraseId){
+console.log("Lade Phrase: "+this.phraseId);
+      this.phraseService.get(this.phraseId).then(x=> {
+        this.phrase = x;
+console.log("Phrase: "+JSON.stringify(this.phrase));
+      });
+    }
+  }
   
   delete(): void { this.onDelete.emit(); }
 }

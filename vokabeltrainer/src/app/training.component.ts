@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Language, Phrase, TrainingMixture } from './entities';
+import { Language, Phrase, TrainingMixture, Question } from './entities';
 import { LanguageService } from './language.service';
 import { PhraseService } from './phrase.service';
 import { TrainingMixtureService } from './training-mixture.service';
@@ -21,7 +21,6 @@ export class TrainingComponent implements OnInit {
   ) { }
 
   selectedLanguage: Language;
-  selectedSecondLanguage: Language;
   languages: Language[];
   
   selectedMixture: TrainingMixture;
@@ -47,9 +46,6 @@ export class TrainingComponent implements OnInit {
     this.selectedLanguage = language;
     this.getMixtures();
   }
-  onSelectSecondLanguage(language: Language): void {
-    this.selectedSecondLanguage = language;
-  }
   onSelectMixture(mixture: TrainingMixture): void {
     this.selectedMixture = mixture;
   }
@@ -58,23 +54,21 @@ export class TrainingComponent implements OnInit {
     name = name.trim();
     if (!name) { return; }
     this.trainingMixtureService
-      .createTrainingMixture(name, this.selectedLanguage.code)
+      .create(new TrainingMixture(name, this.selectedLanguage.code))
       .then(mixture => {
         this.mixtures.push(mixture);
-        this.selectedMixture = null;
+        this.selectedMixture = mixture;
       });
   }
   addNewQuestion(text:string): void {
-	console.log("addNewQuestion " + text);
     this.phraseService.createPhrase(text, this.selectedLanguage.code)
       .then(phrase => {
-//        this.addTranslation(phrase);
+        this.addQuestion(phrase);
       });
   }
   addQuestion(phrase:Phrase): void {
-	console.log("addQuestion " + phrase.text);
-//	this.translationService.createTranslation(this.selectedPhrase, phrase);
-//    this.translatedPhrases.push(phrase);
+    this.selectedMixture.questions.push(new Question(phrase._id));
+    this.trainingMixtureService.update(this.selectedMixture);
   }
 
   delete(mixture: TrainingMixture): void {

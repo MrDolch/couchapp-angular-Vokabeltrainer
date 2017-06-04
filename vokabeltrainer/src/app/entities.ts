@@ -49,11 +49,23 @@ export class Answer {
 export class Question {
   phraseId: string;
   answers: Answer[];
+
+  constructor(phraseId:string){
+    this.phraseId = phraseId;
+    this.answers = [];
+  }
 }
 export class TrainingMixture extends CouchdbDoc {
   name: string;
-  language: string;
+  languageCode: string;
   questions: Question[];
+
+  constructor(name:string, languageCode:string){
+    super();
+    this.name = name;
+    this.languageCode = languageCode;
+    this.questions = [];
+  }
 }
 
 // Bilderraetsel / Wuselbilder

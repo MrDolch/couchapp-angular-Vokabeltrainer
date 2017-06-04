@@ -26,7 +26,8 @@ CouchApp Angular Vokabeltrainer
 
 + Trainingsseite
 + TrainingMixture Service und Component hinzufügen
-- Questions zu Mixture hinzufügen
++ Questions zu Mixture hinzufügen
+- Questions entfernen
 
 ### Statistiken
 

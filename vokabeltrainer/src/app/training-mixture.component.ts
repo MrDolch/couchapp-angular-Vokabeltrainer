@@ -5,7 +5,7 @@ import { TrainingMixture } from './entities';
   selector: 'training-mixture',
   template: `
 	<div>
-		<img [src]="'flags/' + mixture.language + '.svg'"
+		<img [src]="'flags/' + mixture.languageCode + '.svg'"
 		  align="left" width="15" hspace="10" vspace="2">
 		{{mixture.name}}
 		<button class="delete"

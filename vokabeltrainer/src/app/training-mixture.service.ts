@@ -22,9 +22,9 @@ export class TrainingMixtureService extends CouchdbService<TrainingMixture> {
   }
 
   // TODO: nach Couchdb-Connector
-  getTrainingMixtures(language:string): Promise<TrainingMixture[]> {
+  getTrainingMixtures(languageCode:string): Promise<TrainingMixture[]> {
     return this.http2
-      .get(`/vokabeltrainer/_design/couchapp/_view/training-mixtures?key="${language}"`)
+      .get(`/vokabeltrainer/_design/couchapp/_view/training-mixtures?key="${languageCode}"`)
       .toPromise()
       .then(res => (res.json().rows as CouchdbViewEntry[])
         .map(r => r.value ) as TrainingMixture[])
@@ -34,12 +34,5 @@ export class TrainingMixtureService extends CouchdbService<TrainingMixture> {
   handleError2(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
-  }
-
-  createTrainingMixture(name:string, languageCode:string): Promise<TrainingMixture> {
-    let mix = new TrainingMixture();
-    mix.name = name;
-    mix.language = languageCode;
-    return super.create(mix);
   }
 }
