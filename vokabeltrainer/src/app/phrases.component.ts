@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Phrase } from './entities';
+import { Phrase, Translation } from './entities';
 import { PhraseService } from './phrase.service';
 import { LanguageService } from './language.service';
 import { TranslationService } from './translation.service';
@@ -49,19 +49,18 @@ export class PhrasesComponent implements OnInit {
   }
 
   getLanguages(): void {
-    this.languageService
-      .getLanguages()
+    this.languageService.getAllFor()
       .then(ls => this.languages = ls.map(l => l.code));
   }
   getPhrases(): void {
     this.phraseService
-      .getPhrases(this.selectedLanguage)
+      .getAllFor(this.selectedLanguage)
       .then(phrases => this.phrases = phrases);
   }
 
   getTranslations(): void {
     this.translatedPhrases = [];
-    this.translationService.getTranslations(this.selectedPhrase._id)
+    this.translationService.getAllFor(this.selectedPhrase._id)
       .then(translations => {
         for(let k in translations){
           let translation = translations[k];
@@ -82,7 +81,7 @@ export class PhrasesComponent implements OnInit {
   addPhrase(text: string): void {
     text = text.trim();
     if (!text) { return; }
-    this.phraseService.createPhrase(text, this.selectedLanguage)
+    this.phraseService.create(new Phrase(text, this.selectedLanguage))
       .then(phrase => {
         this.phrases.push(phrase);
         this.selectedPhrase = null;
@@ -90,19 +89,19 @@ export class PhrasesComponent implements OnInit {
   }
 
   addNewTranslation(text:string): void {
-    this.phraseService.createPhrase(text, this.selectedSecondLanguage)
+    this.phraseService.create(new Phrase(text, this.selectedSecondLanguage))
       .then(phrase => {
         this.addTranslation(phrase);
       });
   }
   addTranslation(phrase:Phrase): void {
-	this.translationService.createTranslation(this.selectedPhrase, phrase);
+	this.translationService.create(new Translation(this.selectedPhrase, phrase));
     this.translatedPhrases.push(phrase);
   }
 
   delete(phrase: Phrase): void {
     this.translationService
-      .getTranslations(phrase._id)
+      .getAllFor(phrase._id)
       .then(translations => {
         for(let k in translations){
           this.translationService.delete(translations[k]._id, translations[k]._rev);

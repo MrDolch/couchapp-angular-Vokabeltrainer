@@ -7,6 +7,11 @@ export type Person = 1 | 2 | 3;
 
 export class Language extends CouchdbDoc {	
 	code: string;
+  
+  constructor(code:string){
+    super();
+    this.code = code;
+  }
 }
 
 export class PhraseType {
@@ -31,6 +36,12 @@ export class Phrase extends CouchdbDoc {
   numerus: Numerus;
   genus: Genus;
   person: Person;
+  
+  constructor(text:string, languageCode:string){
+    super();
+    this.text = text;
+    this.language = languageCode;
+  }
 }
 
 export class Translation extends CouchdbDoc {
@@ -38,6 +49,14 @@ export class Translation extends CouchdbDoc {
   language: string;
   secondPhraseId: string;
   secondLanguage: string;
+  
+  constructor(phrase: Phrase, secondPhrase:Phrase){
+    super();
+    this.phraseId = phrase._id;
+    this.language = phrase.language;
+    this.secondPhraseId = secondPhrase._id;
+    this.secondLanguage = secondPhrase.language;
+  }
 }
 
 // Training der Vokabeln

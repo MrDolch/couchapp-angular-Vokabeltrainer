@@ -31,14 +31,13 @@ export class TrainingComponent implements OnInit {
   }
 
   getLanguages(): void {
-    this.languageService
-      .getLanguages()
+    this.languageService.getAllFor()
       .then(x => this.languages = x);
   }
 
   getMixtures(): void {
     this.trainingMixtureService
-      .getTrainingMixtures(this.selectedLanguage.code)
+      .getAllFor(this.selectedLanguage.code)
       .then(x => this.mixtures = x);
   }
 
@@ -61,7 +60,7 @@ export class TrainingComponent implements OnInit {
       });
   }
   addNewQuestion(text:string): void {
-    this.phraseService.createPhrase(text, this.selectedLanguage.code)
+    this.phraseService.create(new Phrase(text, this.selectedLanguage.code))
       .then(phrase => {
         this.addQuestion(phrase);
       });

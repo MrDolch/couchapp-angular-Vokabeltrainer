@@ -23,9 +23,8 @@ export class LanguagesComponent implements OnInit {
   }
 
   getLanguages(): void {
-    this.languageService
-      .getLanguages()
-      .then(languages => this.languages = languages);
+    this.languageService.getAllFor()
+      .then(l => this.languages = l);
   }
 
   ngOnInit(): void {
@@ -35,7 +34,7 @@ export class LanguagesComponent implements OnInit {
   addLanguage(code: string): void {
     code = code.trim();
     if (!code) { return; }
-    this.languageService.createLanguage(code)
+    this.languageService.create(new Language(code))
       .then(language => {
         this.languages.push(language);
         this.selectedLanguage = null;
