@@ -35,8 +35,8 @@ export class LanguagesComponent implements OnInit {
     code = code.trim();
     if (!code) { return; }
     this.languageService.create(new Language(code))
-      .then(language => {
-        this.languages.push(language);
+      .then(l => {
+        this.languages.push(l);
         this.selectedLanguage = null;
       });
   }

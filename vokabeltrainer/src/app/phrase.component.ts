@@ -84,11 +84,7 @@ export class PhraseComponent implements OnInit{
   
   ngOnInit(): void {
     if(this.phraseId){
-console.log("Lade Phrase: "+this.phraseId);
-      this.phraseService.get(this.phraseId).then(x=> {
-        this.phrase = x;
-console.log("Phrase: "+JSON.stringify(this.phrase));
-      });
+      this.phraseService.get(this.phraseId).then(x=> this.phrase = x);
     }
   }
   

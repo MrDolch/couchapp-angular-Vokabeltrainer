@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   template: `
     <h1 style="float:left;"> {{ title }} </h1>
     <nav style="text-align:right;">
-      <a routerLink="/training" routerLinkActive="active">Training</a>
+      <a routerLink="/training" routerLinkActive="active">Training Set-ups</a>
       <a routerLink="/phrases" routerLinkActive="active">Phrases</a>
       <a routerLink="/languages" routerLinkActive="active">Languages</a>
     </nav>

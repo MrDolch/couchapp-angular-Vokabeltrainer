@@ -21,17 +21,16 @@ git clone https://github.com/MrDolch/couchapp-angular-Vokabeltrainer.git
 cd couchapp-angular-Vokabeltrainer/vokabeltrainer
 npm install
 npm run build
-npm run deploy 
 ```
 
 ### Install on couchdb
 
-Maybe you like to choose another couchdb installation than on localhost,
-then you need to edit `build.sh` in root folder.
-
 ```bash
 npm run deploy 
 ```
+Maybe you like to choose another couchdb installation than on localhost,
+then you need to edit `build.sh` in root folder before you run 
+`npm run deploy`
 
 ### View app in Browser
 
@@ -60,7 +59,6 @@ Soon you can start the training and whatch your wows.
 + Bei Translation-add onClick herausholen 
 + Extrahiere phrase-component
 + Lösche Translation, wenn Phrase gelöscht wird.
-- TextToSpeach
 
 ### Sprachen erfassen
 
@@ -75,6 +73,13 @@ Soon you can start the training and whatch your wows.
 + TrainingMixture Service und Component hinzufügen
 + Questions zu Mixture hinzufügen
 + Questions entfernen
+
+### Service
+
+- TextToSpeach
+- IPA
+- Bilderdatenbank
+- Layout Umstellung auf bootstrap
 
 ### Statistiken
 
