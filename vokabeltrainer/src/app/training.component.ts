@@ -70,6 +70,10 @@ export class TrainingComponent implements OnInit {
     this.selectedMixture.questions.push(new Question(phrase._id));
     this.trainingMixtureService.update(this.selectedMixture);
   }
+  deleteQuestion(phraseId:string): void {
+    this.selectedMixture.questions = this.selectedMixture.questions.filter(h => h.phraseId !== phraseId);
+    this.trainingMixtureService.update(this.selectedMixture);
+  }
 
   delete(mixture: TrainingMixture): void {
     this.trainingMixtureService

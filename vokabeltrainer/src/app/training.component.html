@@ -43,7 +43,8 @@
 		<td valign="top">
 			<div *ngIf="selectedMixture">
 				<vokabel-phrase *ngFor="let q of selectedMixture.questions"
-					[phraseId]="q.phraseId"></vokabel-phrase>
+					[phraseId]="q.phraseId"
+					(onDelete)="deleteQuestion(q.phraseId)"></vokabel-phrase>
 			</div>
 		</td>
 	</tr>
