@@ -14,6 +14,7 @@
 				<vokabel-phrase *ngFor="let phrase of phrases"
 				  [phrase]="phrase"
 				  [selected]="phrase === selectedPhrase"
+				  [secondLanguage]="selectedSecondLanguage"
 				  (click)="onSelectPhrase(phrase)"
 				  (onDelete)="delete(phrase)"
 				></vokabel-phrase>
@@ -41,7 +42,7 @@
 				></vokabel-phrase>
 				<div class="col-xs-12"><hr></div>
 				<div class="col-xs-12">
-					<translation-add
+					<translation-add  *ngIf="selectedPhrase"
 						[languageCode]="selectedSecondLanguage.code"
 						(onAdd)="addTranslation($event)"
 						(onAddNew)="addNewTranslation($event)"

@@ -79,7 +79,7 @@ Soon you can start the training and whatch your wows.
 - TextToSpeach
 - IPA
 - Bilderdatenbank
-- Layout Umstellung auf bootstrap
++ Layout Umstellung auf bootstrap
 
 ### Statistiken
 

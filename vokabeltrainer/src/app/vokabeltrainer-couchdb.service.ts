@@ -17,15 +17,17 @@ export abstract class VokabeltrainerCouchdbService<T extends CouchdbDoc> extends
     super(http2, dbName);
   }
   
-  getViewUrl(key:string){
+  getViewUrl(keys:string[]){
+    console.log("RestParameter: "+JSON.stringify(keys) + keys.length);
     let url = `/${this.dbName}/_design/couchapp/_view/${this.viewName}`;
-    if(key) url += `?key="${key}"`;
+    if(keys.length==1 && keys[0].trim()) url += `?key="${keys[0]}"`;
+    else if(keys.length>1) url += `?key="${JSON.stringify(keys)}"`;
     console.log(url);
     return url;
   }
   
-  getAllFor(key:string = null): Promise<T[]> {
-    return this.http2.get(this.getViewUrl(key)).toPromise()
+  getAllFor(...keys:string[]): Promise<T[]> {
+    return this.http2.get(this.getViewUrl(keys)).toPromise()
       .then(res => (res.json().rows as CouchdbViewEntry[])
         .map(r => r.value ) as T[])
       .catch(this.handleErrorFor);

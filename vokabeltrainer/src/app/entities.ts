@@ -36,11 +36,13 @@ export class Phrase extends CouchdbDoc {
   numerus: Numerus;
   genus: Genus;
   person: Person;
+  translatedLanguageCodes: string[];
   
   constructor(text:string, language:Language){
     super();
     this.text = text;
     this.language = language.code;
+    this.translatedLanguageCodes = [];
   }
 }
 

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
-import { Phrase } from './entities';
+import { Phrase, Language } from './entities';
 import { PhraseService } from './phrase.service';
 
 @Component({
@@ -12,6 +12,8 @@ import { PhraseService } from './phrase.service';
       <span class="badge"><img [src]="'flags/' + phrase.language + '.svg'"
         width="15"></span>
       {{phrase.text}}
+      <span *ngIf="secondLanguage && phrase.translatedLanguageCodes.indexOf(secondLanguage.code)>-1"
+        class="glyphicon glyphicon-ok"></span>
     </div>
   `,
   styles: [ `
@@ -43,12 +45,11 @@ export class PhraseComponent implements OnInit{
   @Input() selected: boolean;
   @Input() phrase: Phrase;
   @Input() phraseId: string;
+  @Input() secondLanguage: Language;
   @Output() onDelete = new EventEmitter();
   
   ngOnInit(): void {
-    if(this.phraseId){
-      this.phraseService.get(this.phraseId).then(x=> this.phrase = x);
-    }
+    this.phraseService.get(this.phraseId).then(x=> this.phrase = x);
   }
   
   delete(): void { this.onDelete.emit(); }

@@ -64,17 +64,17 @@ export class PhrasesComponent implements OnInit {
       .then(translations => {
         for(let k in translations){
           let translation = translations[k];
-	      if(this.selectedPhrase._id != translation.phraseId
-	      && this.selectedSecondLanguage.code == translation.language){
-	        this.phraseService.get(translation.phraseId)
-	            .then(phrase => this.translatedPhrases.push(phrase));
-	      }
-	      if(this.selectedPhrase._id != translation.secondPhraseId
-	      && this.selectedSecondLanguage.code == translation.secondLanguage){
-	        this.phraseService.get(translation.secondPhraseId)
-	            .then(phrase => this.translatedPhrases.push(phrase));
-	      }
-	    }
+          if(this.selectedPhrase._id != translation.phraseId
+          && this.selectedSecondLanguage.code == translation.language){
+            this.phraseService.get(translation.phraseId)
+                .then(phrase => this.translatedPhrases.push(phrase));
+          }
+          if(this.selectedPhrase._id != translation.secondPhraseId
+          && this.selectedSecondLanguage.code == translation.secondLanguage){
+            this.phraseService.get(translation.secondPhraseId)
+                .then(phrase => this.translatedPhrases.push(phrase));
+          }
+        }
       });
   }
 
@@ -97,6 +97,17 @@ export class PhrasesComponent implements OnInit {
   addTranslation(phrase:Phrase): void {
 	this.translationService.create(new Translation(this.selectedPhrase, phrase));
     this.translatedPhrases.push(phrase);
+    if(this.selectedPhrase.translatedLanguageCodes){
+      this.selectedPhrase.translatedLanguageCodes.push(this.selectedSecondLanguage.code);
+      let i = this.phrases.indexOf(this.selectedPhrase);
+      while(++i < this.phrases.length){
+        if(-1 == this.phrases[i].translatedLanguageCodes.indexOf(this.selectedSecondLanguage.code)){
+          this.selectedPhrase = this.phrases[i];
+          this.translatedPhrases = [];
+          break;
+        }
+      }
+    }
   }
 
   delete(phrase: Phrase): void {
