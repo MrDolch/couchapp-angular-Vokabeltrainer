@@ -19,32 +19,22 @@ export class TrainingComponent implements OnInit {
     private phraseService: PhraseService,
     private trainingMixtureService: TrainingMixtureService,
   ) { }
-
-  selectedLanguage: Language;
-  languages: Language[];
   
   selectedMixture: TrainingMixture;
   mixtures: TrainingMixture[];
 
   ngOnInit(): void {
-    this.getLanguages();
+    this.languageService.selectedLanguageUpdate.subscribe(() => this.getMixtures());
+    if(this.languageService.selectedLanguage) this.getMixtures();
   }
 
-  getLanguages(): void {
-    this.languageService.getAllFor()
-      .then(x => this.languages = x);
-  }
 
   getMixtures(): void {
     this.trainingMixtureService
-      .getAllFor(this.selectedLanguage.code)
+      .getAllFor(this.languageService.selectedLanguage.code)
       .then(x => this.mixtures = x);
   }
 
-  onSelectLanguage(language: Language): void {
-    this.selectedLanguage = language;
-    this.getMixtures();
-  }
   onSelectMixture(mixture: TrainingMixture): void {
     this.selectedMixture = mixture;
   }
@@ -53,14 +43,14 @@ export class TrainingComponent implements OnInit {
     name = name.trim();
     if (!name) { return; }
     this.trainingMixtureService
-      .create(new TrainingMixture(name, this.selectedLanguage.code))
+      .create(new TrainingMixture(name, this.languageService.selectedLanguage))
       .then(mixture => {
         this.mixtures.push(mixture);
         this.selectedMixture = mixture;
       });
   }
   addNewQuestion(text:string): void {
-    this.phraseService.create(new Phrase(text, this.selectedLanguage.code))
+    this.phraseService.create(new Phrase(text, this.languageService.selectedLanguage))
       .then(phrase => {
         this.addQuestion(phrase);
       });

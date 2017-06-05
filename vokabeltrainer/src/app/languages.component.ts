@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Language } from './entities';
 import { LanguageService } from './language.service';
@@ -8,48 +8,21 @@ import { LanguageService } from './language.service';
   templateUrl: './languages.component.html',
   styleUrls: [ './languages.component.css' ]
 })
-export class LanguagesComponent implements OnInit {
+export class LanguagesComponent {
 
   constructor(
     private router: Router,
     private languageService: LanguageService,
   ) { }
 
-  selectedLanguage: Language;
-  languages: Language[];
-
-  onSelectLanguage(language: Language): void {
-    this.selectedLanguage = language;
-  }
-
-  getLanguages(): void {
-    this.languageService.getAllFor()
-      .then(l => this.languages = l);
-  }
-
-  ngOnInit(): void {
-    this.getLanguages();
-  }
-
   addLanguage(code: string): void {
     code = code.trim();
     if (!code) { return; }
     this.languageService.create(new Language(code))
       .then(l => {
-        this.languages.push(l);
-        this.selectedLanguage = null;
+        this.languageService.loadLanguages();
+        this.languageService.setSelectedLanguage(l);
       });
-  }
-
-  delete(language:Language): void {
-    this.languageService
-        .delete(language._id, language._rev)
-        .then(() => {
-          this.languages = this.languages.filter(h => h !== language);
-          if (this.selectedLanguage === language) {
-            this.selectedLanguage = null;
-          }
-        });
   }
 }
 

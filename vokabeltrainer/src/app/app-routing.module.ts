@@ -1,5 +1,5 @@
 import { NgModule }             from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, Params } from '@angular/router';
 import { LanguagesComponent }   from './languages.component';
 import { PhrasesComponent }     from './phrases.component';
 import { TrainingComponent }    from './training.component';

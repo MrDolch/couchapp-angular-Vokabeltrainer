@@ -37,10 +37,10 @@ export class Phrase extends CouchdbDoc {
   genus: Genus;
   person: Person;
   
-  constructor(text:string, languageCode:string){
+  constructor(text:string, language:Language){
     super();
     this.text = text;
-    this.language = languageCode;
+    this.language = language.code;
   }
 }
 
@@ -79,10 +79,10 @@ export class TrainingMixture extends CouchdbDoc {
   languageCode: string;
   questions: Question[];
 
-  constructor(name:string, languageCode:string){
+  constructor(name:string, language:Language){
     super();
     this.name = name;
-    this.languageCode = languageCode;
+    this.languageCode = language.code;
     this.questions = [];
   }
 }

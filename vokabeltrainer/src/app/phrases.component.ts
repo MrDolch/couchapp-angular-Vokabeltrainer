@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Phrase, Translation } from './entities';
+import { Phrase, Translation, Language } from './entities';
 import { PhraseService } from './phrase.service';
 import { LanguageService } from './language.service';
 import { TranslationService } from './translation.service';
@@ -8,7 +8,15 @@ import { TranslationService } from './translation.service';
 @Component({
   selector: 'vokabel-phrases',
   templateUrl: './phrases.component.html',
-  styleUrls: [ './phrases.component.css' ]
+  styles: [ `
+    img {
+      border:2px solid white;
+      cursor:pointer; cursor:hand;
+    }
+    img.selected, img:hover {
+      border:2px solid gray;
+    }
+  `]
 })
 export class PhrasesComponent implements OnInit {
 
@@ -23,14 +31,11 @@ export class PhrasesComponent implements OnInit {
   phrases: Phrase[];
   translatedPhrases: Phrase[];
   
-  selectedLanguage: string = "de";
-  selectedSecondLanguage: string = "en";
-  languages: string[];
+  selectedSecondLanguage:Language;
 
   ngOnInit(): void {
-    this.languages = ["de", "en", "fr"];
-    this.getLanguages();
-    this.getPhrases();
+    this.languageService.selectedLanguageUpdate.subscribe(() => this.getPhrases());
+    if(this.languageService.selectedLanguage) this.getPhrases();
   }
 
   onSelectPhrase(phrase: Phrase): void {
@@ -38,24 +43,19 @@ export class PhrasesComponent implements OnInit {
     this.getTranslations();
   }
 
-  onSelectLanguage(language: string): void {
-    this.selectedLanguage = language;
-    this.getPhrases();    
-  }
-
-  onSelectSecondLanguage(language: string): void {
+  onSelectSecondLanguage(language: Language): void {
     this.selectedSecondLanguage = language;
     this.getTranslations();
   }
 
-  getLanguages(): void {
-    this.languageService.getAllFor()
-      .then(ls => this.languages = ls.map(l => l.code));
-  }
   getPhrases(): void {
-    this.phraseService
-      .getAllFor(this.selectedLanguage)
-      .then(phrases => this.phrases = phrases);
+    if(this.languageService.selectedLanguage) {
+      this.phraseService
+        .getAllFor(this.languageService.selectedLanguage.code)
+        .then(x => this.phrases = x);
+    }else{
+      this.phrases = [];
+    }
   }
 
   getTranslations(): void {
@@ -65,12 +65,12 @@ export class PhrasesComponent implements OnInit {
         for(let k in translations){
           let translation = translations[k];
 	      if(this.selectedPhrase._id != translation.phraseId
-	      && this.selectedSecondLanguage == translation.language){
+	      && this.selectedSecondLanguage.code == translation.language){
 	        this.phraseService.get(translation.phraseId)
 	            .then(phrase => this.translatedPhrases.push(phrase));
 	      }
 	      if(this.selectedPhrase._id != translation.secondPhraseId
-	      && this.selectedSecondLanguage == translation.secondLanguage){
+	      && this.selectedSecondLanguage.code == translation.secondLanguage){
 	        this.phraseService.get(translation.secondPhraseId)
 	            .then(phrase => this.translatedPhrases.push(phrase));
 	      }
@@ -81,7 +81,7 @@ export class PhrasesComponent implements OnInit {
   addPhrase(text: string): void {
     text = text.trim();
     if (!text) { return; }
-    this.phraseService.create(new Phrase(text, this.selectedLanguage))
+    this.phraseService.create(new Phrase(text, this.languageService.selectedLanguage))
       .then(phrase => {
         this.phrases.push(phrase);
         this.selectedPhrase = null;

@@ -3,7 +3,8 @@
     <img [src]="'flags/' + languageCode + '.svg'"
       align="left" width="15" hspace="10" vspace="2">
     <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
-    <button (click)="addNew(searchBox.value); searchBox.value=''">Add</button>
+    <button class="btn btn-xs btn-default" 
+      (click)="addNew(searchBox.value); searchBox.value=''">Add</button>
     <div *ngFor="let phrase of phrases | async"
         (click)="add(phrase); searchBox.value=''" 
          class="search-result" >

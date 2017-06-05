@@ -6,72 +6,32 @@ import { PhraseService } from './phrase.service';
 @Component({
   selector: 'vokabel-phrase',
   template: `
-    <div *ngIf="phrase">
-      <img [src]="'flags/' + phrase.language + '.svg'"
-           align="left" width="15" hspace="10" vspace="2">
-      {{phrase.text}}
-      <button class="delete"
+    <div *ngIf="phrase" class="col-xs-{{colspan}}" [class.selected]="selected">
+      <button class="btn btn-xs btn-danger" style="float:right"
         (click)="delete(); $event.stopPropagation()">x</button>
+      <span class="badge"><img [src]="'flags/' + phrase.language + '.svg'"
+        width="15"></span>
+      {{phrase.text}}
     </div>
   `,
   styles: [ `
-	div {
-    clear:both;
-	  cursor: pointer;
-	  position: relative;
-	  left: 0;
-	  background-color: #EEE;
-	  margin: .5em;
-	  padding: .3em 0;
-	  height: 1.6em;
-	  border-radius: 4px;
-	}
-	div:hover {
-	  color: #607D8B;
-	  background-color: #DDD;
-	  left: .1em;
-	}
-	.selected:hover {
-	  background-color: #BBD8DC !important;
-	  color: white;
-	}
-	.text {
-	  position: relative;
-	  top: -3px;
-	}
-	.badge {
-	  display: inline-block;
-	  font-size: small;
-	  color: white;
-	  padding: 0.8em 0.7em 0 0.7em;
-	  background-color: #607D8B;
-	  line-height: 1em;
-	  position: relative;
-	  left: -1px;
-	  top: -4px;
-	  height: 1.8em;
-	  margin-right: .8em;
-	  border-radius: 4px 0 0 4px;
-	}
-	button {
-	  font-family: Arial;
-	  background-color: #eee;
-	  border: none;
-	  padding: 5px 10px;
-	  border-radius: 4px;
-	  cursor: pointer;
-	  cursor: hand;
-	}
-	button:hover {
-	  background-color: #cfd8dc;
-	}
-	button.delete {
-	  float:right;
-	  margin-top: 2px;
-	  margin-right: .8em;
-	  background-color: gray !important;
-	  color:white;
-	}
+    div {
+      cursor: pointer;r
+      cursor: hand;
+    }
+    div:hover {
+      color: #607D8B;
+      background-color: #DDD;
+      left: .1em;
+    }
+    .selected:hover {
+      background-color: #BBD8DC !important;
+      color: green;
+    }
+    .selected {
+      background-color: #CFD8DC !important;
+      color: green;
+    }
   ` ]
 })
 export class PhraseComponent implements OnInit{
@@ -79,6 +39,8 @@ export class PhraseComponent implements OnInit{
   constructor(
     private phraseService: PhraseService ) { }
   
+  @Input() colspan: number = 6;
+  @Input() selected: boolean;
   @Input() phrase: Phrase;
   @Input() phraseId: string;
   @Output() onDelete = new EventEmitter();

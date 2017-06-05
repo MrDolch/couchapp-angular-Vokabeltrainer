@@ -26,7 +26,7 @@ import { TranslationService }    from './translation.service';
 
 import {enableProdMode} from '@angular/core';
 
-enableProdMode();
+// enableProdMode();
 
 @NgModule({
   imports: [

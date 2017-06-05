@@ -1,76 +1,53 @@
-<table width="100%">
-	<tr>
-		<th>Language </th>
-		<th>Second Language</th>
-	</tr>
-	<tr>
-		<td valign="top" width="50%">
-			<img *ngFor="let language of languages"
-			  style="padding:5px;"
-			  [class.selected]="language === selectedLanguage"
-			  (click)="onSelectLanguage(language)"
-			  [src]="'flags/' + language + '.svg'"
-			  width="15" hspace="5">
-		</td>
-		<td valign="top" width="50%">
-			<img *ngFor="let language of languages"
-			  style="padding:5px;"
-			  [class.selected]="language === selectedSecondLanguage"
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12">Second Language:
+			<img *ngFor="let language of languageService.languages"
+			  [class.selected]="selectedSecondLanguage && language.code == selectedSecondLanguage.code"
 			  (click)="onSelectSecondLanguage(language)"
-			  [src]="'flags/' + language + '.svg'"
-			  width="15" hspace="5">
-		</td>
-	</tr>
-
-	<tr>
-		<th>Phrases</th>
-		<th>Selected Phrase</th>
-	</tr>
-	<tr>
-		<td valign="top" rowspan="3">
-			<vokabel-phrase *ngFor="let phrase of phrases"
-			  [phrase]="phrase"
-			  [class.selected]="phrase === selectedPhrase"
-			  (click)="onSelectPhrase(phrase)"
-			  (onDelete)="delete(phrase)"
-			></vokabel-phrase>
-		</td>
-		<td valign="top">
-			<vokabel-phrase *ngIf="selectedPhrase"
-			  [phrase]="selectedPhrase"
-			></vokabel-phrase>
-		</td>
-	</tr>
-	<tr>
-		<th>Translations</th>
-	</tr>
-	<tr>
-		<td valign="top">
-			<vokabel-phrase *ngFor="let phrase of translatedPhrases"
-			  [phrase]="phrase"
-			  (onDelete)="delete(phrase)"
-			></vokabel-phrase>
-		</td>
-	</tr>
-
-	<tr>
-		<th>Add Phrases</th>
-		<th>Add Translation</th>
-	</tr>
-	<tr>
-		<td valign="top">
-			<div>
-			  <input #phraseText />
-			  <button (click)="addPhrase(phraseText.value);
-			                   phraseText.value=''">Add Phrase</button>
+			  [src]="'flags/' + language.code + '.svg'"
+			  [alt]="language.code"
+			  width="25">
+		</div>
+		<hr>
+		<div class="col-xs-12 col-sm-7">
+			<div class="row" *ngIf="languageService.selectedLanguage">
+				<vokabel-phrase *ngFor="let phrase of phrases"
+				  [phrase]="phrase"
+				  [selected]="phrase === selectedPhrase"
+				  (click)="onSelectPhrase(phrase)"
+				  (onDelete)="delete(phrase)"
+				></vokabel-phrase>
+				<div class="col-xs-12"><hr></div>
+				<div class="col-xs-12">
+				  <input #phraseText />
+				  <button class="btn btn-xs btn-default" 
+						  (click)="addPhrase(phraseText.value);
+								   phraseText.value=''">Add Phrase</button>
+				</div>
 			</div>
-		</td>
-		<td valign="top">
-		  <translation-add
-			[languageCode]="selectedSecondLanguage"
-			(onAdd)="addTranslation($event)"
-			(onAddNew)="addNewTranslation($event)"
-		  ></translation-add>
-		</td>
-	</tr>
-</table>
+		</div>
+		<div class="col-xs-12 col-sm-5">
+			<div class="row" *ngIf="selectedSecondLanguage">
+				<div class="col-xs-12">Translations:</div>
+				<vokabel-phrase *ngIf="selectedPhrase"
+				  [phrase]="selectedPhrase" [selected]="true"
+				  [colspan]="12"
+				></vokabel-phrase>
+				<div class="col-xs-12"><hr></div>
+				<vokabel-phrase *ngFor="let phrase of translatedPhrases"
+				  [phrase]="phrase"
+				  [colspan]="12"
+				  (onDelete)="delete(phrase)"
+				></vokabel-phrase>
+				<div class="col-xs-12"><hr></div>
+				<div class="col-xs-12">
+					<translation-add
+						[languageCode]="selectedSecondLanguage.code"
+						(onAdd)="addTranslation($event)"
+						(onAddNew)="addNewTranslation($event)"
+					></translation-add>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
