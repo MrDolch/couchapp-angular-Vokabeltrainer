@@ -16,6 +16,7 @@ import { PhraseService } from './phrase.service';
   `,
   styles: [ `
 	div {
+    clear:both;
 	  cursor: pointer;
 	  position: relative;
 	  left: 0;

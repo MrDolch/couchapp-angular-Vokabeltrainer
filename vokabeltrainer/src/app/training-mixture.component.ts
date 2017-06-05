@@ -15,6 +15,7 @@ import { TrainingMixture } from './entities';
   styles: [ `
 	div {
 	  cursor: pointer;
+    clear:both;
 	  position: relative;
 	  left: 0;
 	  background-color: #EEE;
