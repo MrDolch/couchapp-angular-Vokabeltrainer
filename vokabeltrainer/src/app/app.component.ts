@@ -27,6 +27,8 @@ import { LanguageService } from './language.service';
         </div>
       </div>
     </div>
+    <iframe style="height:5px;width:5px;position:absolute;right:0;bottom:0;"
+     id="tts" name="tts" src="about:blank"></iframe>
   `,
   styleUrls: ['./app.component.css'],
 })

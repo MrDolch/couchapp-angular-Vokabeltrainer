@@ -32,6 +32,6 @@ export class PhraseService
     return this.http2.get(this.getViewUrl([language]))
       .map(res => (res.json().rows as CouchdbViewEntry[])
            .map(r => r.value as Phrase) 
-           .filter(t => t.text.toLowerCase().indexOf(termLowerCase) !== -1) );
+           .filter(t => t && t.text && t.text.toLowerCase().indexOf(termLowerCase) !== -1) );
   }
 }

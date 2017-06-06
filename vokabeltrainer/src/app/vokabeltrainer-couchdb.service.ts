@@ -37,7 +37,7 @@ export abstract class VokabeltrainerCouchdbService<T extends CouchdbDoc> extends
   update(doc: T): Promise<T> {
     return this.http2
       .put(`/${this.dbName}/${doc._id}`
-        , JSON.stringify(doc)
+        , JSON.stringify(doc, (key,value)=>(key=="transient"?undefined:value))
         , {headers: new Headers({'Content-Type': 'application/json'})}
       )
       .toPromise()
@@ -50,8 +50,10 @@ export abstract class VokabeltrainerCouchdbService<T extends CouchdbDoc> extends
       .catch(this.handleErrorFor);
   }
 
-  protected handleErrorFor(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
+  protected handleErrorFor(e: any): Promise<any> {
+    console.error('An error occurred', e); // for demo purposes only
+    console.error('Error!\n' + 'Message: ' + e.message );
+
+    return Promise.reject(e.message || e);
   }
 }

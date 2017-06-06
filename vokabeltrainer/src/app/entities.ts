@@ -29,6 +29,19 @@ export class PhraseType {
   static PA = "PA";
 }
 
+export class EspeakSample extends CouchdbDoc {
+  phraseId:string;
+  ipa:string;
+  sample:string;
+}
+
+export class TransientPhraseData{
+  espeakSampleId:string;
+  ipa:string;
+  sample:string;
+  languageCodes:string[];  
+}
+
 export class Phrase extends CouchdbDoc {
   text: string;
   language: string;
@@ -36,13 +49,12 @@ export class Phrase extends CouchdbDoc {
   numerus: Numerus;
   genus: Genus;
   person: Person;
-  translatedLanguageCodes: string[];
+  transient:TransientPhraseData;
   
   constructor(text:string, language:Language){
     super();
     this.text = text;
     this.language = language.code;
-    this.translatedLanguageCodes = [];
   }
 }
 

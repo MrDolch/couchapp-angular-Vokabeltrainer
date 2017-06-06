@@ -5,13 +5,14 @@ import { RouterModule }  from '@angular/router';
 import { HttpModule }    from '@angular/http';
 
 // Imports for loading & configuring the in-memory web api
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }  from './in-memory-data.service';
+//import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+//import { InMemoryDataService }  from './in-memory-data.service';
 
 import { CouchdbModule } from 'couchdb-connector';
 
 import { AppComponent }          from './app.component';
 import { AppRoutingModule }      from './app-routing.module';
+import { EspeakSampleService }   from './espeak-sample.service';
 import { LanguageComponent }     from './language.component';
 import { LanguagesComponent }    from './languages.component';
 import { LanguageService }       from './language.service';
@@ -46,6 +47,7 @@ import {enableProdMode} from '@angular/core';
       TrainingMixtureComponent,
       TranslationAddComponent ],
   providers: [ 
+      EspeakSampleService,
       PhraseService,
       LanguageService,
       TrainingMixtureService,

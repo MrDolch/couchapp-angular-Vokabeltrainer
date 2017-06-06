@@ -60,6 +60,7 @@ export class PhrasesComponent implements OnInit {
 
   getTranslations(): void {
     this.translatedPhrases = [];
+    if(!this.selectedSecondLanguage || !this.selectedPhrase) return;
     this.translationService.getAllFor(this.selectedPhrase._id)
       .then(translations => {
         for(let k in translations){
@@ -97,11 +98,11 @@ export class PhrasesComponent implements OnInit {
   addTranslation(phrase:Phrase): void {
 	this.translationService.create(new Translation(this.selectedPhrase, phrase));
     this.translatedPhrases.push(phrase);
-    if(this.selectedPhrase.translatedLanguageCodes){
-      this.selectedPhrase.translatedLanguageCodes.push(this.selectedSecondLanguage.code);
+    if(this.selectedPhrase.transient){
+      this.selectedPhrase.transient.languageCodes.push(this.selectedSecondLanguage.code);
       let i = this.phrases.indexOf(this.selectedPhrase);
       while(++i < this.phrases.length){
-        if(-1 == this.phrases[i].translatedLanguageCodes.indexOf(this.selectedSecondLanguage.code)){
+        if(-1 == this.phrases[i].transient.languageCodes.indexOf(this.selectedSecondLanguage.code)){
           this.selectedPhrase = this.phrases[i];
           this.translatedPhrases = [];
           break;
@@ -112,12 +113,12 @@ export class PhrasesComponent implements OnInit {
 
   delete(phrase: Phrase): void {
     this.translationService
-      .getAllFor(phrase._id)
-      .then(translations => {
-        for(let k in translations){
-          this.translationService.delete(translations[k]._id, translations[k]._rev);
-	    }
-      });
+        .getAllFor(phrase._id)
+        .then(translations => {
+          for(let k in translations){
+            this.translationService.delete(translations[k]._id, translations[k]._rev);
+          }
+        });
     this.phraseService
         .delete(phrase._id, phrase._rev)
         .then(() => {

@@ -12,8 +12,11 @@ import { Language } from './entities';
   `,
   styles: [ `
     div {
-      cursor: pointer;r
+      cursor: pointer;
       cursor: hand;
+      padding: 5px;
+      border: 1px dotted gray;
+      border-radius: 5px;
     }
     div:hover {
       color: #607D8B;

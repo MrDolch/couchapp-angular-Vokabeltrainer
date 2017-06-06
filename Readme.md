@@ -59,6 +59,7 @@ Soon you can start the training and whatch your wows.
 + Bei Translation-add onClick herausholen 
 + Extrahiere phrase-component
 + Lösche Translation, wenn Phrase gelöscht wird.
++ Layout Umstellung auf bootstrap
 
 ### Sprachen erfassen
 
@@ -76,10 +77,10 @@ Soon you can start the training and whatch your wows.
 
 ### Service
 
-- TextToSpeach
-- IPA
++ TextToSpeech
+- Wav als _attachment ans EspeakSample anhängen
++ IPA
 - Bilderdatenbank
-+ Layout Umstellung auf bootstrap
 
 ### Statistiken
 
@@ -95,3 +96,9 @@ Soon you can start the training and whatch your wows.
 - [List of Languages](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
 - [Angular - @Input / @Output](https://angular.io/docs/ts/latest/cookbook/component-communication.html#!#parent-listens-for-child-event)
 - [Inline Audio](https://stackoverflow.com/questions/17762763/play-wav-sound-file-encoded-in-base64-with-javascript)
+- [bootstrap](http://getbootstrap.com/examples/theme/)
+
+### Couchdb
+
+- [Python Couchdb](https://pythonhosted.org/CouchDB/client.html#database)
+- [Python Couchdb start](https://pythonhosted.org/CouchDB/getting-started.html)

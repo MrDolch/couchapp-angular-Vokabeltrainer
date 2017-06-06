@@ -1,17 +1,26 @@
 function(keys, values) {
-  var x = {};
-  x.codes = []
+  var transient = {languageCodes:[]};
+  var phrase = null;
 
   for(var i=0; i < values.length; i++) {
     var doc = values[i];
+
     if(doc.class=="Phrase"){
-      x.doc = doc;
+      phrase = doc;
+
     }else if(doc.class=="Translation" && keys[i][0][1]==doc.phraseId){
-      x.codes.push(doc.secondLanguage);
+      transient.languageCodes.push(doc.secondLanguage);
+
     }else if(doc.class=="Translation" && keys[i][0][1]==doc.secondPhraseId){
-      x.codes.push(doc.language);
+      transient.languageCodes.push(doc.language);
+
+    }else if(doc.class=="EspeakSample"){
+//      transient.sample = doc.sample;
+      transient.ipa = doc.ipa;
+      transient.espeakSampleId = doc._id;
+
     }
   }
-  x.doc.translatedLanguageCodes = x.codes;
-  return x.doc;
+  phrase.transient = transient;
+  return phrase;
 }

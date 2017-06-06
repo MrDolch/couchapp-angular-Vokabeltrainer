@@ -1,8 +1,11 @@
 <div class="container">
 	<div class="row" *ngIf="languageService.selectedLanguage">
 		<hr>
-		<div class="col-xs-7">Selected:</div>
-		<div class="col-xs-4">{{languageService.selectedLanguage.code}}</div>
+		<div class="col-xs-4">Selected:</div>
+		<div class="col-xs-1">{{languageService.selectedLanguage.code}}</div>
+		<div class="col-xs-6" style="position:relative;">
+			<img [src]="'flags/' + languageService.selectedLanguage.code + '.svg'" width="100%">
+		</div>
 		<div class="col-xs-1">
 			<button class="btn btn-xs btn-danger"
 				(click)="languageService.deleteLanguage(languageService.selectedLanguage);

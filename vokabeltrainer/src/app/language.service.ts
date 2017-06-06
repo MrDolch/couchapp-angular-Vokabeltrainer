@@ -14,10 +14,10 @@ export class LanguageService
   public languages: Language[];
 
   public selectedLanguageUpdate:Observable<Language>;
-  private selectedLanguageObserver:Observer<Language>;
+  public selectedLanguageObserver:Observer<Language>;
 
   public languagesUpdate:Observable<Language[]>;
-  private languagesObserver:Observer<Language[]>;
+  public languagesObserver:Observer<Language[]>;
   
   constructor(http: Http) {
     super(http, "languages");
@@ -28,13 +28,13 @@ export class LanguageService
   loadLanguages(): void {
     this.getAllFor().then(ls => {
       this.languages = ls;
-      this.languagesObserver.next(this.languages);
+      if(this.languagesObserver) this.languagesObserver.next(this.languages);
     });
   }
 
   setSelectedLanguage(language:Language){
     this.selectedLanguage = language;
-    this.selectedLanguageObserver.next(language);
+    if(this.selectedLanguageObserver) this.selectedLanguageObserver.next(language);
   }
   
   deleteLanguage(language:Language): void {    
