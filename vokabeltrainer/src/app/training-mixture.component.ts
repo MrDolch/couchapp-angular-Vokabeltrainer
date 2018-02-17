@@ -12,7 +12,7 @@ import { TrainingMixture } from './entities';
       {{mixture.name}}
     </div>
   `,
-  styles: [ `
+  styles: [`
     div {
       cursor: pointer;
       background-color: #EEE;
@@ -33,13 +33,13 @@ import { TrainingMixture } from './entities';
   ` ]
 })
 export class TrainingMixtureComponent {
-  
-  constructor() {  }
-
-  @Input() colspan:number = 6;  
+  @Input() colspan: number = 6;
   @Input() mixture: TrainingMixture;
   @Output() onDelete = new EventEmitter();
-  
+
+  constructor() { }
+
+
   delete(): void {
     this.onDelete.emit();
   }

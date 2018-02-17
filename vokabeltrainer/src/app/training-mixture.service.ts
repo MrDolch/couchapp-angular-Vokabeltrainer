@@ -9,7 +9,7 @@ export class TrainingMixtureService
   extends VokabeltrainerCouchdbService<TrainingMixture> {
 
   constructor(http: Http) {
-    super(http, "training-mixtures");
+    super(http, 'training-mixtures');
   }
 
 }

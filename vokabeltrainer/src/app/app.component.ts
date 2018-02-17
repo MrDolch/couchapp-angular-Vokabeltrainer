@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Language } from './entities';
 import { LanguageService } from './language.service';
 
 @Component({
@@ -32,10 +31,10 @@ import { LanguageService } from './language.service';
   `,
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
   title = 'Vokabeltrainer';
- 
+
   constructor(
     private languageService: LanguageService
   ) { }

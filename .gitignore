@@ -1,0 +1,6 @@
+.project
+.settings/
+couchapp/
+vokabeltrainer/.vscode/
+vokabeltrainer/dist/
+vokabeltrainer/node_modules/

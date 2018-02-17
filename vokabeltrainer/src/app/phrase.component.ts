@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
-import { Phrase, Language, EspeakSample } from './entities';
+import { Phrase, Language } from './entities';
 import { PhraseService } from './phrase.service';
 import { EspeakSampleService } from './espeak-sample.service';
 
@@ -31,7 +31,7 @@ import { EspeakSampleService } from './espeak-sample.service';
         
     </div>
   `,
-  styles: [ `
+  styles: [`
     div {
       cursor: pointer;
       cursor: hand;
@@ -54,29 +54,29 @@ import { EspeakSampleService } from './espeak-sample.service';
     }
   ` ]
 })
-export class PhraseComponent implements OnInit{
+export class PhraseComponent implements OnInit {
 
-  constructor(
-    private espeakSampleService: EspeakSampleService,
-    private phraseService: PhraseService ) { }
-  
   @Input() colspan: number = 6;
   @Input() selected: boolean;
   @Input() phrase: Phrase;
   @Input() phraseId: string;
   @Input() secondLanguage: Language;
   @Output() onDelete = new EventEmitter();
-  
+
+  constructor(
+    private espeakSampleService: EspeakSampleService,
+    private phraseService: PhraseService) { }
+
   ngOnInit(): void {
-    if(this.phraseId && !this.phrase){
-      this.phraseService.get(this.phraseId).then(x=> this.phrase = x);
+    if (this.phraseId && !this.phrase) {
+      this.phraseService.get(this.phraseId).then(x => this.phrase = x);
     }
   }
-  
+
   delete(): void { this.onDelete.emit(); }
-  
-  playVideo():void {
-    let video:any = document.getElementById("sample-"+this.phrase._id);
+
+  playVideo(): void {
+    let video: any = document.getElementById("sample-" + this.phrase._id);
     video.play();
   }
 }

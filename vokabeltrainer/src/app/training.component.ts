@@ -9,9 +9,11 @@ import { TrainingMixtureService } from './training-mixture.service';
 @Component({
   selector: 'vokabel-training',
   templateUrl: './training.component.html',
-  styleUrls: [ './training.component.css' ]
+  styleUrls: ['./training.component.css']
 })
 export class TrainingComponent implements OnInit {
+  selectedMixture: TrainingMixture;
+  mixtures: TrainingMixture[];
 
   constructor(
     private router: Router,
@@ -19,13 +21,13 @@ export class TrainingComponent implements OnInit {
     private phraseService: PhraseService,
     private trainingMixtureService: TrainingMixtureService,
   ) { }
-  
-  selectedMixture: TrainingMixture;
-  mixtures: TrainingMixture[];
+
 
   ngOnInit(): void {
     this.languageService.selectedLanguageUpdate.subscribe(() => this.getMixtures());
-    if(this.languageService.selectedLanguage) this.getMixtures();
+    if (this.languageService.selectedLanguage) {
+      this.getMixtures();
+    }
   }
 
 
@@ -39,7 +41,7 @@ export class TrainingComponent implements OnInit {
     this.selectedMixture = mixture;
   }
 
-  addTrainingMixture(name:string):void {
+  addTrainingMixture(name: string): void {
     name = name.trim();
     if (!name) { return; }
     this.trainingMixtureService
@@ -49,30 +51,30 @@ export class TrainingComponent implements OnInit {
         this.selectedMixture = mixture;
       });
   }
-  addNewQuestion(text:string): void {
+  addNewQuestion(text: string): void {
     this.phraseService.create(new Phrase(text, this.languageService.selectedLanguage))
       .then(phrase => {
         this.addQuestion(phrase);
       });
   }
-  addQuestion(phrase:Phrase): void {
+  addQuestion(phrase: Phrase): void {
     this.selectedMixture.questions.push(new Question(phrase._id));
     this.trainingMixtureService.update(this.selectedMixture);
   }
-  deleteQuestion(phraseId:string): void {
+  deleteQuestion(phraseId: string): void {
     this.selectedMixture.questions = this.selectedMixture.questions.filter(h => h.phraseId !== phraseId);
     this.trainingMixtureService.update(this.selectedMixture);
   }
 
   delete(mixture: TrainingMixture): void {
     this.trainingMixtureService
-        .delete(mixture._id, mixture._rev)
-        .then(() => {
-          this.mixtures = this.mixtures.filter(h => h !== mixture);
-          if (this.selectedMixture === mixture) {
-            this.selectedMixture = null;
-          }
-        });
+      .delete(mixture._id, mixture._rev)
+      .then(() => {
+        this.mixtures = this.mixtures.filter(h => h !== mixture);
+        if (this.selectedMixture === mixture) {
+          this.selectedMixture = null;
+        }
+      });
   }
 
 }

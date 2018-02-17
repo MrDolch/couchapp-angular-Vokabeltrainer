@@ -8,7 +8,7 @@ import { TranslationService } from './translation.service';
 @Component({
   selector: 'vokabel-phrases',
   templateUrl: './phrases.component.html',
-  styles: [ `
+  styles: [`
     img {
       border:2px solid white;
       cursor:pointer; cursor:hand;
@@ -19,6 +19,10 @@ import { TranslationService } from './translation.service';
   `]
 })
 export class PhrasesComponent implements OnInit {
+  phrases: Phrase[];
+  translatedPhrases: Phrase[];
+  selectedPhrase: Phrase;
+  selectedSecondLanguage: Language;
 
   constructor(
     private router: Router,
@@ -27,15 +31,13 @@ export class PhrasesComponent implements OnInit {
     private translationService: TranslationService
   ) { }
 
-  selectedPhrase: Phrase;
-  phrases: Phrase[];
-  translatedPhrases: Phrase[];
-  
-  selectedSecondLanguage:Language;
+
 
   ngOnInit(): void {
     this.languageService.selectedLanguageUpdate.subscribe(() => this.getPhrases());
-    if(this.languageService.selectedLanguage) this.getPhrases();
+    if (this.languageService.selectedLanguage) {
+      this.getPhrases();
+    }
   }
 
   onSelectPhrase(phrase: Phrase): void {
@@ -49,31 +51,33 @@ export class PhrasesComponent implements OnInit {
   }
 
   getPhrases(): void {
-    if(this.languageService.selectedLanguage) {
+    if (this.languageService.selectedLanguage) {
       this.phraseService
         .getAllFor(this.languageService.selectedLanguage.code)
         .then(x => this.phrases = x);
-    }else{
+    } else {
       this.phrases = [];
     }
   }
 
   getTranslations(): void {
     this.translatedPhrases = [];
-    if(!this.selectedSecondLanguage || !this.selectedPhrase) return;
+    if (!this.selectedSecondLanguage || !this.selectedPhrase) {
+      return;
+    }
     this.translationService.getAllFor(this.selectedPhrase._id)
       .then(translations => {
-        for(let k in translations){
+        for (let k in translations) {
           let translation = translations[k];
-          if(this.selectedPhrase._id != translation.phraseId
-          && this.selectedSecondLanguage.code == translation.language){
+          if (this.selectedPhrase._id !== translation.phraseId
+            && this.selectedSecondLanguage.code === translation.language) {
             this.phraseService.get(translation.phraseId)
-                .then(phrase => this.translatedPhrases.push(phrase));
+              .then(phrase => this.translatedPhrases.push(phrase));
           }
-          if(this.selectedPhrase._id != translation.secondPhraseId
-          && this.selectedSecondLanguage.code == translation.secondLanguage){
+          if (this.selectedPhrase._id !== translation.secondPhraseId
+            && this.selectedSecondLanguage.code === translation.secondLanguage) {
             this.phraseService.get(translation.secondPhraseId)
-                .then(phrase => this.translatedPhrases.push(phrase));
+              .then(phrase => this.translatedPhrases.push(phrase));
           }
         }
       });
@@ -89,20 +93,20 @@ export class PhrasesComponent implements OnInit {
       });
   }
 
-  addNewTranslation(text:string): void {
+  addNewTranslation(text: string): void {
     this.phraseService.create(new Phrase(text, this.selectedSecondLanguage))
       .then(phrase => {
         this.addTranslation(phrase);
       });
   }
-  addTranslation(phrase:Phrase): void {
-	this.translationService.create(new Translation(this.selectedPhrase, phrase));
+  addTranslation(phrase: Phrase): void {
+    this.translationService.create(new Translation(this.selectedPhrase, phrase));
     this.translatedPhrases.push(phrase);
-    if(this.selectedPhrase.transient){
+    if (this.selectedPhrase.transient) {
       this.selectedPhrase.transient.languageCodes.push(this.selectedSecondLanguage.code);
       let i = this.phrases.indexOf(this.selectedPhrase);
-      while(++i < this.phrases.length){
-        if(-1 == this.phrases[i].transient.languageCodes.indexOf(this.selectedSecondLanguage.code)){
+      while (++i < this.phrases.length) {
+        if (-1 === this.phrases[i].transient.languageCodes.indexOf(this.selectedSecondLanguage.code)) {
           this.selectedPhrase = this.phrases[i];
           this.translatedPhrases = [];
           break;
@@ -113,22 +117,22 @@ export class PhrasesComponent implements OnInit {
 
   delete(phrase: Phrase): void {
     this.translationService
-        .getAllFor(phrase._id)
-        .then(translations => {
-          for(let k in translations){
-            this.translationService.delete(translations[k]._id, translations[k]._rev);
-          }
-        });
+      .getAllFor(phrase._id)
+      .then(translations => {
+        for (let k in translations) {
+          this.translationService.delete(translations[k]._id, translations[k]._rev);
+        }
+      });
     this.phraseService
-        .delete(phrase._id, phrase._rev)
-        .then(() => {
-          this.phrases = this.phrases.filter(h => h !== phrase);
-          this.translatedPhrases = this.translatedPhrases.filter(h => h !== phrase);
-          if (this.selectedPhrase === phrase) {
-            this.selectedPhrase = null;
-            this.translatedPhrases = [];
-          }
-        });
+      .delete(phrase._id, phrase._rev)
+      .then(() => {
+        this.phrases = this.phrases.filter(h => h !== phrase);
+        this.translatedPhrases = this.translatedPhrases.filter(h => h !== phrase);
+        if (this.selectedPhrase === phrase) {
+          this.selectedPhrase = null;
+          this.translatedPhrases = [];
+        }
+      });
   }
 }
 

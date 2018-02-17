@@ -1,18 +1,18 @@
-import { NgModule }             from '@angular/core';
-import { RouterModule, Routes, Params } from '@angular/router';
-import { LanguagesComponent }   from './languages.component';
-import { PhrasesComponent }     from './phrases.component';
-import { TrainingComponent }    from './training.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LanguagesComponent } from './languages.component';
+import { PhrasesComponent } from './phrases.component';
+import { TrainingComponent } from './training.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/phrases', pathMatch: 'full' },
-  { path: 'languages',   component: LanguagesComponent },
-  { path: 'phrases',     component: PhrasesComponent },
-  { path: 'training',    component: TrainingComponent },
+  { path: 'languages', component: LanguagesComponent },
+  { path: 'phrases', component: PhrasesComponent },
+  { path: 'training', component: TrainingComponent },
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes ,{ useHash: true }) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
