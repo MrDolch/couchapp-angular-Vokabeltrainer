@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Language, Phrase, TrainingMixture, Question } from './entities';
+import { Phrase, TrainingMixture, Question } from './entities';
 import { LanguageService } from './language.service';
 import { PhraseService } from './phrase.service';
 import { TrainingMixtureService } from './training-mixture.service';

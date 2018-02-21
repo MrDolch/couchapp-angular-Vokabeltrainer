@@ -76,7 +76,7 @@ export class PhraseComponent implements OnInit {
   delete(): void { this.onDelete.emit(); }
 
   playVideo(): void {
-    let video: any = document.getElementById("sample-" + this.phrase._id);
+    let video: any = document.getElementById('sample-' + this.phrase._id);
     video.play();
   }
 }

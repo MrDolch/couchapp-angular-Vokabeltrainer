@@ -9,7 +9,7 @@ COUCHDB=http://192.168.1.10:5984/vokabeltrainer
 (
   echo build app
   cd $ANGULARAPP_FOLDER
-  npm install
+#  npm install
   npm run build
 
 ) && (

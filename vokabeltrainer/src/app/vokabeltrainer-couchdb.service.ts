@@ -5,8 +5,8 @@ import { CouchdbService, CouchdbDocComponent } from 'couchdb-connector/dist/inde
 export abstract class VokabeltrainerCouchdbService<T extends CouchdbDocComponent> extends CouchdbService<T> {
 
   constructor(
-    protected http2: Http,
+    protected http: Http,
     protected viewName: string) {
-    super(http2, 'vokabeltrainer', viewName);
+    super(http, 'vokabeltrainer', viewName);
   }
 }

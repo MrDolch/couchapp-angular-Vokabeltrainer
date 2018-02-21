@@ -12,7 +12,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 
-import { Phrase, Language } from './entities';
+import { Phrase } from './entities';
 import { PhraseService } from './phrase.service';
 
 @Component({
@@ -22,7 +22,7 @@ import { PhraseService } from './phrase.service';
 })
 export class TranslationAddComponent implements OnInit {
   private phrases: Observable<Phrase[]>;
-  private searchTerms = new Subject<string>();
+  private searchTerms = new Subject<any>();
   @Input() languageCode: string;
   @Output() onAdd = new EventEmitter();
   @Output() onAddNew = new EventEmitter();
@@ -32,16 +32,16 @@ export class TranslationAddComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    // this.phrases = this.searchTerms
-    //   .debounceTime(300)
-    //   .distinctUntilChanged()
-    //   .switchMap((term: string) => term
-    //     ? this.phraseService.searchByLanguage(this.languageCode, term)
-    //     : Observable.of<Phrase[]>([]))
-    //   .catch((error: any) => {
-    //     console.log(error);
-    //     return Observable.of<Phrase[]>([]);
-    //   });
+    this.phrases = this.searchTerms
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .switchMap((term: string) => term
+        ? this.phraseService.searchByLanguage(this.languageCode, term)
+        : Observable.of<Phrase[]>([]))
+      .catch((error: any) => {
+        console.log(error);
+        return Observable.of<Phrase[]>([]);
+      });
   }
 
   // Push a search term into the observable stream.

@@ -4,13 +4,12 @@ import { Language } from './entities';
 @Component({
   selector: 'vokabel-language',
   template: `
-	<div class="col-xs-2" [class.selected]="selected">
-		<span class="badge"><img [src]="'flags/' + language.code + '.svg'"
-      width="15"></span>
-		{{language.code}}
-	</div>
+<div class="col-xs-2" [class.selected]="selected">
+  <span class="badge"><img [src]="'flags/' + language.code + '.svg'" width="15"></span>
+  {{language.code}}
+</div>
   `,
-  styles: [ `
+  styles: [`
     div {
       cursor: pointer;
       cursor: hand;
@@ -35,8 +34,8 @@ import { Language } from './entities';
 })
 export class LanguageComponent {
 
-  @Input() language:Language;
-  @Input() selected:boolean;
+  @Input() language: Language;
+  @Input() selected: boolean;
 
 }
 

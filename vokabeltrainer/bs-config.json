@@ -4,5 +4,8 @@
     "routes": {
       "/node_modules": "node_modules"
     }
+  },
+  "compilerOptions": {
+    "skipLibCheck": true
   }
 }

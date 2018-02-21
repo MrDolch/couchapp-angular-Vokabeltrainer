@@ -6,7 +6,7 @@ import { LanguageService } from './language.service';
 @Component({
   selector: 'vokabel-languages',
   templateUrl: './languages.component.html',
-  styleUrls: [ './languages.component.css' ]
+  styleUrls: ['./languages.component.css']
 })
 export class LanguagesComponent {
 

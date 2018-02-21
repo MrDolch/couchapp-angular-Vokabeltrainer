@@ -67,7 +67,7 @@ export class PhrasesComponent implements OnInit {
     }
     this.translationService.getAllFor(this.selectedPhrase._id)
       .then(translations => {
-        for (let k in translations) {
+        for (const k of Object.keys(translations)) {
           let translation = translations[k];
           if (this.selectedPhrase._id !== translation.phraseId
             && this.selectedSecondLanguage.code === translation.language) {
@@ -119,7 +119,7 @@ export class PhrasesComponent implements OnInit {
     this.translationService
       .getAllFor(phrase._id)
       .then(translations => {
-        for (let k in translations) {
+        for (const k of Object.keys(translations)) {
           this.translationService.delete(translations[k]._id, translations[k]._rev);
         }
       });

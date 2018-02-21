@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
@@ -7,8 +7,7 @@ import { VokabeltrainerCouchdbService } from './vokabeltrainer-couchdb.service';
 import { Language } from './entities';
 
 @Injectable()
-export class LanguageService
-  extends VokabeltrainerCouchdbService<Language> {
+export class LanguageService extends VokabeltrainerCouchdbService<Language> {
 
   public selectedLanguage: Language;
   public languages: Language[];
@@ -28,13 +27,17 @@ export class LanguageService
   loadLanguages(): void {
     this.getAllFor().then(ls => {
       this.languages = ls;
-      if (this.languagesObserver) this.languagesObserver.next(this.languages);
+      if (this.languagesObserver) {
+        this.languagesObserver.next(this.languages);
+      }
     });
   }
 
   setSelectedLanguage(language: Language) {
     this.selectedLanguage = language;
-    if (this.selectedLanguageObserver) this.selectedLanguageObserver.next(language);
+    if (this.selectedLanguageObserver) {
+      this.selectedLanguageObserver.next(language);
+    }
   }
 
   deleteLanguage(language: Language): void {

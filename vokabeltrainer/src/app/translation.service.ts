@@ -5,8 +5,7 @@ import { VokabeltrainerCouchdbService } from './vokabeltrainer-couchdb.service';
 import { Translation } from './entities';
 
 @Injectable()
-export class TranslationService
-  extends VokabeltrainerCouchdbService<Translation> {
+export class TranslationService extends VokabeltrainerCouchdbService<Translation> {
 
   constructor(http: Http) {
     super(http, 'translations');
