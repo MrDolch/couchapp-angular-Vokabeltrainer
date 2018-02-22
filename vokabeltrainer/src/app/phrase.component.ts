@@ -8,27 +8,21 @@ import { EspeakSampleService } from './espeak-sample.service';
   selector: 'vokabel-phrase',
   template: `
     <div *ngIf="phrase" class="col-xs-{{colspan}}" [class.selected]="selected">
-    
       <button class="btn btn-xs btn-danger" style="float:right"
         (click)="delete(); $event.stopPropagation()">x</button>
-        
       <span class="badge"><img [src]="'flags/' + phrase.language + '.svg'"
         width="15"></span>
-        
       <span class="badge glyphicon glyphicon-play"
         (click)="playVideo()">
         <video width="1" height="1" [id]="'sample-'+(phrase._id)"
           [src]="'http://192.168.1.10:7080/speech?voice='+phrase.language+'&text='+phrase.text"
         ></video>
       </span>
-
       {{phrase.text}}
-      
       <span *ngIf="secondLanguage
               && phrase.transient
               && phrase.transient.languageCodes.indexOf(secondLanguage.code)>-1"
         class="glyphicon glyphicon-ok"></span>
-        
     </div>
   `,
   styles: [`
