@@ -7,7 +7,7 @@
     paths: {
       // paths serve as alias
       'npm:': 'node_modules/' // local
-//      'npm:': 'https://unpkg.com/'
+      //      'npm:': 'https://unpkg.com/'
     },
     // map tells the System loader where to look for things
     map: {
@@ -25,10 +25,11 @@
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
 
       // other libraries
-      'couchdb-connector':         'npm:couchdb-connector',
-      'traceur':                   'npm:traceur/bin',
-      'rxjs':                      'npm:rxjs',
-      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
+      'couchdb-connector': 'npm:couchdb-connector',
+      'traceur': 'npm:traceur/bin',
+      'rxjs': 'npm:rxjs',
+      'ts': 'npm:plugin-typescript',
+      'typescript': 'npm:typescript',
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -42,7 +43,16 @@
       },
       rxjs: { defaultExtension: 'js' },
       'couchdb-connector': { main: 'index.js', defaultExtension: 'js' },
-      traceur:{        main: 'traceur' }
-    }
+      traceur: { main: 'traceur' },
+      'ts': { main: 'lib/plugin.js' },
+      'typescript': {
+        main: 'lib/typescript.js', "meta": {
+          "lib/typescript.js": {
+            "exports": "ts"
+          }
+        }
+      },
+    },
+    transpiler: "ts",
   });
 })(this);
