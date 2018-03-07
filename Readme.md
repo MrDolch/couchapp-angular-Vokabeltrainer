@@ -1,5 +1,4 @@
-CouchApp Angular Vokabeltrainer
-===============================
+# CouchApp Angular Vokabeltrainer
 
 However you have found my little project. I started it to lern Angular.
 (And maybe later French with that.) 
@@ -43,62 +42,133 @@ firefox http://127.0.0.1:5984/vokabeltrainer/_design/couchapp/index.html
 In the app you can add Languages, Phrases and create Training set-ups.
 Soon you can start the training and whatch your wows.
 
-- - - 
+- - -
 
-# Personal Notes for Development
+## Personal Notes for Development
 
-## Funktionalitäten
+```plantuml
+@startuml
+class Language {
+    code
+    espeak-config
+}
+class Phrase {
+    text
+    language
+}
+class Translation {
+}
 
-### Vokabeln erfassen
+Language o-- Phrase
+Phrase "2" *- Translation
+
+Phrase o- Question
+Question -* Answer
+
+class TrainingMixture {
+    name
+}
+Language o-- TrainingMixture
+Question *-up- TrainingMixture
+@enduml
+```
+
+```plantuml
+@startuml
+class PhraseService {
+
+    #getViewUrl(keys)
+    +searchByLanguage(lang, term):Phrase*
+}
+
+PhraseService .> Phrase: serves >
+
+@enduml
+```
+
+```plantuml
+@startuml
+caption Component vokabeltrainer
+
+VokabeltrainerComponent ..> LanguageService: use
+VokabeltrainerComponent ..> AppRoutingModule: use
+
+
+@enduml
+```
+
+```plantuml
+@startuml
+caption Module WorkbenchModule
+
+vokabeltrainer ..> "vokabel-language" : source \n Language
+vokabeltrainer ..> WorkbenchModule : contains
+WorkbenchModule ..> LanguagesComponent : routes
+WorkbenchModule ..> PhrasesComponent : routes
+WorkbenchModule ..> TrainingsComponent : routes
+
+@enduml
+```
+
+### Funktionalitäten
+
+- Layout reparieren
+- Übersichtsseite
+- Plan und Vision
+- jsdoc
+- automatische Tests
++ plantuml
+
+#### Sprachen erfassen
+
++ Language-Service bereitstellen
++ Sprachenverwaltung
++ Language-Component
++ Languages bei Phrasen anzeigen
+- Einstellungen der Sprachen bearbeiten, z.B. Parameter für espeak
+
+#### Vokabeln erfassen
 
 + Es können Vokabeln in einer Sprache eingegeben werden.
 + Die Sprache kann ausgewählt werden.
 + Zweite Sprache kann ausgewählt werden.
 + Übersetzung kann zugeordnet werden.
 + Component phrase-search umbenannt in translation-add
-+ Bei Translation-add onClick herausholen 
++ Bei Translation-add onClick herausholen
 + Extrahiere phrase-component
 + Lösche Translation, wenn Phrase gelöscht wird.
 + Layout Umstellung auf bootstrap
 
-### Sprachen erfassen
-
-+ Language-Service bereitstellen
-+ Sprachenverwaltung 
-+ Language-Component
-+ Languages bei Phrasen anzeigen
-
-### Trainieren
+#### Trainieren
 
 + Trainingsseite
 + TrainingMixture Service und Component hinzufügen
 + Questions zu Mixture hinzufügen
 + Questions entfernen
 
-### Service
+#### Service
 
 + TextToSpeech
-- Wav als _attachment ans EspeakSample anhängen
 + IPA
+- Wav als _attachment ans EspeakSample anhängen
 - Bilderdatenbank
 
-### Statistiken
+#### Statistiken
 
-### Userverwaltung
+#### Userverwaltung
 
-### Offline-Modus
+#### Offline-Modus
 
-## Hilfreiche Dokumentation
+### Hilfreiche Dokumentation
 
 - [Vokabeltrainer-Couchapp](http://192.168.1.10:5984/vokabeltrainer/_design/couchapp/index.html)
-
 - [TypeScript - Enums](https://www.typescriptlang.org/docs/handbook/enums.html)
 - [List of Languages](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
 - [Angular - @Input / @Output](https://angular.io/docs/ts/latest/cookbook/component-communication.html#!#parent-listens-for-child-event)
 - [Inline Audio](https://stackoverflow.com/questions/17762763/play-wav-sound-file-encoded-in-base64-with-javascript)
 - [bootstrap](http://getbootstrap.com/examples/theme/)
 
-### Couchdb
+#### Couchdb
 
 - [Python Couchdb](https://pythonhosted.org/CouchDB/client.html#database)
 - [Python Couchdb start](https://pythonhosted.org/CouchDB/getting-started.html)
