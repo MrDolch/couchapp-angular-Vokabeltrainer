@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { CouchdbModule } from 'couchdb-connector/dist/index';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
+import { WorkbenchModule } from './workbench.module';
 import { EspeakSampleService } from './espeak-sample.service';
 import { LanguageComponent } from './language.component';
 import { LanguagesComponent } from './languages.component';
@@ -26,7 +26,7 @@ import { TranslationService } from './translation.service';
     imports: [
         BrowserModule,
         FormsModule,
-        AppRoutingModule,
+        WorkbenchModule,
         HttpModule,
         CouchdbModule],
     declarations: [

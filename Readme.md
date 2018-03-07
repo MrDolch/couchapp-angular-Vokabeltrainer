@@ -91,7 +91,7 @@ PhraseService .> Phrase: serves >
 caption Component vokabeltrainer
 
 VokabeltrainerComponent ..> LanguageService: use
-VokabeltrainerComponent ..> AppRoutingModule: use
+VokabeltrainerComponent ..> WorkbenchModule: use
 
 
 @enduml
