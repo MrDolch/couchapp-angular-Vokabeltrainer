@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LanguageService } from './language.service';
 
 @Component({
-  selector: 'vokabeltrainer',
+  selector: 'vokabeln',
   template: `
     <div class="container">
       <div class="row">
@@ -31,7 +31,7 @@ import { LanguageService } from './language.service';
   `,
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class VokabelnComponent implements OnInit {
 
   title = 'Vokabeltrainer';
 

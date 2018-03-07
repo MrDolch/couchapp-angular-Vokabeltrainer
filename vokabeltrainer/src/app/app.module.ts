@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { CouchdbModule } from 'couchdb-connector/dist/index';
 
-import { AppComponent } from './app.component';
+import { VokabelnComponent } from './vokabeln.component';
 import { WorkbenchModule } from './workbench.module';
 import { EspeakSampleService } from './espeak-sample.service';
 import { LanguageComponent } from './language.component';
@@ -30,14 +30,15 @@ import { TranslationService } from './translation.service';
         HttpModule,
         CouchdbModule],
     declarations: [
-        AppComponent,
         LanguageComponent,
         LanguagesComponent,
         PhraseComponent,
         PhrasesComponent,
         TrainingComponent,
         TrainingMixtureComponent,
-        TranslationAddComponent],
+        TranslationAddComponent,
+        VokabelnComponent,
+    ],
     providers: [
         EspeakSampleService,
         PhraseService,
@@ -45,6 +46,6 @@ import { TranslationService } from './translation.service';
         TrainingMixtureService,
         TranslationService],
     bootstrap: [
-        AppComponent],
+        VokabelnComponent],
 })
 export class AppModule { }
