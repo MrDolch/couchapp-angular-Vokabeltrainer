@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LanguageService } from './language.service';
+import { LanguageService } from './languages/language.service';
 
 @Component({
   selector: 'vokabeln',
@@ -9,11 +9,11 @@ import { LanguageService } from './language.service';
         <div class="col-xs-3">
           <h1> {{ title }} </h1>
         </div>
-        <vokabel-language
+        <language
           *ngFor="let language of languageService.languages"
           [selected]="language === languageService.selectedLanguage"
           (click)="languageService.setSelectedLanguage(language)"
-          [language]="language"></vokabel-language>
+          [language]="language"></language>
         <div class="col-xs-12">
           <nav style="text-align:right;">
             <a routerLink="/training" routerLinkActive="active">Training Set-ups</a>

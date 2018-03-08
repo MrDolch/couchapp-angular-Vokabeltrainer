@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Phrase, Translation, Language } from './entities';
 import { PhraseService } from './phrase.service';
-import { LanguageService } from './language.service';
+import { LanguageService } from './languages/language.service';
 import { TranslationService } from './translation.service';
 
 @Component({

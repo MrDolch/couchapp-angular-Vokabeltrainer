@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Language } from './entities';
+import { Language } from '../entities';
 
 @Component({
-  selector: 'vokabel-language',
+  selector: 'language',
   template: `
 <div class="col-xs-2" [class.selected]="selected">
   <span class="badge"><img [src]="'flags/' + language.code + '.svg'" width="15"></span>

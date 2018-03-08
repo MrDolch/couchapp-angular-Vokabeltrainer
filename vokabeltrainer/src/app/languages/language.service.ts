@@ -3,8 +3,8 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
-import { VokabeltrainerCouchdbService } from './vokabeltrainer-couchdb.service';
-import { Language } from './entities';
+import { VokabeltrainerCouchdbService } from '../vokabeltrainer-couchdb.service';
+import { Language } from '../entities';
 
 @Injectable()
 export class LanguageService extends VokabeltrainerCouchdbService<Language> {

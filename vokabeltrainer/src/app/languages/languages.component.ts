@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Language } from './entities';
+import { Language } from '../entities';
 import { LanguageService } from './language.service';
 
 @Component({
-  selector: 'vokabel-languages',
+  selector: 'languages',
   templateUrl: './languages.component.html',
   styleUrls: ['./languages.component.css']
 })

@@ -101,7 +101,7 @@ VokabeltrainerComponent ..> WorkbenchModule: use
 @startuml
 caption Module WorkbenchModule
 
-vokabeltrainer ..> "vokabel-language" : source \n Language
+vokabeltrainer ..> "language" : source \n Language
 vokabeltrainer ..> WorkbenchModule : contains
 WorkbenchModule ..> LanguagesComponent : routes
 WorkbenchModule ..> PhrasesComponent : routes
