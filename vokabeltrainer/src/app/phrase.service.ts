@@ -15,7 +15,7 @@ export class PhraseService extends VokabeltrainerCouchdbService<Phrase> {
     super(http, 'phrases');
   }
 
-  protected getViewUrl(keys: string[]) {
+  getViewUrl(keys: string[]) {
     console.log('PhraseService Keys: ' + JSON.stringify(keys));
     let url = `/${this.dbName}/_design/couchapp/_view/${this.viewName}`;
     if (keys.length === 1 && keys[0].trim()) {
