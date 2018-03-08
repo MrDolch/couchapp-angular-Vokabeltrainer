@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
-import { Phrase, Language } from './entities';
+import { Phrase, Language } from '../entities';
 import { PhraseService } from './phrase.service';
-import { EspeakSampleService } from './espeak-sample.service';
+import { EspeakSampleService } from '../espeak-sample.service';
 
 @Component({
   selector: 'vokabel-phrase',

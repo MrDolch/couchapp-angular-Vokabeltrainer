@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LanguagesComponent } from './languages/languages.component';
-import { PhrasesComponent } from './phrases.component';
+import { PhrasesComponent } from './phrases/phrases.component';
 import { TrainingComponent } from './training.component';
 
 const routes: Routes = [
