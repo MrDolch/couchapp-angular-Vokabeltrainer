@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LanguageService } from './languages/language.service';
+import { LanguageService } from '../languages/language.service';
 
 @Component({
   selector: 'vokabeln',
@@ -29,7 +29,7 @@ import { LanguageService } from './languages/language.service';
     <iframe style="height:5px;width:5px;position:absolute;right:0;bottom:0;"
      id="tts" name="tts" src="about:blank"></iframe>
   `,
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./vokabeln.component.css'],
 })
 export class VokabelnComponent implements OnInit {
 

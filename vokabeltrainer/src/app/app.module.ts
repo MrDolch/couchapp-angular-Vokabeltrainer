@@ -5,8 +5,8 @@ import { HttpModule } from '@angular/http';
 
 import { CouchdbModule } from 'couchdb-connector/dist/index';
 
-import { VokabelnComponent } from './vokabeln.component';
-import { WorkbenchModule } from './workbench.module';
+import { VokabelnComponent } from './vokabeln/vokabeln.component';
+import { WorkbenchModule } from './vokabeln/workbench.module';
 import { EspeakSampleService } from './espeak-sample.service';
 import { LanguageComponent } from './languages/language.component';
 import { LanguagesComponent } from './languages/languages.component';

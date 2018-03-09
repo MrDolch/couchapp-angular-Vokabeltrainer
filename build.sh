@@ -4,7 +4,7 @@
 ANGULARAPP_FOLDER=./vokabeltrainer
 COUCHAPP_FOLDER=./couchapp
 COUCHDB=http://127.0.0.1:5984/vokabeltrainer
-#COUCHDB=http://192.168.1.10:5984/vokabeltrainer
+COUCHDB=http://192.168.1.10:5984/vokabeltrainer
 
 (
   echo build app
