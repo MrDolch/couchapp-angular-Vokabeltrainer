@@ -14,9 +14,9 @@ import { LanguageService } from './languages/language.service';
 import { PhraseComponent } from './phrases/phrase.component';
 import { PhrasesComponent } from './phrases/phrases.component';
 import { PhraseService } from './phrases/phrase.service';
-import { TrainingComponent } from './training.component';
-import { TrainingMixtureComponent } from './training-mixture.component';
-import { TrainingMixtureService } from './training-mixture.service';
+import { TrainingComponent } from './training/training.component';
+import { TrainingMixtureComponent } from './training/training-mixture.component';
+import { TrainingMixtureService } from './training/training-mixture.service';
 import { TranslationAddComponent } from './translation-add.component';
 import { TranslationService } from './translation.service';
 

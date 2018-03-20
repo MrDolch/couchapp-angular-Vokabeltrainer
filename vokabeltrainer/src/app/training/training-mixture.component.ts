@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TrainingMixture } from './entities';
+import { TrainingMixture } from '../entities';
 
 @Component({
   selector: 'training-mixture',

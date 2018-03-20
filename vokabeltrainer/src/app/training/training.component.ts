@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Phrase, TrainingMixture, Question } from './entities';
-import { LanguageService } from './languages/language.service';
-import { PhraseService } from './phrases/phrase.service';
+import { Phrase, TrainingMixture, Question } from '../entities';
+import { LanguageService } from '../languages/language.service';
+import { PhraseService } from '../phrases/phrase.service';
 import { TrainingMixtureService } from './training-mixture.service';
 
 @Component({
