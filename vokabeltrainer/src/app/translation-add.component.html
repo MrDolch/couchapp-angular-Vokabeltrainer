@@ -5,7 +5,7 @@
     <input #searchBox id="search-box" 
       (keyup)="search(searchBox.value)" 
       (keyup.enter)="addNew(searchBox.value); searchBox.value=''"/>
-    <button class="btn btn-xs btn-default" 
+    <button class="btn btn-md btn-default" 
       (click)="addNew(searchBox.value); searchBox.value=''">Add</button>
     <div *ngFor="let phrase of phrases | async"
         (click)="add(phrase); searchBox.value=''" 

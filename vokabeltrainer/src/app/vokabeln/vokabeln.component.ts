@@ -6,22 +6,22 @@ import { LanguageService } from '../languages/language.service';
   template: `
     <div class="container">
       <div class="row">
-        <div class="col-xs-3">
+        <div class="col-md-3">
           <h1> {{ title }} </h1>
         </div>
-        <language
+        <language class="col-md-2"
           *ngFor="let language of languageService.languages"
           [selected]="language === languageService.selectedLanguage"
           (click)="languageService.setSelectedLanguage(language)"
           [language]="language"></language>
-        <div class="col-xs-12">
+        <div class="col-md-12">
           <nav style="text-align:right;">
             <a routerLink="/training" routerLinkActive="active">Training Set-ups</a>
             <a routerLink="/phrases" routerLinkActive="active">Phrases</a>
             <a routerLink="/languages" routerLinkActive="active">Languages</a>
           </nav>
         </div>
-        <div class="col-xs-12">
+        <div class="col-md-12">
           <router-outlet></router-outlet>
         </div>
       </div>

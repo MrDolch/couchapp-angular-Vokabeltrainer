@@ -4,10 +4,10 @@ import { TrainingMixture } from '../entities';
 @Component({
   selector: 'training-mixture',
   template: `
-    <div *ngIf="mixture" class="col-xs-{{colspan}}" [class.selected]="selected">
+    <div *ngIf="mixture" [class.selected]="selected">
       <span class="badge"><img [src]="'flags/' + mixture.languageCode + '.svg'"
         width="15"></span>
-      <button class="btn btn-xs btn-danger" style="float:right"
+      <button class="btn btn-md btn-danger" style="float:right"
         (click)="delete(); $event.stopPropagation()">x</button>
       {{mixture.name}}
     </div>
@@ -33,7 +33,6 @@ import { TrainingMixture } from '../entities';
   ` ]
 })
 export class TrainingMixtureComponent {
-  @Input() colspan: number = 6;
   @Input() mixture: TrainingMixture;
   @Output() onDelete = new EventEmitter();
 

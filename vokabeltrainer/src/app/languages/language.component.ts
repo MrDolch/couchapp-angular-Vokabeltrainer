@@ -4,7 +4,7 @@ import { Language } from '../entities';
 @Component({
   selector: 'language',
   template: `
-<div class="col-xs-2" [class.selected]="selected">
+<div [class.selected]="selected">
   <span class="badge"><img [src]="'flags/' + language.code + '.svg'" width="15"></span>
   {{language.code}}
 </div>

@@ -7,8 +7,8 @@ import { EspeakSampleService } from '../espeak-sample.service';
 @Component({
   selector: 'vokabel-phrase',
   template: `
-    <div *ngIf="phrase" class="col-xs-{{colspan}}" [class.selected]="selected">
-      <button class="btn btn-xs btn-danger" style="float:right"
+    <div *ngIf="phrase" [class.selected]="selected">
+      <button class="btn btn-md btn-danger" style="float:right"
         (click)="delete(); $event.stopPropagation()">x</button>
       <span class="badge"><img [src]="'flags/' + phrase.language + '.svg'"
         width="15"></span>
@@ -50,7 +50,6 @@ import { EspeakSampleService } from '../espeak-sample.service';
 })
 export class PhraseComponent implements OnInit {
 
-  @Input() colspan: number = 6;
   @Input() selected: boolean;
   @Input() phrase: Phrase;
   @Input() phraseId: string;

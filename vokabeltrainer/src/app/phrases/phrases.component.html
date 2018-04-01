@@ -17,11 +17,12 @@
 				  [secondLanguage]="selectedSecondLanguage"
 				  (click)="onSelectPhrase(phrase)"
 				  (onDelete)="delete(phrase)"
+					class="col-md-6"
 				></vokabel-phrase>
 				<div class="col-xs-12"><hr></div>
 				<div class="col-xs-12">
 				  <input #phraseText />
-				  <button class="btn btn-xs btn-default" 
+				  <button class="btn btn-md btn-default" 
 						  (click)="addPhrase(phraseText.value);
 								   phraseText.value=''">Add Phrase</button>
 				</div>
@@ -32,12 +33,12 @@
 				<div class="col-xs-12">Translations:</div>
 				<vokabel-phrase *ngIf="selectedPhrase"
 				  [phrase]="selectedPhrase" [selected]="true"
-				  [colspan]="12"
+					class="col-md-12"
 				></vokabel-phrase>
 				<div class="col-xs-12"><hr></div>
 				<vokabel-phrase *ngFor="let phrase of translatedPhrases"
 				  [phrase]="phrase"
-				  [colspan]="12"
+					class="col-md-12"
 				  (onDelete)="delete(phrase)"
 				></vokabel-phrase>
 				<div class="col-xs-12"><hr></div>

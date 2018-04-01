@@ -1,39 +1,39 @@
 <div class="container">
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-md-4">
 			<div class="row" *ngIf="languageService.selectedLanguage">
-				<div class="col-xs-12">Training Set-up</div>
+				<div class="col-md-12">Training Set-up</div>
 				<training-mixture *ngFor="let mixture of mixtures"
 				  [mixture]="mixture"
-				  [colspan]=12
+					class="col-md-12"
 				  [class.selected]="mixture === selectedMixture"
 				  (click)="onSelectMixture(mixture)"
 				  (onDelete)="delete(mixture)"
 				></training-mixture>
-				<div class="col-xs-12"><hr> Add Mixture</div>
-				<div class="col-xs-12">
+				<div class="col-md-12"><hr> Add Mixture</div>
+				<div class="col-md-12">
 					<input #mixtureName />
-					<button class="btn btn-xs btn-default"
+					<button class="btn btn-md btn-default"
 						(click)="addTrainingMixture(mixtureName.value);
 								 mixtureName.value=''">Add</button>
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-8">
+		<div class="col-md-8">
 			<div class="row" *ngIf="selectedMixture">
-				<div class="col-xs-12">Selected Mixture</div>
+				<div class="col-md-12">Selected Mixture</div>
 				<training-mixture
 					[mixture]="selectedMixture"
-					[colspan]=12
+					class="col-md-12"
 					(onDelete)="delete(mixture)"
 				></training-mixture>
-				<div class="col-xs-12"><hr>Questions</div>
+				<div class="col-md-12"><hr>Questions</div>
 				<vokabel-phrase *ngFor="let q of selectedMixture.questions"
 					[phraseId]="q.phraseId"
-					[colspan]=12
+					class="col-md-12"
 					(onDelete)="deleteQuestion(q.phraseId)"></vokabel-phrase>
-				<div class="col-xs-12"><hr></div>
-				<div class="col-xs-12">
+				<div class="col-md-12"><hr></div>
+				<div class="col-md-12">
 				  <translation-add
 					[languageCode]="languageService.selectedLanguage.code"
 					(onAdd)="addQuestion($event)"
