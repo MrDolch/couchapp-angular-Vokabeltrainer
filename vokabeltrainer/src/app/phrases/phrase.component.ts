@@ -5,7 +5,7 @@ import { PhraseService } from './phrase.service';
 import { EspeakSampleService } from '../espeak-sample.service';
 
 @Component({
-  selector: 'vokabel-phrase',
+  selector: 'phrase',
   template: `
     <div *ngIf="phrase" [class.selected]="selected">
       <button class="btn btn-md btn-danger" style="float:right"

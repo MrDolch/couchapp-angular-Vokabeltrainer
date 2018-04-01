@@ -17,8 +17,8 @@ import { PhraseService } from './phrases/phrase.service';
 import { TrainingComponent } from './training/training.component';
 import { TrainingMixtureComponent } from './training/training-mixture.component';
 import { TrainingMixtureService } from './training/training-mixture.service';
-import { TranslationAddComponent } from './translation-add.component';
-import { TranslationService } from './translation.service';
+import { TranslationAddComponent } from './translations/translation-add.component';
+import { TranslationService } from './translations/translation.service';
 
 // import { enableProdMode } from '@angular/core'; enableProdMode();
 

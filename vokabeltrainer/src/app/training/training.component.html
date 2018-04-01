@@ -28,10 +28,10 @@
 					(onDelete)="delete(mixture)"
 				></training-mixture>
 				<div class="col-md-12"><hr>Questions</div>
-				<vokabel-phrase *ngFor="let q of selectedMixture.questions"
+				<phrase *ngFor="let q of selectedMixture.questions"
 					[phraseId]="q.phraseId"
 					class="col-md-12"
-					(onDelete)="deleteQuestion(q.phraseId)"></vokabel-phrase>
+					(onDelete)="deleteQuestion(q.phraseId)"></phrase>
 				<div class="col-md-12"><hr></div>
 				<div class="col-md-12">
 				  <translation-add

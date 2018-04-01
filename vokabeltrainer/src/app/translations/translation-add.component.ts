@@ -12,8 +12,8 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 
-import { Phrase } from './entities';
-import { PhraseService } from './phrases/phrase.service';
+import { Phrase } from '../entities';
+import { PhraseService } from '../phrases/phrase.service';
 
 @Component({
   selector: 'translation-add',

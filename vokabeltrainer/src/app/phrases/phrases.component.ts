@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { Phrase, Translation, Language } from '../entities';
 import { PhraseService } from './phrase.service';
 import { LanguageService } from '../languages/language.service';
-import { TranslationService } from '../translation.service';
+import { TranslationService } from '../translations/translation.service';
 
 @Component({
-  selector: 'vokabel-phrases',
+  selector: 'phrases',
   templateUrl: './phrases.component.html',
   styles: [`
     img {
