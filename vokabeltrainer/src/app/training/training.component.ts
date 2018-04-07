@@ -7,7 +7,7 @@ import { PhraseService } from '../phrases/phrase.service';
 import { TrainingMixtureService } from './training-mixture.service';
 
 @Component({
-  selector: 'vokabel-training',
+  selector: 'training',
   templateUrl: './training.component.html',
   styleUrls: ['./training.component.css']
 })

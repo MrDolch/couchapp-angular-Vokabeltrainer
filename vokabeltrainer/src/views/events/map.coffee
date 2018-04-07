@@ -12,31 +12,29 @@ emitLanguage = (timestamp, language, changes) ->
     emit ['Language', language], builddoc( timestamp, language: language, deleted: false, changes)
 
 emitPhrase = (timestamp, language, phrase, changes) ->
+    emitLanguage timestamp, language
     emit ['Phrase', language, phrase], builddoc( timestamp, language: language, phrase: phrase, deleted: false, changes)
 
-emitTrainingSet = (timestamp, trainingSet, changes) ->
-    emit ['TrainingSet', trainingSet], builddoc( timestamp, trainingSet: trainingSet, deleted: false, changes)
+emitTrainingSet = (timestamp, language, trainingSet, changes) ->
+    emit ['TrainingSet', language, trainingSet], builddoc( timestamp, language: language, trainingSet: trainingSet, deleted: false, changes)
 
 
 (doc) ->
-    if (true or doc.class == 'Event')
+    if true or doc.class == 'Event'
 
-        if (doc.type == 'addLanguage')
-            emitLanguage(doc.timestamp, doc.language)
+        if doc.type == 'addLanguage'
+            emitLanguage doc.timestamp, doc.language
 
-        if (doc.type == 'setLanguageEspeakVoice')
-            emitLanguage(doc.timestamp, doc.language, espeakVoice: doc.espeakVoice)
+        if doc.type == 'setLanguageEspeakVoice'
+            emitLanguage doc.timestamp, doc.language, espeakVoice: doc.espeakVoice
 
-        if (doc.type == 'deleteLanguage')
-            emitLanguage(doc.timestamp, doc.language, deleted: true)
+        if doc.type == 'deleteLanguage'
+            emitLanguage doc.timestamp, doc.language, deleted: true
 
-        if (doc.type == 'addTranslation')
-            emitLanguage(doc.timestamp, doc.language1)
-            emitLanguage(doc.timestamp, doc.language2)
-            emitPhrase(doc.timestamp, doc.language1, doc.phrase1, translation: "#{doc.language2}": doc.phrase2)
-            emitPhrase(doc.timestamp, doc.language2, doc.phrase2, translation: "#{doc.language1}": doc.phrase1)
+        if doc.type == 'addTranslation'
+            emitPhrase doc.timestamp, doc.language1, doc.phrase1, translations: "#{doc.language2}": doc.phrase2
+            emitPhrase doc.timestamp, doc.language2, doc.phrase2, translations: "#{doc.language1}": doc.phrase1
 
-        if (doc.type == 'addPhraseToTrainingSet')
-            emitLanguage(doc.timestamp, doc.language)
-            emitPhrase(doc.timestamp, doc.language, doc.phrase, trainingSet: "#{doc.trainingSet}": doc.language)
-            emitTrainingSet(doc.timestamp, doc.trainingSet)
+        if doc.type == 'addPhraseToTrainingSet'
+            emitPhrase doc.timestamp, doc.language, doc.phrase, trainingSet: "#{doc.trainingSet}": true
+            emitTrainingSet doc.timestamp, doc.language, doc.trainingSet, phrases: "#{doc.phrase}": true
