@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Language } from '../entities';
+import { Language } from '../model/entities';
 
 @Component({
   selector: 'language',

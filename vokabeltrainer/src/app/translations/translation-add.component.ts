@@ -12,7 +12,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 
-import { Phrase } from '../entities';
+import { Phrase } from '../model/entities';
 import { PhraseService } from '../phrases/phrase.service';
 
 @Component({

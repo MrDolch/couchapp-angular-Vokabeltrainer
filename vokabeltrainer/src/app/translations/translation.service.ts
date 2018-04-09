@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { VokabeltrainerCouchdbService } from '../vokabeltrainer-couchdb.service';
-import { Translation } from '../entities';
+import { Translation } from '../model/entities';
 
 @Injectable()
 export class TranslationService extends VokabeltrainerCouchdbService<Translation> {

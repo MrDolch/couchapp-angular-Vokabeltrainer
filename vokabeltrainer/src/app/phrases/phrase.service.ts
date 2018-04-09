@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 
 import { CouchdbViewEntryComponent } from 'couchdb-connector/dist/index';
 import { VokabeltrainerCouchdbService } from '../vokabeltrainer-couchdb.service';
-import { Phrase } from '../entities';
+import { Phrase } from '../model/entities';
 
 @Injectable()
 export class PhraseService extends VokabeltrainerCouchdbService<Phrase> {

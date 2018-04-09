@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
-import { Phrase, Language } from '../entities';
+import { Phrase, Language } from '../model/entities';
 import { PhraseService } from './phrase.service';
 import { EspeakSampleService } from '../espeak-sample.service';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Phrase, Translation, Language } from '../entities';
+import { Phrase, Translation, Language } from '../model/entities';
 import { PhraseService } from './phrase.service';
 import { LanguageService } from '../languages/language.service';
 import { TranslationService } from '../translations/translation.service';

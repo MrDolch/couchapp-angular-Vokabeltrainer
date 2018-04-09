@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
 import { VokabeltrainerCouchdbService } from '../vokabeltrainer-couchdb.service';
-import { Language } from '../entities';
+import { Language } from '../model/entities';
 
 @Injectable()
 export class LanguageService extends VokabeltrainerCouchdbService<Language> {

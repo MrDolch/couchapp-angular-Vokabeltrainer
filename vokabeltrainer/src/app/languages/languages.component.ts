@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Language } from '../entities';
+import { Language } from '../model/entities';
 import { LanguageService } from './language.service';
 
 @Component({
