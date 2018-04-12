@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { VokabeltrainerCouchdbService } from '../vokabeltrainer-couchdb.service';
+import { VokabeltrainerCouchdbService } from '../model/vokabeltrainer-couchdb.service';
 import { TrainingMixture } from '../model/entities';
 
 @Injectable()

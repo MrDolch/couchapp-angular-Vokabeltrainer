@@ -3,11 +3,11 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
-import { VokabeltrainerCouchdbService } from '../vokabeltrainer-couchdb.service';
+import { VokabeltrainerCouchdbEventsourceService } from '../model/vokabeltrainer-couchdb.service';
 import { Language } from '../model/entities';
 
 @Injectable()
-export class LanguageService extends VokabeltrainerCouchdbService<Language> {
+export class LanguageService extends VokabeltrainerCouchdbEventsourceService<Language> {
 
   public selectedLanguage: Language;
   public languages: Language[];
@@ -19,33 +19,21 @@ export class LanguageService extends VokabeltrainerCouchdbService<Language> {
   public languagesObserver: Observer<Language[]>;
 
   constructor(http: Http) {
-    super(http, 'languages');
+    super(http, 'Language');
     this.selectedLanguageUpdate = Observable.create((x: Observer<Language>) => this.selectedLanguageObserver = x);
     this.languagesUpdate = Observable.create((x: Observer<Language[]>) => this.languagesObserver = x);
   }
 
-  loadLanguages(): void {
-    this.getAllFor().then(ls => {
-      this.languages = ls;
-      if (this.languagesObserver) {
-        this.languagesObserver.next(this.languages);
-      }
-    });
+  loadLanguages(): Promise<Language[]> {
+    return this.getAll().then(ls => this.languages = ls);
   }
 
-  setSelectedLanguage(language: Language) {
-    this.selectedLanguage = language;
-    if (this.selectedLanguageObserver) {
-      this.selectedLanguageObserver.next(language);
+  setSelectedLanguage(code: string) {
+    this.selectedLanguage = null;
+    for (const language of this.languages) {
+      if (language.code === code) {
+        this.selectedLanguage = language;
+      }
     }
   }
-
-  deleteLanguage(language: Language): void {
-    this.delete(language._id, language._rev)
-      .then(() => {
-        this.loadLanguages();
-        this.setSelectedLanguage(null);
-      });
-  }
-
 }

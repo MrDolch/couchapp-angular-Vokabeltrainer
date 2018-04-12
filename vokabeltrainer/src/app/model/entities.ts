@@ -5,7 +5,11 @@ export type Genus = null | 'm' | 'w' | 'n';
 export type Person = 1 | 2 | 3;
 // export type Modus = "Indikativ" | "Konjunktiv" | "Imperativ";
 
-export class Language extends CouchdbDocComponent {
+export class DeletableCouchdbDoc extends CouchdbDocComponent {
+  deleted: boolean;
+}
+
+export class Language extends DeletableCouchdbDoc {
   code: string;
 
   constructor(code: string) {

@@ -4,18 +4,18 @@
 		<div class="col-xs-4">Selected:</div>
 		<div class="col-xs-1">{{languageService.selectedLanguage.code}}</div>
 		<div class="col-xs-6" style="position:relative;">
-			<img [src]="'flags/' + languageService.selectedLanguage.code + '.svg'" width="100%">
+			<img [src]="'node_modules/flag-icon-css/flags/1x1/' + languageService.selectedLanguage.code + '.svg'" width="100%">
 		</div>
 		<div class="col-xs-1">
-			<button class="btn btn-md btn-danger"
-				(click)="languageService.deleteLanguage(languageService.selectedLanguage);
+			<button id="deleteSelectedLanguageButton" class="btn btn-md btn-danger"
+				(click)="deleteLanguage(languageService.selectedLanguage.code);
 				         $event.stopPropagation()">x</button></div>
 	</div>
 	<div class="row">
 		<hr>
 		<div class="col-xs-12">
 			<input #languageCode maxlength="2" size="2"/>
-			<button class="btn btn-md"
+			<button id="addLanguageButton" class="btn btn-md"
 				(click)="addLanguage(languageCode.value);
 				         languageCode.value=''">Add Language</button>
 		</div>

@@ -5,8 +5,9 @@ import { Language } from '../model/entities';
   selector: 'language',
   template: `
 <div [class.selected]="selected">
-  <span class="badge"><img [src]="'flags/' + language.code + '.svg'" width="15"></span>
+  <span class="badge"><img [src]="'node_modules/flag-icon-css/flags/1x1/' + language.code + '.svg'" width="15"></span>
   {{language.code}}
+  <span *ngIf="language.deleted">x</span>
 </div>
   `,
   styles: [`

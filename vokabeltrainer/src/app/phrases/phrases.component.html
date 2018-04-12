@@ -4,7 +4,7 @@
 			<img *ngFor="let language of languageService.languages"
 			  [class.selected]="selectedSecondLanguage && language.code == selectedSecondLanguage.code"
 			  (click)="onSelectSecondLanguage(language)"
-			  [src]="'flags/' + language.code + '.svg'"
+			  [src]="'node_modules/flag-icon-css/flags/1x1/' + language.code + '.svg'"
 			  [alt]="language.code"
 			  width="25">
 		</div>

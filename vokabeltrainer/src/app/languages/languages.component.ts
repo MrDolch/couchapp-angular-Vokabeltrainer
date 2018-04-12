@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Language } from '../model/entities';
 import { LanguageService } from './language.service';
+import { EventService } from '../events/event.service';
 
 @Component({
   selector: 'languages',
@@ -11,18 +12,22 @@ import { LanguageService } from './language.service';
 export class LanguagesComponent {
 
   constructor(
-    private router: Router,
     private languageService: LanguageService,
+    private eventService: EventService,
   ) { }
 
   addLanguage(code: string): void {
     code = code.trim();
     if (!code) { return; }
-    this.languageService.create(new Language(code))
-      .then(l => {
-        this.languageService.loadLanguages();
-        this.languageService.setSelectedLanguage(l);
-      });
+    this.eventService.addLanguage(code)
+      .then(() => this.languageService.loadLanguages())
+      .then(() => this.languageService.setSelectedLanguage(code));
+  }
+
+  deleteLanguage(code: string): void {
+    this.eventService.deleteLanguage(code)
+      .then(() => this.languageService.loadLanguages())
+      .then(() => this.languageService.setSelectedLanguage(null));
   }
 }
 

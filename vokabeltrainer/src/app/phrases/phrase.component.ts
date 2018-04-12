@@ -10,7 +10,7 @@ import { EspeakSampleService } from '../espeak-sample.service';
     <div *ngIf="phrase" [class.selected]="selected">
       <button class="btn btn-md btn-danger" style="float:right"
         (click)="delete(); $event.stopPropagation()">x</button>
-      <span class="badge"><img [src]="'flags/' + phrase.language + '.svg'"
+      <span class="badge"><img [src]="'node_modules/flag-icon-css/flags/1x1/' + phrase.language + '.svg'"
         width="15"></span>
       <span class="badge glyphicon glyphicon-play"
         (click)="playVideo()">

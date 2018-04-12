@@ -5,7 +5,7 @@ import { TrainingMixture } from '../model/entities';
   selector: 'training-mixture',
   template: `
     <div *ngIf="mixture" [class.selected]="selected">
-      <span class="badge"><img [src]="'flags/' + mixture.languageCode + '.svg'"
+      <span class="badge"><img [src]="'node_modules/flag-icon-css/flags/1x1/' + mixture.languageCode + '.svg'"
         width="15"></span>
       <button class="btn btn-md btn-danger" style="float:right"
         (click)="delete(); $event.stopPropagation()">x</button>

@@ -6,13 +6,13 @@ import { LanguageService } from '../languages/language.service';
   template: `
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <h1> {{ title }} </h1>
         </div>
         <language class="col-md-2"
-          *ngFor="let language of languageService.languages"
-          [selected]="language === languageService.selectedLanguage"
-          (click)="languageService.setSelectedLanguage(language)"
+          *ngFor="let language of (languageService.languages | notDeleted)"
+          [selected]="language.code === languageService.selectedLanguage?.code"
+          (click)="languageService.setSelectedLanguage(language.code)"
           [language]="language"></language>
         <div class="col-md-12">
           <nav style="text-align:right;">

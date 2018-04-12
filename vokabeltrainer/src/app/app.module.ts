@@ -5,9 +5,8 @@ import { HttpModule } from '@angular/http';
 
 import { CouchdbModule } from 'couchdb-connector/dist/index';
 
-import { VokabelnComponent } from './vokabeln/vokabeln.component';
-import { WorkbenchModule } from './vokabeln/workbench.module';
 import { EspeakSampleService } from './espeak-sample.service';
+import { EventService } from './events/event.service';
 import { LanguageComponent } from './languages/language.component';
 import { LanguagesComponent } from './languages/languages.component';
 import { LanguageService } from './languages/language.service';
@@ -19,19 +18,24 @@ import { TrainingMixtureComponent } from './training/training-mixture.component'
 import { TrainingMixtureService } from './training/training-mixture.service';
 import { TranslationAddComponent } from './translations/translation-add.component';
 import { TranslationService } from './translations/translation.service';
+import { VokabelnComponent } from './vokabeln/vokabeln.component';
+import { WorkbenchModule } from './vokabeln/workbench.module';
+import { NotDeletedPipe } from './model/not-deleted.pipe';
 
 // import { enableProdMode } from '@angular/core'; enableProdMode();
 
 @NgModule({
     imports: [
         BrowserModule,
+        CouchdbModule,
         FormsModule,
-        WorkbenchModule,
         HttpModule,
-        CouchdbModule],
+        WorkbenchModule,
+    ],
     declarations: [
         LanguageComponent,
         LanguagesComponent,
+        NotDeletedPipe,
         PhraseComponent,
         PhrasesComponent,
         TrainingComponent,
@@ -41,11 +45,14 @@ import { TranslationService } from './translations/translation.service';
     ],
     providers: [
         EspeakSampleService,
+        EventService,
         PhraseService,
         LanguageService,
         TrainingMixtureService,
-        TranslationService],
+        TranslationService,
+    ],
     bootstrap: [
-        VokabelnComponent],
+        VokabelnComponent,
+    ],
 })
 export class AppModule { }

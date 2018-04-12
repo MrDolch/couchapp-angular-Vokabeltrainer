@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { CouchdbViewEntryComponent } from 'couchdb-connector/dist/index';
-import { VokabeltrainerCouchdbService } from '../vokabeltrainer-couchdb.service';
+import { VokabeltrainerCouchdbService } from '../model/vokabeltrainer-couchdb.service';
 import { Phrase } from '../model/entities';
 
 @Injectable()
