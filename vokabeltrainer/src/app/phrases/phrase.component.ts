@@ -8,7 +8,7 @@ import { EspeakSampleService } from '../espeak-sample.service';
   selector: 'phrase',
   template: `
     <div *ngIf="phrase" [class.selected]="selected">
-      <button class="btn btn-md btn-danger" style="float:right"
+      <button *ngIf="onDelete" class="btn btn-md btn-danger" style="float:right"
         (click)="delete(); $event.stopPropagation()">x</button>
       <span class="badge"><img [src]="'node_modules/flag-icon-css/flags/1x1/' + phrase.language + '.svg'"
         width="15"></span>
@@ -54,7 +54,7 @@ export class PhraseComponent implements OnInit {
   @Input() phrase: Phrase;
   @Input() phraseId: string;
   @Input() secondLanguage: Language;
-  @Output() onDelete = new EventEmitter();
+  @Output() onDelete = new EventEmitter<Phrase>();
 
   constructor(
     private espeakSampleService: EspeakSampleService,
@@ -66,7 +66,7 @@ export class PhraseComponent implements OnInit {
     }
   }
 
-  delete(): void { this.onDelete.emit(); }
+  delete(): void { this.onDelete.emit(this.phrase); }
 
   playVideo(): void {
     let video: any = document.getElementById('sample-' + this.phrase._id);

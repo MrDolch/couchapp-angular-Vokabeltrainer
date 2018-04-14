@@ -5,32 +5,34 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { CouchdbViewEntryComponent } from 'couchdb-connector/dist/index';
-import { VokabeltrainerCouchdbService } from '../model/vokabeltrainer-couchdb.service';
+import { VokabeltrainerCouchdbService, VokabeltrainerCouchdbEventsourceService } from '../model/vokabeltrainer-couchdb.service';
 import { Phrase } from '../model/entities';
 
 @Injectable()
-export class PhraseService extends VokabeltrainerCouchdbService<Phrase> {
+export class PhraseService extends VokabeltrainerCouchdbEventsourceService<Phrase> {
+  public selectedPhrase: Phrase;
+  public phrases: Phrase[];
 
   constructor(protected http: Http) {
-    super(http, 'phrases');
+    super(http, 'Phrase');
   }
 
-  getViewUrl(keys: string[]) {
-    console.log('PhraseService Keys: ' + JSON.stringify(keys));
-    let url = `/${this.dbName}/_design/couchapp/_view/${this.viewName}`;
-    if (keys.length === 1 && keys[0].trim()) {
-      url += `?group=true&startkey=["${keys[0]}"]&endkey=["${keys[0]}",{}]`;
-    } else if (keys.length > 1) {
-      url += `?key="${JSON.stringify(keys)}"`;
-    } console.log(url);
-    return url;
+  loadPhrases(language: string): Promise<Phrase[]> {
+    return this.getAllByLanguage(language).then(ps => this.phrases = ps);
   }
 
-  searchByLanguage(language: string, term: string): Observable<Phrase[]> {
+  setSelectedPhrase(text: string) {
+    this.selectedPhrase = null;
+    for (const phrase of this.phrases) {
+      if (phrase.text === text) {
+        this.selectedPhrase = phrase;
+      }
+    }
+  }
+
+  searchByLanguage(language: string, term: string): Promise<Phrase[]> {
     let termLowerCase = term.toLowerCase();
-    return this.http.get(this.getViewUrl([language]))
-      .map(res => (res.json().rows as CouchdbViewEntryComponent[])
-        .map(r => r.value as Phrase)
-        .filter(t => t && t.text && t.text.toLowerCase().indexOf(termLowerCase) !== -1));
+    return this.getAllByLanguage(language)
+      .then(ps => ps.filter(t => t && t.text && t.text.toLowerCase().indexOf(termLowerCase) !== -1));
   }
 }

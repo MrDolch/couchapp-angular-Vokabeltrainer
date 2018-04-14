@@ -46,7 +46,7 @@ export class TransientPhraseData {
   languageCodes: string[];
 }
 
-export class Phrase extends CouchdbDocComponent {
+export class Phrase extends DeletableCouchdbDoc {
   text: string;
   language: string;
   type: PhraseType;

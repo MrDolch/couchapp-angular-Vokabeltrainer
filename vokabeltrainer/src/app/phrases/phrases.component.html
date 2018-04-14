@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-12">Second Language:
-			<img *ngFor="let language of languageService.languages"
+			<img *ngFor="let language of (languageService.languages | notDeleted)"
 			  [class.selected]="selectedSecondLanguage && language.code == selectedSecondLanguage.code"
 			  (click)="onSelectSecondLanguage(language)"
 			  [src]="'node_modules/flag-icon-css/flags/1x1/' + language.code + '.svg'"
@@ -11,20 +11,20 @@
 		<hr>
 		<div class="col-xs-12 col-sm-7">
 			<div class="row" *ngIf="languageService.selectedLanguage">
-				<phrase *ngFor="let phrase of phrases"
+				<phrase class="col-md-6" *ngFor="let phrase of (phraseService.phrases | notDeleted)"
 				  [phrase]="phrase"
-				  [selected]="phrase === selectedPhrase"
+				  [selected]="phrase === phraseService.selectedPhrase"
 				  [secondLanguage]="selectedSecondLanguage"
 				  (click)="onSelectPhrase(phrase)"
-				  (onDelete)="delete(phrase)"
-					class="col-md-6"
+				  (onDelete)="delete($event)"
 				></phrase>
 				<div class="col-xs-12"><hr></div>
 				<div class="col-xs-12">
-				  <input #phraseText />
-				  <button class="btn btn-md btn-default" 
-						  (click)="addPhrase(phraseText.value);
-								   phraseText.value=''">Add Phrase</button>
+				  <input #phraseText id="phraseTextInput"/>
+					<button id="addPhraseButton"
+					    class="btn btn-md btn-default" 
+							(click)="addPhrase(phraseText.value); phraseText.value=''"
+							>Add Phrase</button>
 				</div>
 			</div>
 		</div>
@@ -32,7 +32,8 @@
 			<div class="row" *ngIf="selectedSecondLanguage">
 				<div class="col-xs-12">Translations:</div>
 				<phrase *ngIf="selectedPhrase"
-				  [phrase]="selectedPhrase" [selected]="true"
+					[phrase]="selectedPhrase"
+					[selected]="true"
 					class="col-md-12"
 				></phrase>
 				<div class="col-xs-12"><hr></div>

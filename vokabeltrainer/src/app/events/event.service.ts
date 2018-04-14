@@ -13,13 +13,19 @@ export class EventService extends VokabeltrainerCouchdbService<Event> {
     super(http, 'events');
   }
   public addLanguage(code: string): Promise<Event> {
-    return this.create(new Event(this.getTimestamp(), Operation.addLanguage, { code: code }));
+    return this.create(new Event(this.getTimestamp(), Operation.addLanguage, { code }));
   }
   public deleteLanguage(code: string): Promise<Event> {
-    return this.create(new Event(this.getTimestamp(), Operation.deleteLanguage, { code: code }));
+    return this.create(new Event(this.getTimestamp(), Operation.deleteLanguage, { code }));
   }
   public setLanguageEspeakVoice(code: string, espeakVoice: string): Promise<Event> {
-    return this.create(new Event(this.getTimestamp(), Operation.setLanguageEspeakVoice, { code: code, espeakVoice: espeakVoice }));
+    return this.create(new Event(this.getTimestamp(), Operation.setLanguageEspeakVoice, { code, espeakVoice }));
+  }
+  public addPhrase(language: string, text: string): Promise<Event> {
+    return this.create(new Event(this.getTimestamp(), Operation.addPhrase, { language, text }));
+  }
+  public deletePhrase(language: string, text: string): Promise<Event> {
+    return this.create(new Event(this.getTimestamp(), Operation.deletePhrase, { language, text }));
   }
 }
 
@@ -29,7 +35,9 @@ export enum Operation {
   // action source intend act activity plot
   addLanguage = 'addLanguage',
   deleteLanguage = 'deleteLanguage',
-  setLanguageEspeakVoice = 'setLanguageEspeakVoice'
+  setLanguageEspeakVoice = 'setLanguageEspeakVoice',
+  addPhrase = 'addPhrase',
+  deletePhrase = 'deletePhrase',
 };
 
 export class Event extends CouchdbDocComponent {

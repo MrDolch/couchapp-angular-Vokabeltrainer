@@ -33,6 +33,9 @@ export class LanguageService extends VokabeltrainerCouchdbEventsourceService<Lan
     for (const language of this.languages) {
       if (language.code === code) {
         this.selectedLanguage = language;
+        if (this.selectedLanguageObserver) {
+          this.selectedLanguageObserver.next(this.selectedLanguage);
+        }
       }
     }
   }

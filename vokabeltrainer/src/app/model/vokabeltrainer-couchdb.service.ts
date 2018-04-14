@@ -21,12 +21,21 @@ export abstract class VokabeltrainerCouchdbEventsourceService<T extends CouchdbD
 
   getAll(): Promise<T[]> {
     return this.http
-      .get(`/${this.dbName}/_design/eventsource/_view/objects`
-        + `?group=true&startkey=[%22${this.viewName}%22,%22%22]&endkey=[%22${this.viewName}%22,{}]`)
+      .get(`/${this.dbName}/_design/eventsource/_view/objects?group=true`
+        + `&startkey=[%22${this.viewName}%22,%22%22]`
+        + `&endkey=[%22${this.viewName}%22,{}]`)
+      .toPromise()
+      .then((res: Response) => (res.json().rows as CouchdbViewEntryComponent[]).map(r => r.value) as T[])
+      .catch(this.handleError);
+  }
+
+  getAllByLanguage(secondkey: string): Promise<T[]> {
+    return this.http
+      .get(`/${this.dbName}/_design/eventsource/_view/objects?group=true`
+        + `&startkey=[%22${this.viewName}%22,%22${secondkey}%22,%22%22]`
+        + `&endkey=[%22${this.viewName}%22,%22${secondkey}%22,{}]`)
       .toPromise()
       .then((res: Response) => (res.json().rows as CouchdbViewEntryComponent[]).map(r => r.value) as T[])
       .catch(this.handleError);
   }
 }
-
-

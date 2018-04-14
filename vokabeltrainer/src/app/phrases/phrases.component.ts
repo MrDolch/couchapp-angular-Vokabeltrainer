@@ -4,6 +4,7 @@ import { Phrase, Translation, Language } from '../model/entities';
 import { PhraseService } from './phrase.service';
 import { LanguageService } from '../languages/language.service';
 import { TranslationService } from '../translations/translation.service';
+import { EventService } from '../events/event.service';
 
 @Component({
   selector: 'phrases',
@@ -25,18 +26,22 @@ export class PhrasesComponent implements OnInit {
   selectedSecondLanguage: Language;
 
   constructor(
-    private router: Router,
+    private eventService: EventService,
     private phraseService: PhraseService,
     private languageService: LanguageService,
     private translationService: TranslationService
   ) { }
 
-
-
   ngOnInit(): void {
-    this.languageService.selectedLanguageUpdate.subscribe(() => this.getPhrases());
+    if (this.languageService.selectedLanguageUpdate) {
+      this.languageService.selectedLanguageUpdate.subscribe(() => {
+        if (this.languageService.selectedLanguage) {
+          this.phraseService.loadPhrases(this.languageService.selectedLanguage.code);
+        }
+      })
+    }
     if (this.languageService.selectedLanguage) {
-      this.getPhrases();
+      this.phraseService.loadPhrases(this.languageService.selectedLanguage.code);
     }
   }
 
@@ -48,16 +53,6 @@ export class PhrasesComponent implements OnInit {
   onSelectSecondLanguage(language: Language): void {
     this.selectedSecondLanguage = language;
     this.getTranslations();
-  }
-
-  getPhrases(): void {
-    if (this.languageService.selectedLanguage) {
-      this.phraseService
-        .getAllFor(this.languageService.selectedLanguage.code)
-        .then(x => this.phrases = x);
-    } else {
-      this.phrases = [];
-    }
   }
 
   getTranslations(): void {
@@ -86,18 +81,14 @@ export class PhrasesComponent implements OnInit {
   addPhrase(text: string): void {
     text = text.trim();
     if (!text) { return; }
-    this.phraseService.create(new Phrase(text, this.languageService.selectedLanguage))
-      .then(phrase => {
-        this.phrases.push(phrase);
-        this.selectedPhrase = null;
-      });
+    this.eventService.addPhrase(this.languageService.selectedLanguage.code, text)
+      .then(() => this.phraseService.loadPhrases(this.languageService.selectedLanguage.code))
+      .then(() => this.phraseService.setSelectedPhrase(text));
   }
 
   addNewTranslation(text: string): void {
     this.phraseService.create(new Phrase(text, this.selectedSecondLanguage))
-      .then(phrase => {
-        this.addTranslation(phrase);
-      });
+      .then(phrase => this.addTranslation(phrase));
   }
   addTranslation(phrase: Phrase): void {
     this.translationService.create(new Translation(this.selectedPhrase, phrase));
@@ -116,23 +107,7 @@ export class PhrasesComponent implements OnInit {
   }
 
   delete(phrase: Phrase): void {
-    this.translationService
-      .getAllFor(phrase._id)
-      .then(translations => {
-        for (const k of Object.keys(translations)) {
-          this.translationService.delete(translations[k]._id, translations[k]._rev);
-        }
-      });
-    this.phraseService
-      .delete(phrase._id, phrase._rev)
-      .then(() => {
-        this.phrases = this.phrases.filter(h => h !== phrase);
-        this.translatedPhrases = this.translatedPhrases.filter(h => h !== phrase);
-        if (this.selectedPhrase === phrase) {
-          this.selectedPhrase = null;
-          this.translatedPhrases = [];
-        }
-      });
+    this.eventService.deletePhrase(phrase.language, phrase.text);
   }
 }
 

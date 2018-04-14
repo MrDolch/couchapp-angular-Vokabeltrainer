@@ -9,11 +9,11 @@ builddoc = (timestamp, master, changes) ->
     return master
 
 emitLanguage = (timestamp, code, changes) ->
-    emit ['Language', code], builddoc( timestamp, {code, deleted: false}, changes)
+    emit ['Language', code], builddoc( timestamp, {code}, changes)
 
-emitPhrase = (timestamp, language, phrase, changes) ->
+emitPhrase = (timestamp, language, text, changes) ->
     emitLanguage timestamp, language
-    emit ['Phrase', language, phrase], builddoc(timestamp, {language, phrase, deleted: false}, changes)
+    emit ['Phrase', language, text], builddoc(timestamp, {language, text}, changes)
 
 emitTrainingSet = (timestamp, language, trainingSet, changes) ->
     emit ['TrainingSet', language, trainingSet], builddoc(timestamp, {language, trainingSet, deleted: false}, changes)
@@ -24,7 +24,7 @@ emitTrainingSet = (timestamp, language, trainingSet, changes) ->
 
         if doc.operation == 'addLanguage'
             emit null, doc
-            emitLanguage doc.timestamp, doc.parameters.code
+            emitLanguage doc.timestamp, doc.parameters.code, deleted: false
 
         if doc.operation == 'setLanguageEspeakVoice'
             emitLanguage doc.timestamp, doc.parameters.code, espeakVoice: doc.parameters.espeakVoice
@@ -32,10 +32,16 @@ emitTrainingSet = (timestamp, language, trainingSet, changes) ->
         if doc.operation == 'deleteLanguage'
             emitLanguage doc.timestamp, doc.parameters.code, deleted: true
 
+        if doc.operation == 'addPhrase'
+            emitPhrase doc.timestamp, doc.parameters.language, doc.parameters.text, deleted: false
+
+        if doc.operation == 'deletePhrase'
+            emitPhrase doc.timestamp, doc.parameters.language, doc.parameters.text, deleted: true
+
         if doc.operation == 'addTranslation'
-            emitPhrase doc.timestamp, doc.parameters.language1, doc.parameters.phrase1, translations: "#{doc.parameters.language2}": doc.parameters.phrase2
-            emitPhrase doc.timestamp, doc.parameters.language2, doc.parameters.phrase2, translations: "#{doc.parameters.language1}": doc.parameters.phrase1
+            emitPhrase doc.timestamp, doc.parameters.language1, doc.parameters.phrase1, {translations: "#{doc.parameters.language2}": doc.parameters.phrase2, deleted: false}
+            emitPhrase doc.timestamp, doc.parameters.language2, doc.parameters.phrase2, {translations: "#{doc.parameters.language1}": doc.parameters.phrase1, deleted: false}
 
         if doc.operation == 'addPhraseToTrainingSet'
-            emitPhrase doc.timestamp, doc.parameters.language, doc.parameters.phrase, trainingSet: "#{doc.parameters.trainingSet}": true
-            emitTrainingSet doc.timestamp, doc.parameters.language, doc.parameters.trainingSet, phrases: "#{doc.parameters.phrase}": true
+            emitPhrase doc.timestamp, doc.parameters.language, doc.parameters.phrase, {trainingSet: "#{doc.parameters.trainingSet}": true, deleted: false}
+            emitTrainingSet doc.timestamp, doc.parameters.language, doc.parameters.trainingSet, {phrases: "#{doc.parameters.phrase}": true, deleted: false}
