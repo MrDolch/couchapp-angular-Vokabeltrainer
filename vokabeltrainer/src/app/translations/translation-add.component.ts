@@ -27,9 +27,7 @@ export class TranslationAddComponent implements OnInit {
   @Output() onAdd = new EventEmitter();
   @Output() onAddNew = new EventEmitter();
 
-  constructor(
-    private phraseService: PhraseService,
-    private router: Router) { }
+  constructor(private phraseService: PhraseService) { }
 
   ngOnInit(): void {
     this.phrases = this.searchTerms

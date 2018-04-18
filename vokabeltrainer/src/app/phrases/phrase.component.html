@@ -1,0 +1,11 @@
+<div *ngIf="phrase" [class.selected]="selected">
+    <button *ngIf="onDelete" class="btn btn-md btn-danger" style="float:right" (click)="delete(); $event.stopPropagation()">x</button>
+    <span class="badge">
+        <img [src]="'node_modules/flag-icon-css/flags/1x1/' + phrase.language + '.svg'" width="15">
+    </span>
+    <span class="badge glyphicon glyphicon-play" (click)="playVideo()">
+        <video width="1" height="1" [id]="'sample-'+(phrase._id)" [src]="'http://192.168.1.10:7080/speech?voice='+phrase.language+'&text='+phrase.text"></video>
+    </span>
+    {{phrase.text}}
+    <span *ngIf="hasTranslation(secondLanguage)" class="glyphicon glyphicon-ok"></span>
+</div>

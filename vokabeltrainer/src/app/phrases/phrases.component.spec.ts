@@ -8,7 +8,6 @@ import { PhraseService } from './phrase.service';
 import { AppModule } from '../app.module';
 import { EventService, Event } from '../events/event.service';
 import { LanguageService } from '../languages/language.service';
-import { TranslationService } from '../translations/translation.service';
 
 describe('PhrasesComponent', function () {
   let testee: PhrasesComponent;
@@ -57,14 +56,12 @@ describe('PhrasesComponent', function () {
         { provide: EventService, useClass: MockEventService },
         { provide: PhraseService, useClass: MockPhraseService },
         { provide: LanguageService, useClass: MockLanguageService },
-        { provide: TranslationService, useClass: MockTranslationService },
       ],
     });
     testee = TestBed.get(PhrasesComponent);
     mockEventService = TestBed.get(EventService);
     mockPhraseService = TestBed.get(PhraseService);
     mockLanguageService = TestBed.get(LanguageService);
-    mockTranslationService = TestBed.get(TranslationService);
   }));
 
   beforeEach(() => {

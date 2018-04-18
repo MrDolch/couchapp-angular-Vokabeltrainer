@@ -12,32 +12,43 @@ export class EventService extends VokabeltrainerCouchdbService<Event> {
   constructor(http: Http) {
     super(http, 'events');
   }
+
+  private createEvent(operation: Operation, parameters: object): Promise<Event> {
+    return this.create(new Event(this.getTimestamp(), operation, parameters));
+  }
   public addLanguage(code: string): Promise<Event> {
-    return this.create(new Event(this.getTimestamp(), Operation.addLanguage, { code }));
+    return this.createEvent(Operation.addLanguage, { code });
   }
   public deleteLanguage(code: string): Promise<Event> {
-    return this.create(new Event(this.getTimestamp(), Operation.deleteLanguage, { code }));
+    return this.createEvent(Operation.deleteLanguage, { code });
   }
   public setLanguageEspeakVoice(code: string, espeakVoice: string): Promise<Event> {
-    return this.create(new Event(this.getTimestamp(), Operation.setLanguageEspeakVoice, { code, espeakVoice }));
+    return this.createEvent(Operation.setLanguageEspeakVoice, { code, espeakVoice });
   }
   public addPhrase(language: string, text: string): Promise<Event> {
-    return this.create(new Event(this.getTimestamp(), Operation.addPhrase, { language, text }));
+    return this.createEvent(Operation.addPhrase, { language, text });
   }
   public deletePhrase(language: string, text: string): Promise<Event> {
-    return this.create(new Event(this.getTimestamp(), Operation.deletePhrase, { language, text }));
+    return this.createEvent(Operation.deletePhrase, { language, text });
+  }
+  public addTranslation(language1: string, phrase1: string, language2: string, phrase2: string): Promise<Event> {
+    return this.createEvent(Operation.addTranslation, { language1, phrase1, language2, phrase2 });
+  }
+  public deleteTranslation(language1: string, phrase1: string, language2: string, phrase2: string): Promise<Event> {
+    return this.createEvent(Operation.deleteTranslation, { language1, phrase1, language2, phrase2 });
   }
 }
 
 export enum Operation {
-  // thesauerus: operation
-  // type art kind class category name sort
-  // action source intend act activity plot
   addLanguage = 'addLanguage',
   deleteLanguage = 'deleteLanguage',
   setLanguageEspeakVoice = 'setLanguageEspeakVoice',
+
   addPhrase = 'addPhrase',
   deletePhrase = 'deletePhrase',
+
+  addTranslation = 'addTranslation',
+  deleteTranslation = 'deleteTranslation',
 };
 
 export class Event extends CouchdbDocComponent {

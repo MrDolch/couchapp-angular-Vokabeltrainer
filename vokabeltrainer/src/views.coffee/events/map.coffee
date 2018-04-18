@@ -23,8 +23,8 @@ emitTrainingSet = (timestamp, language, trainingSet, changes) ->
     if doc.class == 'Event'
 
         if doc.operation == 'addLanguage'
-            emit null, doc
             emitLanguage doc.timestamp, doc.parameters.code, deleted: false
+            emitPhrase doc.timestamp, doc.parameters.code, '1, 2, 3, 4, 5, 6, 7, 8, 9, 10', deleted: false
 
         if doc.operation == 'setLanguageEspeakVoice'
             emitLanguage doc.timestamp, doc.parameters.code, espeakVoice: doc.parameters.espeakVoice
@@ -39,8 +39,25 @@ emitTrainingSet = (timestamp, language, trainingSet, changes) ->
             emitPhrase doc.timestamp, doc.parameters.language, doc.parameters.text, deleted: true
 
         if doc.operation == 'addTranslation'
-            emitPhrase doc.timestamp, doc.parameters.language1, doc.parameters.phrase1, {translations: "#{doc.parameters.language2}": doc.parameters.phrase2, deleted: false}
-            emitPhrase doc.timestamp, doc.parameters.language2, doc.parameters.phrase2, {translations: "#{doc.parameters.language1}": doc.parameters.phrase1, deleted: false}
+            emitPhrase doc.timestamp, doc.parameters.language1, doc.parameters.phrase1, translations: {
+                "Phrase;#{doc.parameters.language2};#{doc.parameters.phrase2}": {
+                    language: doc.parameters.language2
+                    text: doc.parameters.phrase2
+                    deleted: false
+                }
+            }
+#            emitPhrase doc.timestamp, doc.parameters.language2, doc.parameters.phrase2, {translations: "#{doc.parameters.language1};#{doc.parameters.phrase1}": doc.parameters.phrase1, deleted: false}
+
+        if doc.operation == 'deleteTranslation'
+            emit null,doc
+            emitPhrase doc.timestamp, doc.parameters.language1, doc.parameters.phrase1, translations: {
+                "Phrase;#{doc.parameters.language2};#{doc.parameters.phrase2}": {
+                    language: doc.parameters.language2
+                    text: doc.parameters.phrase2
+                    deleted: true
+                }
+            }
+#            emitPhrase doc.timestamp, doc.parameters.language2, doc.parameters.phrase2, {translations: "#{doc.parameters.language1}": doc.parameters.phrase1, deleted: true}
 
         if doc.operation == 'addPhraseToTrainingSet'
             emitPhrase doc.timestamp, doc.parameters.language, doc.parameters.phrase, {trainingSet: "#{doc.parameters.trainingSet}": true, deleted: false}

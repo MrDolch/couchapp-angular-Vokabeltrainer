@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Phrase, Translation, Language } from '../model/entities';
 import { PhraseService } from './phrase.service';
 import { LanguageService } from '../languages/language.service';
-import { TranslationService } from '../translations/translation.service';
 import { EventService } from '../events/event.service';
 
 @Component({
@@ -29,7 +28,6 @@ export class PhrasesComponent implements OnInit {
     private eventService: EventService,
     private phraseService: PhraseService,
     private languageService: LanguageService,
-    private translationService: TranslationService
   ) { }
 
   ngOnInit(): void {
@@ -47,35 +45,10 @@ export class PhrasesComponent implements OnInit {
 
   onSelectPhrase(phrase: Phrase): void {
     this.selectedPhrase = phrase;
-    this.getTranslations();
   }
 
   onSelectSecondLanguage(language: Language): void {
     this.selectedSecondLanguage = language;
-    this.getTranslations();
-  }
-
-  getTranslations(): void {
-    this.translatedPhrases = [];
-    if (!this.selectedSecondLanguage || !this.selectedPhrase) {
-      return;
-    }
-    this.translationService.getAllFor(this.selectedPhrase._id)
-      .then(translations => {
-        for (const k of Object.keys(translations)) {
-          let translation = translations[k];
-          if (this.selectedPhrase._id !== translation.phraseId
-            && this.selectedSecondLanguage.code === translation.language) {
-            this.phraseService.get(translation.phraseId)
-              .then(phrase => this.translatedPhrases.push(phrase));
-          }
-          if (this.selectedPhrase._id !== translation.secondPhraseId
-            && this.selectedSecondLanguage.code === translation.secondLanguage) {
-            this.phraseService.get(translation.secondPhraseId)
-              .then(phrase => this.translatedPhrases.push(phrase));
-          }
-        }
-      });
   }
 
   addPhrase(text: string): void {
@@ -87,23 +60,15 @@ export class PhrasesComponent implements OnInit {
   }
 
   addNewTranslation(text: string): void {
-    this.phraseService.create(new Phrase(text, this.selectedSecondLanguage))
-      .then(phrase => this.addTranslation(phrase));
+    this.eventService.addTranslation(this.selectedPhrase.language, this.selectedPhrase.text, this.selectedSecondLanguage.code, text);
   }
   addTranslation(phrase: Phrase): void {
-    this.translationService.create(new Translation(this.selectedPhrase, phrase));
-    this.translatedPhrases.push(phrase);
-    if (this.selectedPhrase.transient) {
-      this.selectedPhrase.transient.languageCodes.push(this.selectedSecondLanguage.code);
-      let i = this.phrases.indexOf(this.selectedPhrase);
-      while (++i < this.phrases.length) {
-        if (-1 === this.phrases[i].transient.languageCodes.indexOf(this.selectedSecondLanguage.code)) {
-          this.selectedPhrase = this.phrases[i];
-          this.translatedPhrases = [];
-          break;
-        }
-      }
-    }
+    this.eventService.addTranslation(this.selectedPhrase.language, this.selectedPhrase.text, phrase.language, phrase.text)
+      // .then(() => this.selectedPhrase.translations[this.selectedPhrase.language] = this.selectedPhrase.text)
+      ;
+  }
+  deleteTranslation(phrase: Phrase): void {
+    this.eventService.deleteTranslation(this.selectedPhrase.language, this.selectedPhrase.text, phrase.language, phrase.text)
   }
 
   delete(phrase: Phrase): void {

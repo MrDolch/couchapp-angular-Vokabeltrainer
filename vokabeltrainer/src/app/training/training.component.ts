@@ -16,7 +16,6 @@ export class TrainingComponent implements OnInit {
   mixtures: TrainingMixture[];
 
   constructor(
-    private router: Router,
     private languageService: LanguageService,
     private phraseService: PhraseService,
     private trainingMixtureService: TrainingMixtureService,

@@ -49,6 +49,7 @@ export class TransientPhraseData {
 export class Phrase extends DeletableCouchdbDoc {
   text: string;
   language: string;
+  translations: object;
   type: PhraseType;
   numerus: Numerus;
   genus: Genus;

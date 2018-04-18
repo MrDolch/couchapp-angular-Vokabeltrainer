@@ -38,4 +38,13 @@ export abstract class VokabeltrainerCouchdbEventsourceService<T extends CouchdbD
       .then((res: Response) => (res.json().rows as CouchdbViewEntryComponent[]).map(r => r.value) as T[])
       .catch(this.handleError);
   }
+  getAllByPhrase(language: string, phrase: string): Promise<T[]> {
+    return this.http
+      .get(`/${this.dbName}/_design/eventsource/_view/objects?group=true`
+        + `&startkey=[%22${this.viewName}%22,%22${language}%22,%22${phrase}%22,%22%22]`
+        + `&endkey=[%22${this.viewName}%22,%22${language}%22,%22${phrase}%22,{}]`)
+      .toPromise()
+      .then((res: Response) => (res.json().rows as CouchdbViewEntryComponent[]).map(r => r.value) as T[])
+      .catch(this.handleError);
+  }
 }

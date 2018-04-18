@@ -13,7 +13,7 @@
 			<div class="row" *ngIf="languageService.selectedLanguage">
 				<phrase class="col-md-6" *ngFor="let phrase of (phraseService.phrases | notDeleted)"
 				  [phrase]="phrase"
-				  [selected]="phrase === phraseService.selectedPhrase"
+				  [selected]="phrase === selectedPhrase"
 				  [secondLanguage]="selectedSecondLanguage"
 				  (click)="onSelectPhrase(phrase)"
 				  (onDelete)="delete($event)"
@@ -30,20 +30,14 @@
 		</div>
 		<div class="col-xs-12 col-sm-5">
 			<div class="row" *ngIf="selectedSecondLanguage">
-				<div class="col-xs-12">Translations:</div>
-				<phrase *ngIf="selectedPhrase"
-					[phrase]="selectedPhrase"
-					[selected]="true"
-					class="col-md-12"
-				></phrase>
-				<div class="col-xs-12"><hr></div>
-				<phrase *ngFor="let phrase of translatedPhrases"
+				<div class="col-md-12">Translations:</div>
+				<phrase *ngFor="let phrase of [selectedPhrase] | translate: selectedSecondLanguage | notDeleted"
 				  [phrase]="phrase"
 					class="col-md-12"
-				  (onDelete)="delete(phrase)"
+				  (onDelete)="deleteTranslation(phrase)"
 				></phrase>
-				<div class="col-xs-12"><hr></div>
-				<div class="col-xs-12">
+				<div class="col-md-12"><hr></div>
+				<div class="col-md-12">
 					<translation-add  *ngIf="selectedPhrase"
 						[languageCode]="selectedSecondLanguage.code"
 						(onAdd)="addTranslation($event)"

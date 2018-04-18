@@ -6,47 +6,8 @@ import { EspeakSampleService } from '../espeak-sample.service';
 
 @Component({
   selector: 'phrase',
-  template: `
-    <div *ngIf="phrase" [class.selected]="selected">
-      <button *ngIf="onDelete" class="btn btn-md btn-danger" style="float:right"
-        (click)="delete(); $event.stopPropagation()">x</button>
-      <span class="badge"><img [src]="'node_modules/flag-icon-css/flags/1x1/' + phrase.language + '.svg'"
-        width="15"></span>
-      <span class="badge glyphicon glyphicon-play"
-        (click)="playVideo()">
-        <video width="1" height="1" [id]="'sample-'+(phrase._id)"
-          [src]="'http://192.168.1.10:7080/speech?voice='+phrase.language+'&text='+phrase.text"
-        ></video>
-      </span>
-      {{phrase.text}}
-      <span *ngIf="secondLanguage
-              && phrase.transient
-              && phrase.transient.languageCodes.indexOf(secondLanguage.code)>-1"
-        class="glyphicon glyphicon-ok"></span>
-    </div>
-  `,
-  styles: [`
-    div {
-      cursor: pointer;
-      cursor: hand;
-      padding: 5px;
-      border: 1px dotted gray;
-      border-radius: 5px;
-    }
-    div:hover {
-      color: #607D8B;
-      background-color: #DDD;
-      left: .1em;
-    }
-    .selected:hover {
-      background-color: #BBD8DC !important;
-      color: green;
-    }
-    .selected {
-      background-color: #CFD8DC !important;
-      color: green;
-    }
-  ` ]
+  templateUrl: `./phrase.component.html`,
+  styleUrls: [`./phrase.component.css`]
 })
 export class PhraseComponent implements OnInit {
 
@@ -71,6 +32,17 @@ export class PhraseComponent implements OnInit {
   playVideo(): void {
     let video: any = document.getElementById('sample-' + this.phrase._id);
     video.play();
+  }
+  hasTranslation(toLanguage: Language): boolean {
+    if (toLanguage) {
+      let phraseLanguageFilter = 'Phrase;' + toLanguage.code + ';';
+      for (const key in this.phrase.translations) {
+        if (key.startsWith(phraseLanguageFilter)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }
 

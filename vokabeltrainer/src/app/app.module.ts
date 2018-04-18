@@ -17,10 +17,10 @@ import { TrainingComponent } from './training/training.component';
 import { TrainingMixtureComponent } from './training/training-mixture.component';
 import { TrainingMixtureService } from './training/training-mixture.service';
 import { TranslationAddComponent } from './translations/translation-add.component';
-import { TranslationService } from './translations/translation.service';
 import { VokabelnComponent } from './vokabeln/vokabeln.component';
 import { WorkbenchModule } from './vokabeln/workbench.module';
 import { NotDeletedPipe } from './model/not-deleted.pipe';
+import { TranslatePipe } from './phrases/translate.pipe';
 
 // import { enableProdMode } from '@angular/core'; enableProdMode();
 
@@ -40,6 +40,7 @@ import { NotDeletedPipe } from './model/not-deleted.pipe';
         PhrasesComponent,
         TrainingComponent,
         TrainingMixtureComponent,
+        TranslatePipe,
         TranslationAddComponent,
         VokabelnComponent,
     ],
@@ -49,7 +50,6 @@ import { NotDeletedPipe } from './model/not-deleted.pipe';
         PhraseService,
         LanguageService,
         TrainingMixtureService,
-        TranslationService,
     ],
     bootstrap: [
         VokabelnComponent,
