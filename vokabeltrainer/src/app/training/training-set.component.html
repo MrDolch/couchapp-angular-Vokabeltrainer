@@ -1,0 +1,7 @@
+<div *ngIf="trainingSet" [class.selected]="selected">
+    <button class="btn btn-md btn-danger" style="float:right" (click)="delete(); $event.stopPropagation()">x</button>
+    <span class="badge">
+        <img [src]="'node_modules/flag-icon-css/flags/1x1/' + trainingSet.language + '.svg'" width="15">
+    </span>
+    {{trainingSet.name}}
+</div>

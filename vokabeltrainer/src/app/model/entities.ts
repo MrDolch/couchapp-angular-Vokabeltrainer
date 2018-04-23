@@ -47,8 +47,9 @@ export class TransientPhraseData {
 }
 
 export class Phrase extends DeletableCouchdbDoc {
-  text: string;
   language: string;
+  text: string;
+
   translations: object;
   type: PhraseType;
   numerus: Numerus;
@@ -61,6 +62,13 @@ export class Phrase extends DeletableCouchdbDoc {
     this.text = text;
     this.language = language.code;
   }
+}
+
+export class TrainingSet extends DeletableCouchdbDoc {
+  language: string;
+  name: string;
+
+  phrases: object;
 }
 
 export class Translation extends CouchdbDocComponent {
@@ -91,18 +99,6 @@ export class Question {
   constructor(phraseId: string) {
     this.phraseId = phraseId;
     this.answers = [];
-  }
-}
-export class TrainingMixture extends CouchdbDocComponent {
-  name: string;
-  languageCode: string;
-  questions: Question[];
-
-  constructor(name: string, language: Language) {
-    super();
-    this.name = name;
-    this.languageCode = language.code;
-    this.questions = [];
   }
 }
 

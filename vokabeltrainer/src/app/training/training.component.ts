@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Phrase, TrainingMixture, Question } from '../model/entities';
+import { Phrase, TrainingSet, Question } from '../model/entities';
 import { LanguageService } from '../languages/language.service';
 import { PhraseService } from '../phrases/phrase.service';
-import { TrainingMixtureService } from './training-mixture.service';
+import { TrainingSetService } from './training-set.service';
+import { EventService } from '../events/event.service';
 
 @Component({
   selector: 'training',
@@ -12,69 +13,61 @@ import { TrainingMixtureService } from './training-mixture.service';
   styleUrls: ['./training.component.css']
 })
 export class TrainingComponent implements OnInit {
-  selectedMixture: TrainingMixture;
-  mixtures: TrainingMixture[];
+  selectedTrainingSet: TrainingSet;
+  trainingSets: TrainingSet[];
 
   constructor(
     private languageService: LanguageService,
     private phraseService: PhraseService,
-    private trainingMixtureService: TrainingMixtureService,
+    private trainingSetService: TrainingSetService,
+    private eventService: EventService,
   ) { }
 
 
   ngOnInit(): void {
-    this.languageService.selectedLanguageUpdate.subscribe(() => this.getMixtures());
+    this.languageService.selectedLanguageUpdate.subscribe(() => this.getTrainingSets());
     if (this.languageService.selectedLanguage) {
-      this.getMixtures();
+      this.getTrainingSets();
     }
   }
 
 
-  getMixtures(): void {
-    this.trainingMixtureService
-      .getAllFor(this.languageService.selectedLanguage.code)
-      .then(x => this.mixtures = x);
+  getTrainingSets(): void {
+    this.trainingSetService
+      .getAllByLanguage(this.languageService.selectedLanguage.code)
+      .then(x => this.trainingSets = x);
   }
 
-  onSelectMixture(mixture: TrainingMixture): void {
-    this.selectedMixture = mixture;
+  onSelectTrainingSet(trainingSet: TrainingSet): void {
+    this.selectedTrainingSet = trainingSet;
   }
 
-  addTrainingMixture(name: string): void {
+  addTrainingSet(name: string): void {
     name = name.trim();
     if (!name) { return; }
-    this.trainingMixtureService
-      .create(new TrainingMixture(name, this.languageService.selectedLanguage))
-      .then(mixture => {
-        this.mixtures.push(mixture);
-        this.selectedMixture = mixture;
-      });
+    this.eventService.addTrainingSet(this.languageService.selectedLanguage.code, name);
   }
-  addNewQuestion(text: string): void {
-    this.phraseService.create(new Phrase(text, this.languageService.selectedLanguage))
-      .then(phrase => {
-        this.addQuestion(phrase);
-      });
+  deleteTrainingSet(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.eventService.deleteTrainingSet(this.languageService.selectedLanguage.code, name);
   }
+
   addQuestion(phrase: Phrase): void {
-    this.selectedMixture.questions.push(new Question(phrase._id));
-    this.trainingMixtureService.update(this.selectedMixture);
+    this.eventService.addTrainingQuestion(this.selectedTrainingSet, phrase);
   }
-  deleteQuestion(phraseId: string): void {
-    this.selectedMixture.questions = this.selectedMixture.questions.filter(h => h.phraseId !== phraseId);
-    this.trainingMixtureService.update(this.selectedMixture);
-  }
+  addNewQuestion(): void {
 
-  delete(mixture: TrainingMixture): void {
-    this.trainingMixtureService
-      .delete(mixture._id, mixture._rev)
-      .then(() => {
-        this.mixtures = this.mixtures.filter(h => h !== mixture);
-        if (this.selectedMixture === mixture) {
-          this.selectedMixture = null;
-        }
-      });
   }
-
+  getQuestions(): Phrase[] {
+    const result: Phrase[] = [];
+    const object = this.selectedTrainingSet.phrases;
+    for (const key in object) {
+      if (object.hasOwnProperty(key)) {
+        result.push(object[key]);
+      }
+    }
+    return result;
+  }
 }
 

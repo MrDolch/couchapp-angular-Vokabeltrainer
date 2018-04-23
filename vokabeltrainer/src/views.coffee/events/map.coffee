@@ -15,8 +15,8 @@ emitPhrase = (timestamp, language, text, changes) ->
     emitLanguage timestamp, language
     emit ['Phrase', language, text], builddoc(timestamp, {language, text}, changes)
 
-emitTrainingSet = (timestamp, language, trainingSet, changes) ->
-    emit ['TrainingSet', language, trainingSet], builddoc(timestamp, {language, trainingSet, deleted: false}, changes)
+emitTrainingSet = (timestamp, language, name, changes) ->
+    emit ['TrainingSet', language, name], builddoc(timestamp, {language, name}, changes)
 
 
 (doc) ->
@@ -24,7 +24,7 @@ emitTrainingSet = (timestamp, language, trainingSet, changes) ->
 
         if doc.operation == 'addLanguage'
             emitLanguage doc.timestamp, doc.parameters.code, deleted: false
-            emitPhrase doc.timestamp, doc.parameters.code, '1, 2, 3, 4, 5, 6, 7, 8, 9, 10', deleted: false
+#            emitPhrase doc.timestamp, doc.parameters.code, '1, 2, 3, 4, 5, 6, 7, 8, 9, 10', deleted: false
 
         if doc.operation == 'setLanguageEspeakVoice'
             emitLanguage doc.timestamp, doc.parameters.code, espeakVoice: doc.parameters.espeakVoice
@@ -46,10 +46,15 @@ emitTrainingSet = (timestamp, language, trainingSet, changes) ->
                     deleted: false
                 }
             }
-#            emitPhrase doc.timestamp, doc.parameters.language2, doc.parameters.phrase2, {translations: "#{doc.parameters.language1};#{doc.parameters.phrase1}": doc.parameters.phrase1, deleted: false}
+            emitPhrase doc.timestamp, doc.parameters.language2, doc.parameters.phrase2, translations: {
+                "Phrase;#{doc.parameters.language1};#{doc.parameters.phrase1}": {
+                    language: doc.parameters.language1
+                    text: doc.parameters.phrase1
+                    deleted: false
+                }
+            }
 
         if doc.operation == 'deleteTranslation'
-            emit null,doc
             emitPhrase doc.timestamp, doc.parameters.language1, doc.parameters.phrase1, translations: {
                 "Phrase;#{doc.parameters.language2};#{doc.parameters.phrase2}": {
                     language: doc.parameters.language2
@@ -57,8 +62,32 @@ emitTrainingSet = (timestamp, language, trainingSet, changes) ->
                     deleted: true
                 }
             }
-#            emitPhrase doc.timestamp, doc.parameters.language2, doc.parameters.phrase2, {translations: "#{doc.parameters.language1}": doc.parameters.phrase1, deleted: true}
+            emitPhrase doc.timestamp, doc.parameters.language2, doc.parameters.phrase2, translations: {
+                "Phrase;#{doc.parameters.language1};#{doc.parameters.phrase1}": {
+                    language: doc.parameters.language1
+                    text: doc.parameters.phrase1
+                    deleted: true
+                }
+            }
 
-        if doc.operation == 'addPhraseToTrainingSet'
-            emitPhrase doc.timestamp, doc.parameters.language, doc.parameters.phrase, {trainingSet: "#{doc.parameters.trainingSet}": true, deleted: false}
-            emitTrainingSet doc.timestamp, doc.parameters.language, doc.parameters.trainingSet, {phrases: "#{doc.parameters.phrase}": true, deleted: false}
+        if doc.operation == 'addTrainingSet'
+            emitTrainingSet doc.timestamp, doc.parameters.language, doc.parameters.name, deleted: false
+
+        if doc.operation == 'deleteTrainingSet'
+            emitTrainingSet doc.timestamp, doc.parameters.language, doc.parameters.name, deleted: true
+
+        if doc.operation == 'addTrainingQuestion'
+            emitTrainingSet doc.timestamp, doc.parameters.language, doc.parameters.trainingSet, phrases: {
+                "Phrase;#{doc.parameters.language};#{doc.parameters.phrase}": {
+                    language: doc.parameters.language
+                    text: doc.parameters.phrase
+                    deleted: true
+                }
+            }
+            emitPhrase doc.timestamp, doc.parameters.language, doc.parameters.phrase, trainingSets: {
+                "TrainingSet;#{doc.parameters.language};#{doc.parameters.trainingSet}":{
+                    language: doc.parameters.language
+                    name: doc.parameters.trainingSet
+                    deleted: false
+                }
+            }

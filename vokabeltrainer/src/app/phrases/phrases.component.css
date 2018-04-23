@@ -1,0 +1,7 @@
+img {
+    border:2px solid white;
+    cursor:pointer; cursor:hand;
+}
+img.selected, img:hover {
+    border:2px solid gray;
+}

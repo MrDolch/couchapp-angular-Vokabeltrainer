@@ -3,42 +3,29 @@
 		<div class="col-md-4">
 			<div class="row" *ngIf="languageService.selectedLanguage">
 				<div class="col-md-12">Training Set-up</div>
-				<training-mixture *ngFor="let mixture of mixtures"
-				  [mixture]="mixture"
+				<training-set *ngFor="let trainingSet of trainingSets"
+					[trainingSet]="trainingSet"
 					class="col-md-12"
-				  [class.selected]="mixture === selectedMixture"
-				  (click)="onSelectMixture(mixture)"
-				  (onDelete)="delete(mixture)"
-				></training-mixture>
-				<div class="col-md-12"><hr> Add Mixture</div>
+					[class.selected]="trainingSet === selectedTrainingSet"
+					(click)="onSelectTrainingSet(trainingSet)"
+					(onDelete)="delete(trainingSet)"></training-set>
 				<div class="col-md-12">
-					<input #mixtureName />
-					<button class="btn btn-md btn-default"
-						(click)="addTrainingMixture(mixtureName.value);
-								 mixtureName.value=''">Add</button>
+					<hr> Add TrainingSet</div>
+				<div class="col-md-12">
+					<input #trainingSetName />
+					<button class="btn btn-md btn-default" (click)="addTrainingSet(trainingSetName.value);trainingSetName.value=''">Add</button>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-8">
-			<div class="row" *ngIf="selectedMixture">
-				<div class="col-md-12">Selected Mixture</div>
-				<training-mixture
-					[mixture]="selectedMixture"
-					class="col-md-12"
-					(onDelete)="delete(mixture)"
-				></training-mixture>
-				<div class="col-md-12"><hr>Questions</div>
-				<phrase *ngFor="let q of selectedMixture.questions"
-					[phraseId]="q.phraseId"
-					class="col-md-12"
-					(onDelete)="deleteQuestion(q.phraseId)"></phrase>
-				<div class="col-md-12"><hr></div>
+			<div class="row" *ngIf="selectedTrainingSet">
+				<div class="col-md-12">Questions</div>
+				<phrase *ngFor="let q of getQuestions()" [phrase]="q" class="col-md-12" (onDelete)="deleteQuestion(q)"></phrase>
 				<div class="col-md-12">
-				  <translation-add
-					[languageCode]="languageService.selectedLanguage.code"
-					(onAdd)="addQuestion($event)"
-					(onAddNew)="addNewQuestion($event)"
-				  ></translation-add>
+					<hr>
+				</div>
+				<div class="col-md-12">
+					<translation-add [languageCode]="languageService.selectedLanguage.code" (onAdd)="addQuestion($event)" (onAddNew)="addNewQuestion($event)"></translation-add>
 				</div>
 			</div>
 		</div>

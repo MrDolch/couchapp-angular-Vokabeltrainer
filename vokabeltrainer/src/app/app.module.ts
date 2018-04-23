@@ -14,8 +14,8 @@ import { PhraseComponent } from './phrases/phrase.component';
 import { PhrasesComponent } from './phrases/phrases.component';
 import { PhraseService } from './phrases/phrase.service';
 import { TrainingComponent } from './training/training.component';
-import { TrainingMixtureComponent } from './training/training-mixture.component';
-import { TrainingMixtureService } from './training/training-mixture.service';
+import { TrainingSetComponent } from './training/training-set.component';
+import { TrainingSetService } from './training/training-set.service';
 import { TranslationAddComponent } from './translations/translation-add.component';
 import { VokabelnComponent } from './vokabeln/vokabeln.component';
 import { WorkbenchModule } from './vokabeln/workbench.module';
@@ -39,7 +39,7 @@ import { TranslatePipe } from './phrases/translate.pipe';
         PhraseComponent,
         PhrasesComponent,
         TrainingComponent,
-        TrainingMixtureComponent,
+        TrainingSetComponent,
         TranslatePipe,
         TranslationAddComponent,
         VokabelnComponent,
@@ -49,7 +49,7 @@ import { TranslatePipe } from './phrases/translate.pipe';
         EventService,
         PhraseService,
         LanguageService,
-        TrainingMixtureService,
+        TrainingSetService,
     ],
     bootstrap: [
         VokabelnComponent,

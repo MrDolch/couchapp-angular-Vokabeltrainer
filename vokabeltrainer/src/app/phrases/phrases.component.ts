@@ -8,17 +8,10 @@ import { EventService } from '../events/event.service';
 @Component({
   selector: 'phrases',
   templateUrl: './phrases.component.html',
-  styles: [`
-    img {
-      border:2px solid white;
-      cursor:pointer; cursor:hand;
-    }
-    img.selected, img:hover {
-      border:2px solid gray;
-    }
-  `]
+  styleUrls: ['./phrases.component.css']
 })
 export class PhrasesComponent implements OnInit {
+
   phrases: Phrase[];
   translatedPhrases: Phrase[];
   selectedPhrase: Phrase;
